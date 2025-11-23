@@ -15,12 +15,14 @@ if (empty($id_user) || !isset($_POST['nama'], $_POST['email'])) {
 
 // Sanitasi input
 $username_input = trim($_POST['nama']);
+$namalengkap_input = trim($_POST['namalengkap'] ?? '');
 $email_input = trim($_POST['email']);
+$phone_imput = trim($_POST['phone_number'] ?? '');
 
 try {
     // Query UPDATE yang Aman
-    $stmt = $conn->prepare("UPDATE user SET nama = ?, email = ? WHERE id_user = ?");
-    $stmt->bind_param("ssi", $username_input, $email_input, $id_user);
+    $stmt = $conn->prepare("UPDATE user SET username = ?, nama = ?, email = ?, phone_number = ? WHERE id_user = ?");
+    $stmt->bind_param("sssii", $username_input, $namalengkap_input, $email_input, $phone_imput, $id_user);
     $stmt->execute();
     
     // Cek apakah ada baris yang terpengaruh (update berhasil)

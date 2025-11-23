@@ -5,13 +5,14 @@ session_start();
 $username = $_SESSION['nama'] ?? null;
 $id = $_SESSION['user_id'] ?? 0;
 
-$query = "SELECT nama, email, password FROM user WHERE id_user = '$id'";
+$query = "SELECT nama, email, phone_number, username FROM user WHERE id_user = '$id'";
 $stmt = $conn->query($query);
 
 if ($data = $stmt->fetch_assoc()) {
-    $nama = $data['nama'];
+    $namalengkap = $data['nama'];
     $email = $data['email'];
-    $password = $data['password'];
+    $noHP = $data['phone_number'];
+    $nama = $data['username'];
 } else {
     header("Location: index.php");
     exit;
@@ -119,13 +120,13 @@ if ($data = $stmt->fetch_assoc()) {
             <div >
                 <center>
                 <img src="./gambar/profile.jpg" alt="Gambar Bulat" class="rounded-image">
-                <p style="margin-top: 24px; font-weight: bold;"><?= $username ?></p>
+                <p style="margin-top: 24px; font-weight: bold;"><?= $namalengkap ?></p>
+                <p style="color: grey;">@<?= $nama ?></p>
                 <hr>
                 </center>
                 <div class="menu-samping">
                     <a href="profile.php">Profil</a><br>
                     <a href="kelaspengguna.php">Paket</a><br>
-                    <a href="sertifikat.php">Sertifikat</a><br>
                 </div>
             </div>
         </div>
@@ -138,6 +139,11 @@ if ($data = $stmt->fetch_assoc()) {
                         <input type="text" class="form-control" value="<?= htmlspecialchars($nama) ?>" readonly>
                     </div>
 
+                    <div>  
+                        <label for="name" class="form-label">Nama lengkap</label>
+                        <input type="text" class="form-control" value="<?= htmlspecialchars($namalengkap) ?>" readonly>
+                    </div>
+
                     <div class="mb-3">
                         <label for="name" class="form-label">Email</label>
                         <input type="email" class="form-control" value="<?= htmlspecialchars($email) ?>" readonly>
@@ -145,7 +151,7 @@ if ($data = $stmt->fetch_assoc()) {
 
                     <div class="mb-3">
                         <label for="name" class="form-label">Phone</label>
-                        <input type="password" class="form-control" value="<?= htmlspecialchars($password) ?>" readonly>
+                        <input type="number" class="form-control" value="<?= htmlspecialchars($noHP) ?>" readonly>
                     </div>
 
                     <center>

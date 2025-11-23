@@ -5,13 +5,14 @@ session_start();
 $username = $_SESSION['nama'] ?? null;
 $id = $_SESSION['user_id'] ?? 0;
 
-$query = "SELECT nama, email, password FROM user WHERE id_user = '$id'";
+$query = "SELECT nama, email, phone_number, username FROM user WHERE id_user = '$id'";
 $stmt = $conn->query($query);
 
 if ($data = $stmt->fetch_assoc()) {
-    $nama = $data['nama'];
+    $namalengkap = $data['nama'];
     $email = $data['email'];
-    $password = $data['password'];
+    $noHP = $data['phone_number'];
+    $nama = $data['username'];
 } else {
     header("Location: index.php");
     exit;
@@ -49,18 +50,29 @@ if ($data = $stmt->fetch_assoc()) {
         <div class="col">
         One of three columns
         </div>
-        <div class="col" style="margin-top: 130px;">
+        <div class="col" style="margin-top: 50px;">
         <div class="card">
-            <form action="./proses/editpass_proses.php" method="post" class="form">
+            <form action="./proses/editprofile_proses.php" method="post" class="form">
             <h2 class="text">Ubah Profile</h2>
-            <label for="inputPassword5" class="label form-label" style="text-align: left; margin-top: 10px;">Nama</label>
-            <input type="text" name="nama" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" value="<?= htmlspecialchars($nama) ?>">
-            
-            <label for="inputPassword5" class="label form-label" style="text-align: left; margin-top: 10px;">Email</label>
-            <input type="email" name="email" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" value="<?= htmlspecialchars($email) ?>">
-            
-            <label for="inputPassword5" class="label form-label" style="text-align: left; margin-top: 10px;">Phone</label>
-            <input type="number" name="phone" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" value="<?= htmlspecialchars($password) ?>">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nama</label>
+                    <input type="text" name="nama" class="form-control" value="<?= htmlspecialchars($nama) ?>">
+                </div>
+
+                <div>  
+                    <label for="name" class="form-label">Nama lengkap</label>
+                    <input type="text" name="namalengkap" class="form-control" value="<?= htmlspecialchars($namalengkap) ?>">
+                </div>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($email) ?>">
+                </div>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Phone</label>
+                    <input type="number" name="phone_number" class="form-control" value="<?= htmlspecialchars($noHP) ?>">
+                </div>
             <center>
             <button type="submit" class="btn btn-primary">Ubah Profil</button>
             </center>

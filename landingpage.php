@@ -164,7 +164,7 @@
             <p class="card-text">Projek individu</p>
         </div>
         <div class="col">
-        <p class="card-text">video pembelajaran(online)</p>
+        <p class="card-text">video pembelajaran</p>
         </div>
     </div>
     </div>
