@@ -1,17 +1,23 @@
 <?php
 session_start();
-include "./config/koneksi.php";
+include "./config/connection.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $email = trim($_POST['email']);
     $password = $_POST['password'];
-    $verify_code = trim($_POST['verify_code']);
+    $verify_code_input = trim($_POST['verify_code']);
 
-    if (empty($email) || empty($password) || empty($verify_code)) {
+    // Validasi input
+    if (empty($email) || empty($password) || empty($verify_code_input)) {
         $error = "Semua field harus diisi!";
     } else {
-        $stmt = mysqli_prepare($conn, "SELECT id_user, nama, email, password, verify_code FROM user WHERE email = ?");
+
+        // Ambil user berdasarkan email
+        $stmt = mysqli_prepare($conn, 
+            "SELECT id_user, username, nama, email, password, verify_code 
+             FROM user WHERE email = ?"
+        );
         mysqli_stmt_bind_param($stmt, "s", $email);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
@@ -75,13 +81,13 @@ if ($user) {
             } else {
                 $error = "Password salah!";
             }
+
         } else {
             $error = "Email tidak terdaftar!";
         }
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
