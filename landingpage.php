@@ -43,10 +43,6 @@
 
         #welcome{
             height: 580px;
-            background-image: url(./gambar/teknologi.png);
-            background-repeat: no-repeat;
-            background-size: cover;
-            color : white;
         }
 
         #bawahwelcome{
@@ -68,7 +64,9 @@
         }
 
         .tulisanwel{
-            margin-left: 600px;
+            margin-left: 10px;
+            text-align: left;
+            color: #ff8d97ff;
         }
 
     </style>
@@ -114,15 +112,24 @@
 </div>
 
 <div id="welcome" class="container-fluid">
-    <div class="tulisanwel">
-        <h1 style="font-weight : bold; margin-top : 120px; font-size: 40px;">WELCOME, BLOOMERS !</h1>
-        <h2 style="font-weight : bold; font-size: 74px;">Dari loading jadi blooming</h2>
-        <p>Halo bloomers selamat datang di CodeBloom tempat asik buat memekarkan skill ngoding kamu !</p>
-        <div class = "lihatlengkap">
-            <a href="#bawahwelcome">
-            <button type="button" class="btn btn" style="background-color : #fbbcfeff; font-weight : bold;">Lihat Selengkapnya</button>
-            </a>
-        </div>
+    <div class="container text-center">
+    <div class="row align-items-start">
+        <div class="col">
+        <img src="./gambar/loopy.png" alt="gambar loopy" style="height: 400px; margin-top: 70px;">
+    </div>
+    <div class="col">
+            <div class="tulisanwel">
+                <h1 style="font-weight : bold; margin-top : 120px; font-size: 40px;">WELCOME, BLOOMERS !</h1>
+                <h2 style="font-weight : bold; font-size: 74px;">Dari loading jadi blooming</h2>
+                <p>Halo bloomers selamat datang di CodeBloom tempat asik buat memekarkan skill ngoding kamu !</p>
+                <div class = "lihatlengkap">
+                    <a href="#bawahwelcome">
+                    <button type="button" class="btn btn" style="background-color : #FEBCC2; font-weight : bold;">Lihat Selengkapnya</button>
+                    </a>
+                </div>
+            </div>
+    </div>
+    </div>
     </div>
 </div>
 

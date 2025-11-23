@@ -3,14 +3,21 @@ session_start();
 include "./config/connection.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     $email = trim($_POST['email']);
     $password = $_POST['password'];
-    $verify_code = trim($_POST['verify_code']);
+    $verify_code_input = trim($_POST['verify_code']);
 
-    if (empty($email) || empty($password) || empty($verify_code)) {
+    // Validasi input
+    if (empty($email) || empty($password) || empty($verify_code_input)) {
         $error = "Semua field harus diisi!";
     } else {
-        $stmt = mysqli_prepare($conn, "SELECT id_user, nama, email, password, verify_code FROM user WHERE email = ?");
+
+        // Ambil user berdasarkan email
+        $stmt = mysqli_prepare($conn, 
+            "SELECT id_user, username, nama, email, password, verify_code 
+             FROM user WHERE email = ?"
+        );
         mysqli_stmt_bind_param($stmt, "s", $email);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
@@ -18,28 +25,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_stmt_close($stmt);
 
         if ($user) {
+            
+            // Cek password
             if (password_verify($password, $user['password'])) {
-                if ($user['verify_code'] == NULL) {
-                    $error = "Akun Anda belum melakukan pembayaran! Silakan hubungi admin.";
-                } elseif ($user['verify_code'] == $verify_code) {
+
+                // verify_code = 0 berarti belum bayar
+                if ($user['verify_code'] == 0) {
+                    $error = "Akun Anda belum melakukan pembayaran!";
+                
+                // verify code salah
+                } elseif ($user['verify_code'] != $verify_code_input) {
+                    $error = "Verify Code salah!";
+
+                // Semua benar → login
+                } else {
                     $_SESSION['user_id'] = $user['id_user'];
-                    $_SESSION['nama'] = $user['nama'];
+                    $_SESSION['nama'] = $user['username'];
                     $_SESSION['email'] = $user['email'];
-                    
+
                     header("Location: landingpage.php");
                     exit;
-                } else {
-                    $error = "Verify Code salah!";
                 }
+
             } else {
                 $error = "Password salah!";
             }
+
         } else {
             $error = "Email tidak terdaftar!";
         }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
