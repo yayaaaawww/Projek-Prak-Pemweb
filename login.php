@@ -20,49 +20,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($user) {
 
-            // CEK PASSWORD
             if (password_verify($password, $user['password'])) {
 
-                // CEK VERIFY CODE
                 if ($user['verify_code'] != $verify_code) {
                     $error = "Verify code salah!";
                 } else {
 
-                    // SET SESSION
-                    $_SESSION['user_id'] = $user['id_user'];
-                    $_SESSION['nama'] = $user['nama'];
-                    $_SESSION['email'] = $user['email'];
+$_SESSION['user_id'] = $user['id_user'];
+$_SESSION['nama'] = $user['nama'];
+$_SESSION['email'] = $user['email'];
 
-                    $id_user = $user['id_user'];
+$id_user = $user['id_user'];
+
+if ($user) {
+
+    if (password_verify($password, $user['password'])) {
+
+        if ($user['verify_code'] != $verify_code) {
+            $error = "Verify code salah!";
+        } else {
+
+            $_SESSION['user_id'] = $user['id_user'];
+            $_SESSION['nama'] = $user['nama'];
+            $_SESSION['email'] = $user['email'];
+
+            $id_user = $user['id_user'];
+
+            // Cek pembayaran
+            $cek_bayar = mysqli_query($conn, "SELECT * FROM pembayaran WHERE id_user = '$id_user'");
+            $pembayaran = mysqli_fetch_assoc($cek_bayar);
+
+            // Simpan id paket di session
+            if ($pembayaran) {
+                $_SESSION['id_paket'] = $pembayaran['id_paket'];
+            } else {
+                $_SESSION['id_paket'] = null;
+            }
+
+            // SELALU ke landingpage
+            header("Location: landingpage.php");
+            exit();
+        }
+
+    } else {
+        $error = "Password salah!";
+    }
+
+} else {
+    $error = "Email tidak terdaftar!";
+}
 
 
-                if (isset($_SESSION['redirect_after_login'])) {
-                    $redirect = $_SESSION['redirect_after_login'];
-                    unset($_SESSION['redirect_after_login']); 
-                    unset($_SESSION['id_paket_baru']);
-                    header("Location: " . $redirect);
-                    exit;
-                }
-
-header("Location: dashboard.php");
-exit;
-
-                    $pembayaran = mysqli_fetch_assoc($cek_bayar);
-
-                    // USER BELUM PERNAH BAYAR
-                    if (!$pembayaran) {
-                        header("Location: dashboard.php");
-                        exit();
-                    }
-
-                    // JIKA PEMBAYARAN ADA, CEK PAKETNYA
-                    if ($pembayaran['id_paket'] == 1) {
-                        header("Location: materi_webdev.php");
-                        exit();
-                    } else {
-                        header("Location: dashboard.php");
-                        exit();
-                    }
                 }
             } else {
                 $error = "Password salah!";

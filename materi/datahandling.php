@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "./config/koneksi.php";
+include "../config/koneksi.php";
 
 // CEK LOGIN
 if (!isset($_SESSION['user_id'])) {
@@ -27,13 +27,13 @@ $d = mysqli_fetch_assoc($q);
 
 // JIKA USER BELUM PERNAH BELI PAKET
 if (!$d) {
-    echo "<script>alert('Kamu belum membeli paket apa pun!'); window.location='dashboard.php';</script>";
+    echo "<script>alert('Kamu belum membeli paket apa pun!'); window.location='../landingpage.php';</script>";
     exit();
 }
 
-// HANYA UNTUK PAKET 3 (AI & ML Expert)
-if ($d['id_paket'] != 3) {
-    echo "<script>alert('Akses ditolak! Paket kamu bukan Paket AI & Machine Learning Expert.'); window.location='dashboard.php';</script>";
+// HANYA UNTUK PAKET 2 (Data Analyst)
+if ($d['id_paket'] != 2) {
+    echo "<script>alert('Akses ditolak! Paket kamu bukan Paket Data Analyst.'); window.location='../landingpage.php';</script>";
     exit();
 }
 ?>
@@ -44,7 +44,7 @@ if ($d['id_paket'] != 3) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intro to Machine Learning - Paket 3 | codeBloom</title>
+    <title>Data Handling & Python Basics - Paket 2 | codeBloom</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -126,7 +126,7 @@ if ($d['id_paket'] != 3) {
         }
 
         .class-nav-item.active {
-            background: #7b1fa2;
+            background: #ff6b6b;
             color: white;
         }
 
@@ -137,9 +137,9 @@ if ($d['id_paket'] != 3) {
         }
 
         .class-nav-item:not(.active):hover {
-            background: #f3e5f5;
-            color: #7b1fa2;
-            border-color: #7b1fa2;
+            background: #ffe0e0;
+            color: #ff6b6b;
+            border-color: #ff6b6b;
         }
 
         .header-section {
@@ -148,8 +148,8 @@ if ($d['id_paket'] != 3) {
 
         .badge {
             display: inline-block;
-            background: #f3e5f5;
-            color: #6a1b9a;
+            background: #ffe0e0;
+            color: #d32f2f;
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 13px;
@@ -176,7 +176,7 @@ if ($d['id_paket'] != 3) {
         .hero-image {
             width: 100%;
             height: 350px;
-            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
             border-radius: 12px;
             margin: 40px 0 60px 0;
             display: flex;
@@ -243,8 +243,8 @@ if ($d['id_paket'] != 3) {
         .materi-number {
             width: 60px;
             height: 60px;
-            background: #f3e5f5;
-            color: #7b1fa2;
+            background: #ffe0e0;
+            color: #ff6b6b;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -256,7 +256,7 @@ if ($d['id_paket'] != 3) {
         }
 
         .materi-item.active .materi-number {
-            background: #7b1fa2;
+            background: #ff6b6b;
             color: white;
         }
 
@@ -292,8 +292,8 @@ if ($d['id_paket'] != 3) {
 
         .materi-item.active .toggle-icon {
             transform: rotate(180deg);
-            background: #f3e5f5;
-            color: #7b1fa2;
+            background: #ffe0e0;
+            color: #ff6b6b;
         }
 
         .materi-content {
@@ -348,14 +348,14 @@ if ($d['id_paket'] != 3) {
             content: '•';
             position: absolute;
             left: 0;
-            color: #7b1fa2;
+            color: #ff6b6b;
             font-weight: 700;
         }
 
         .video-link {
             display: inline-flex;
             align-items: center;
-            background: #7b1fa2;
+            background: #ff6b6b;
             color: white;
             padding: 12px 24px;
             border-radius: 8px;
@@ -368,9 +368,9 @@ if ($d['id_paket'] != 3) {
         }
 
         .video-link:hover {
-            background: #6a1b9a;
+            background: #ee5a52;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(123, 31, 162, 0.3);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
         }
 
         .video-link::before {
@@ -405,7 +405,7 @@ if ($d['id_paket'] != 3) {
             padding: 30px;
             background: #f5f5f5;
             border-radius: 12px;
-            border-left: 4px solid #7b1fa2;
+            border-left: 4px solid #ff6b6b;
         }
 
         .footer-note h3 {
@@ -478,34 +478,35 @@ if ($d['id_paket'] != 3) {
 
     <div class="navbar">
         <span class="logo">c🌸deBloom</span>
-        <a href="dashboard.php" class="back-btn">← Dashboard</a>
+        <a href="../landingpage.php" class="back-btn">← Dashboard</a>
     </div>
 
     <div class="container">
 
         <div class="class-navigation">
-            <a href="introml.php" class="class-nav-item active">
-                🤖 Kelas 1: Intro to ML
+            <a href="python_dasar.php" class="class-nav-item active">
+                🐍 Kelas 1: Python Dasar
             </a>
-            <a href="deeplearning.php" class="class-nav-item">
-                🧬 Kelas 2: Deep Learning
+            <a href="statistik.php" class="class-nav-item">
+                🧮 Kelas 2: Statistik & SQL for Data
             </a>
-            <a href="aiproject.php" class="class-nav-item">
-                🚀 Kelas 3: AI Projects & Deployment
+            <a href="dataproject.php" class="class-nav-item">
+                🔍 Kelas 3: Data Project & Dashboard
             </a>
         </div>
 
         <div class="header-section">
-            <span class="badge">Paket 3 - Kelas 1</span>
-            <h1>Intro to Machine Learning</h1>
+            <span class="badge">Paket 2 - Kelas 1</span>
+            <h1>Data Handling & Python Basics</h1>
             <p class="intro-text">
-                Di kelas ini, kamu akan mempelajari fundamental Machine Learning dari nol! Mulai dari konsep dasar, 
-                persiapan data, hingga membuat model prediksi pertamamu. Welcome to the world of AI! 🤖
+                Selamat datang di dunia Data Science! Di kelas ini, kamu akan mempelajari fondasi Python untuk 
+                analisis data. Python adalah bahasa pemrograman paling populer untuk Data Science karena mudah 
+                dipelajari dan punya library yang powerful untuk mengolah data.
             </p>
         </div>
 
         <div class="hero-image">
-            🤖
+            📈
         </div>
 
         <h2 class="section-title">Materi Pembelajaran</h2>
@@ -517,48 +518,49 @@ if ($d['id_paket'] != 3) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">1</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Pengenalan Machine Learning & Jenisnya</div>
+                        <div class="materi-title">Pengenalan Data Science</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Machine Learning adalah cara membuat komputer belajar dari data tanpa diprogram secara eksplisit. 
-                        Kamu akan memahami perbedaan Supervised vs Unsupervised Learning dan kapan menggunakan masing-masing.
+                        Data Science adalah salah satu karir paling promising di era digital! Kamu akan memahami 
+                        apa itu data science, apa yang dilakukan data scientist, dan bagaimana workflow analisis 
+                        data dari awal hingga menghasilkan insight yang valuable.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Apa itu Machine Learning dan kenapa penting?</li>
-                            <li>Supervised Learning: belajar dari data berlabel</li>
-                            <li>Unsupervised Learning: menemukan pola tersembunyi</li>
-                            <li>Reinforcement Learning: belajar dari reward</li>
-                            <li>Perbedaan AI, Machine Learning, dan Deep Learning</li>
-                            <li>Use cases ML di dunia nyata</li>
-                            <li>Workflow ML: dari problem hingga deployment</li>
-                            <li>Tools & libraries yang digunakan (Scikit-learn, TensorFlow)</li>
+                            <li>Apa itu Data Science dan kenapa penting</li>
+                            <li>Perbedaan Data Analyst vs Data Scientist vs Data Engineer</li>
+                            <li>Workflow data science: dari problem definition hingga deployment</li>
+                            <li>Tools dan teknologi yang digunakan dalam data science</li>
+                            <li>Industri dan use cases data science</li>
+                            <li>Skills yang dibutuhkan untuk menjadi data professional</li>
+                            <li>Career path dan opportunities di bidang data</li>
+                            <li>Ethics dalam data science</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Menjelaskan konsep Machine Learning dengan jelas</li>
-                            <li>Membedakan jenis-jenis Machine Learning</li>
-                            <li>Memilih algoritma yang tepat untuk problem tertentu</li>
-                            <li>Memahami end-to-end ML workflow</li>
+                            <li>Menjelaskan apa itu data science dengan percaya diri</li>
+                            <li>Memahami peran dan tanggung jawab data professional</li>
+                            <li>Mengerti workflow end-to-end data analysis</li>
+                            <li>Menentukan path karir yang sesuai di bidang data</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=7eh4d6sabA0" target="_blank" class="video-link">
-                        Apa Itu Machine Learning? - Indonesia Belajar
+                    <a href="https://www.youtube.com/watch?v=ua-CiDNNj30" target="_blank" class="video-link">
+                        Pengenalan Data Science - Indonesia Belajar
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Jangan terburu-buru ke coding! Pahami dulu konsep fundamentalnya. ML bukan magic, tapi matematika dan logika yang powerful!</p>
+                        <p>Jangan buru-buru! Pahami konsep big picture dulu sebelum deep dive ke technical skills. Understanding "why" is as important as "how"!</p>
                     </div>
                 </div>
             </div>
@@ -568,49 +570,52 @@ if ($d['id_paket'] != 3) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">2</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Persiapan Data & Feature Engineering</div>
+                        <div class="materi-title">Dasar Python untuk Analisis Data</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        "Garbage In, Garbage Out" - kualitas model ML sangat bergantung pada kualitas data! 
-                        Di sini kamu akan belajar cara menyiapkan data agar model bisa belajar dengan optimal.
+                        Python adalah bahasa pemrograman yang wajib dikuasai untuk data science! Syntax-nya mudah 
+                        dibaca seperti bahasa Inggris, dan punya library super lengkap untuk analisis data. 
+                        Di sini kamu akan belajar fundamental Python dari nol.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Data cleaning: handling missing values, outliers, duplicates</li>
-                            <li>Data transformation: normalization & standardization</li>
-                            <li>Encoding categorical variables: Label Encoding, One-Hot Encoding</li>
-                            <li>Feature scaling dan kenapa penting</li>
-                            <li>Feature selection: memilih fitur yang relevan</li>
-                            <li>Feature extraction: membuat fitur baru dari yang ada</li>
-                            <li>Handling imbalanced data</li>
-                            <li>Train-test split dan validation set</li>
-                            <li>Cross-validation untuk evaluasi robust</li>
+                            <li>Install Python dan setup environment (Anaconda/Jupyter)</li>
+                            <li>Variabel dan tipe data (int, float, string, boolean)</li>
+                            <li>Operators: arithmetic, comparison, logical</li>
+                            <li>String manipulation dan formatting</li>
+                            <li>Data structures: Lists, Tuples, Dictionaries, Sets</li>
+                            <li>Control flow: if-else, loops (for, while)</li>
+                            <li>Functions dan parameters</li>
+                            <li>List comprehension untuk efisiensi</li>
+                            <li>File handling: read/write files</li>
+                            <li>Error handling dengan try-except</li>
+                            <li>Import modules dan libraries</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Membersihkan dan memproses data mentah</li>
-                            <li>Melakukan encoding untuk data kategorikal</li>
-                            <li>Melakukan feature engineering yang efektif</li>
-                            <li>Mempersiapkan data untuk training model ML</li>
+                            <li>Menulis program Python dasar dengan confidence</li>
+                            <li>Manipulasi data menggunakan Python data structures</li>
+                            <li>Membuat functions untuk code reusability</li>
+                            <li>Read dan write files untuk data processing</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=0GrciaGYzV0" target="_blank" class="video-link">
-                        Feature Engineering Tutorial - Krish Naik
+                    <a href="https://www.youtube.com/playlist?list=PLZS-MHyEIRo59lUBwU-XHH7Ymmb04ffOY" target="_blank" class="video-link">
+                        Python Dasar untuk Pemula - Programmer Zaman Now
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>80% waktu ML Engineer dihabiskan untuk data preparation! Kuasai skill ini karena data yang bersih = model yang akurat.</p>
+                        <p>Practice, practice, practice! Jangan cuma nonton tutorial. Code along dan coba modifikasi contoh-contohnya. Install Jupyter Notebook untuk coding!</p>
                     </div>
                 </div>
             </div>
@@ -620,50 +625,53 @@ if ($d['id_paket'] != 3) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">3</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Model Dasar: Regresi & Klasifikasi</div>
+                        <div class="materi-title">Manipulasi Data dengan Pandas</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Saatnya membuat model prediksi pertamamu! Kamu akan belajar algoritma fundamental ML 
-                        yang menjadi fondasi untuk algoritma advanced lainnya.
+                        Pandas adalah library Python paling powerful untuk data manipulation! Dengan Pandas, 
+                        kamu bisa load, clean, transform, dan analyze data dengan mudah. Ini adalah tool wajib 
+                        untuk setiap Data Analyst dan Data Scientist.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li><strong>Linear Regression:</strong> prediksi nilai kontinyu</li>
-                            <li><strong>Logistic Regression:</strong> klasifikasi binary</li>
-                            <li><strong>Decision Tree:</strong> model berbasis pohon keputusan</li>
-                            <li><strong>Random Forest:</strong> ensemble dari multiple trees</li>
-                            <li><strong>K-Nearest Neighbors (KNN):</strong> klasifikasi based on similarity</li>
-                            <li><strong>Support Vector Machine (SVM):</strong> finding optimal boundary</li>
-                            <li>Cara kerja masing-masing algoritma</li>
-                            <li>Kapan menggunakan algoritma tertentu</li>
-                            <li>Hyperparameter tuning basics</li>
-                            <li>Implementasi dengan Scikit-learn</li>
+                            <li>Series dan DataFrame: struktur data utama Pandas</li>
+                            <li>Load data dari berbagai format (CSV, Excel, JSON)</li>
+                            <li>Inspeksi data: head(), tail(), info(), describe()</li>
+                            <li>Selecting dan indexing: loc, iloc, boolean indexing</li>
+                            <li>Filtering data dengan conditional statements</li>
+                            <li>Sorting: sort_values(), sort_index()</li>
+                            <li>Handling missing data: dropna(), fillna()</li>
+                            <li>Data aggregation: groupby() dan aggregate functions</li>
+                            <li>Merging dan joining DataFrames</li>
+                            <li>Pivot tables untuk data summarization</li>
+                            <li>Apply custom functions</li>
+                            <li>Export data ke berbagai format</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Membuat model regresi untuk prediksi numerik</li>
-                            <li>Membuat model klasifikasi untuk kategorisasi</li>
-                            <li>Memilih algoritma yang tepat untuk problem</li>
-                            <li>Mengimplementasikan model dengan Python & Scikit-learn</li>
+                            <li>Load dan explore dataset dengan Pandas</li>
+                            <li>Clean dan transform data untuk analysis</li>
+                            <li>Perform complex data manipulations</li>
+                            <li>Aggregate dan summarize data effectively</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=i_LwzRVP7bg" target="_blank" class="video-link">
-                        Scikit-learn Crash Course - Tech With Tim
+                    <a href="https://www.youtube.com/playlist?list=PLjbMhCDe7RhN_cCnHo_KMRAb7g3XrLWES" target="_blank" class="video-link">
+                        Belajar Pandas untuk Pemula - Indonesia Belajar
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Jangan hanya copy-paste code! Pahami intuisi di balik setiap algoritma. Coba tweak parameter dan lihat efeknya!</p>
+                        <p>Download sample datasets dari Kaggle atau UCI Machine Learning Repository. Practice dengan real data untuk better understanding!</p>
                     </div>
                 </div>
             </div>
@@ -673,49 +681,53 @@ if ($d['id_paket'] != 3) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">4</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Evaluasi Model</div>
+                        <div class="materi-title">Numerical Computation dengan NumPy</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Model sudah dibuat, tapi bagaimana tahu performanya bagus atau tidak? 
-                        Di sini kamu akan belajar berbagai metrik untuk mengevaluasi model ML-mu.
+                        NumPy adalah fundamental package untuk scientific computing dengan Python. Library ini 
+                        sangat efisien untuk operasi matematis pada array dan matrix, dan menjadi fondasi untuk 
+                        library data science lainnya seperti Pandas, Matplotlib, dan scikit-learn.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li><strong>Regression Metrics:</strong> MAE, MSE, RMSE, R-squared</li>
-                            <li><strong>Classification Metrics:</strong> Accuracy, Precision, Recall, F1-Score</li>
-                            <li><strong>Confusion Matrix:</strong> visualisasi performa klasifikasi</li>
-                            <li><strong>ROC Curve & AUC:</strong> evaluasi probabilistic predictions</li>
-                            <li>Overfitting vs Underfitting: masalah umum ML</li>
-                            <li>Bias-Variance tradeoff</li>
-                            <li>Cross-validation untuk evaluasi robust</li>
-                            <li>Learning curves untuk diagnosis</li>
-                            <li>Kapan menggunakan metrik tertentu</li>
+                            <li>NumPy arrays vs Python lists: performa dan efisiensi</li>
+                            <li>Creating arrays: zeros, ones, arange, linspace</li>
+                            <li>Array properties: shape, size, dtype</li>
+                            <li>Array indexing dan slicing</li>
+                            <li>Reshape dan transpose arrays</li>
+                            <li>Mathematical operations: add, subtract, multiply, divide</li>
+                            <li>Universal functions (ufuncs)</li>
+                            <li>Statistical operations: mean, median, std, variance</li>
+                            <li>Array aggregations: sum, min, max</li>
+                            <li>Broadcasting untuk efficient computations</li>
+                            <li>Boolean masking dan filtering</li>
+                            <li>Random number generation</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Mengevaluasi performa model dengan metrik yang tepat</li>
-                            <li>Mengidentifikasi overfitting dan underfitting</li>
-                            <li>Membaca confusion matrix dan ROC curve</li>
-                            <li>Melakukan improvement pada model berdasarkan evaluasi</li>
+                            <li>Perform fast numerical computations dengan NumPy</li>
+                            <li>Handle large datasets efficiently</li>
+                            <li>Melakukan operasi matematika dan statistik kompleks</li>
+                            <li>Understand the foundation untuk advanced data science libraries</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=wpQiEHYkBys" target="_blank" class="video-link">
-                        Model Evaluation Metrics - StatQuest
+                    <a href="https://www.youtube.com/watch?v=QUT1VHiLmmI" target="_blank" class="video-link">
+                        Belajar NumPy Dasar - FreeCodeCamp
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Accuracy bukan segalanya! Untuk imbalanced data, lihat precision, recall, dan F1-score. Pilih metrik sesuai business objective!</p>
+                        <p>NumPy mungkin terasa abstract di awal. Focus on understanding arrays dan vectorization. Practice dengan mathematical operations!</p>
                     </div>
                 </div>
             </div>
@@ -725,60 +737,62 @@ if ($d['id_paket'] != 3) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">5</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Mini Project: Prediksi Harga Rumah</div>
+                        <div class="materi-title">Mini Project: Analisis Data Penjualan Sederhana</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Waktunya praktik! Kamu akan membuat model ML untuk memprediksi harga rumah berdasarkan 
-                        berbagai fitur seperti ukuran, lokasi, jumlah kamar, dll. Real-world ML project!
+                        Saatnya apply semua yang sudah kamu pelajari! Project ini akan mengajarkan kamu 
+                        melakukan analisis data penjualan real menggunakan Pandas dan NumPy. Ini adalah 
+                        project hands-on pertama yang akan menjadi fondasi untuk project-project selanjutnya.
                     </p>
                     
                     <div class="content-section">
-                        <h4>📚 Yang Akan Kamu Kerjakan:</h4>
+                        <h4>📚 Yang Akan Kamu Analisis:</h4>
                         <ul>
-                            <li><strong>Data Loading:</strong> import dataset harga rumah</li>
-                            <li><strong>EDA:</strong> exploratory data analysis untuk understand data</li>
-                            <li><strong>Data Cleaning:</strong> handle missing values dan outliers</li>
-                            <li><strong>Feature Engineering:</strong> create new features, encoding</li>
-                            <li><strong>Feature Selection:</strong> pilih fitur yang paling relevant</li>
-                            <li><strong>Model Training:</strong> train multiple regression models</li>
-                            <li><strong>Model Comparison:</strong> bandingkan performa berbagai model</li>
-                            <li><strong>Hyperparameter Tuning:</strong> optimize model terbaik</li>
-                            <li><strong>Final Evaluation:</strong> test model di unseen data</li>
-                            <li><strong>Insights:</strong> fitur apa yang paling pengaruhi harga?</li>
+                            <li><strong>Load Dataset:</strong> Import sales data dari CSV file</li>
+                            <li><strong>Data Cleaning:</strong> Handle missing values dan data inconsistencies</li>
+                            <li><strong>Sales Summary:</strong> Total sales, average order value, revenue</li>
+                            <li><strong>Time Analysis:</strong> Sales trend per bulan/quarter</li>
+                            <li><strong>Product Analysis:</strong> Best-selling products dan categories</li>
+                            <li><strong>Customer Analysis:</strong> Top customers dan buying patterns</li>
+                            <li><strong>Regional Analysis:</strong> Sales performance by region</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
-                        <h4>🎯 Output Project:</h4>
+                        <h4>🎯 Questions yang Akan Dijawab:</h4>
                         <ul>
-                            <li>Model ML yang bisa prediksi harga rumah dengan akurat</li>
-                            <li>Jupyter notebook lengkap dengan analisis</li>
-                            <li>Visualisasi hasil prediksi vs aktual</li>
-                            <li>Report tentang fitur-fitur penting</li>
+                            <li>Berapa total revenue dan jumlah transaksi?</li>
+                            <li>Produk apa yang paling laku dan menghasilkan revenue tertinggi?</li>
+                            <li>Bagaimana trend penjualan dari bulan ke bulan?</li>
+                            <li>Region mana yang paling profitable?</li>
+                            <li>Siapa top 10 customers berdasarkan spending?</li>
+                            <li>Apa insight dan recommendation yang bisa diberikan?</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
-                        <h4>🛠️ Tools yang Digunakan:</h4>
+                        <h4>🛠️ Skills yang Dilatih:</h4>
                         <ul>
-                            <li>Python & Jupyter Notebook</li>
-                            <li>Pandas untuk data manipulation</li>
-                            <li>Matplotlib & Seaborn untuk visualization</li>
-                            <li>Scikit-learn untuk ML modeling</li>
+                            <li>Data loading dan inspection</li>
+                            <li>Data cleaning dan preprocessing</li>
+                            <li>Exploratory Data Analysis (EDA)</li>
+                            <li>GroupBy operations untuk aggregation</li>
+                            <li>Calculations dan statistical summaries</li>
+                            <li>Basic insights extraction</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=Wqmtf9SA_kk" target="_blank" class="video-link">
-                        House Price Prediction Project - Codebasics
+                    <a href="https://www.youtube.com/watch?v=eMOA1pPVUc4" target="_blank" class="video-link">
+                        Pandas Project: Analisis Data Penjualan
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Ini bukan tentang accuracy tertinggi, tapi tentang process! Dokumentasikan setiap step, decision yang kamu buat, dan kenapa. Think like a Data Scientist!</p>
+                        <p>Jangan hanya copy-paste code! Pahami setiap step dan coba explore data lebih dalam. Add your own questions dan find the answers!</p>
                     </div>
                 </div>
             </div>
@@ -786,11 +800,17 @@ if ($d['id_paket'] != 3) {
         </div>
 
         <div class="footer-note">
-            <h3>🎉 Congratulations!</h3>
-              <p>
-                Jangan hanya menonton video, tapi praktikkan langsung setiap materi! Coding adalah skill yang 
-                hanya bisa diasah dengan banyak latihan. Jangan takut untuk bereksperimen dan membuat error, 
-                karena dari sanalah kamu akan belajar paling banyak. Semangat! 🌸
+            <h3>💡 Great Progress!</h3>
+            <p>
+                Dengan menguasai statistik dan SQL, kamu sudah punya fondasi kuat untuk analisis data! 
+                Sekarang waktunya untuk belajar visualisasi dan dashboard agar insight-mu bisa dikomunikasikan 
+                dengan efektif ke stakeholder. Keep pushing! 📊
+            </p>
+            <p style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
+                <strong>Setelah selesai Kelas 2, lanjut ke:</strong><br>
+                <a href="data_dashboard.php" style="color: #7c4dff; text-decoration: none; font-weight: 600;">
+                    🔍 Kelas 3: Data Project & Dashboard →
+                </a>
             </p>
         </div>
 

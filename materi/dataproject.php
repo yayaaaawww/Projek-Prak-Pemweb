@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "./config/koneksi.php";
+include "../config/koneksi.php";
 
 // CEK LOGIN
 if (!isset($_SESSION['user_id'])) {
@@ -27,13 +27,13 @@ $d = mysqli_fetch_assoc($q);
 
 // JIKA USER BELUM PERNAH BELI PAKET
 if (!$d) {
-    echo "<script>alert('Kamu belum membeli paket apa pun!'); window.location='dashboard.php';</script>";
+    echo "<script>alert('Kamu belum membeli paket apa pun!'); window.location='../landingpage.php';</script>";
     exit();
 }
 
 // HANYA UNTUK PAKET 2 (Data Analyst)
 if ($d['id_paket'] != 2) {
-    echo "<script>alert('Akses ditolak! Paket kamu bukan Paket Data Analyst.'); window.location='dashboard.php';</script>";
+    echo "<script>alert('Akses ditolak! Paket kamu bukan Paket Data Analyst.'); window.location='../landingpage.php';</script>";
     exit();
 }
 ?>
@@ -44,7 +44,7 @@ if ($d['id_paket'] != 2) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Handling & Python Basics - Paket 2 | codeBloom</title>
+    <title>Data Project & Dashboard - Paket 2 | codeBloom</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -126,7 +126,7 @@ if ($d['id_paket'] != 2) {
         }
 
         .class-nav-item.active {
-            background: #ff6b6b;
+            background: #00897b;
             color: white;
         }
 
@@ -137,9 +137,9 @@ if ($d['id_paket'] != 2) {
         }
 
         .class-nav-item:not(.active):hover {
-            background: #ffe0e0;
-            color: #ff6b6b;
-            border-color: #ff6b6b;
+            background: #e0f2f1;
+            color: #00897b;
+            border-color: #00897b;
         }
 
         .header-section {
@@ -148,8 +148,8 @@ if ($d['id_paket'] != 2) {
 
         .badge {
             display: inline-block;
-            background: #ffe0e0;
-            color: #d32f2f;
+            background: #e0f2f1;
+            color: #00695c;
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 13px;
@@ -176,7 +176,7 @@ if ($d['id_paket'] != 2) {
         .hero-image {
             width: 100%;
             height: 350px;
-            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
             border-radius: 12px;
             margin: 40px 0 60px 0;
             display: flex;
@@ -243,8 +243,8 @@ if ($d['id_paket'] != 2) {
         .materi-number {
             width: 60px;
             height: 60px;
-            background: #ffe0e0;
-            color: #ff6b6b;
+            background: #e0f2f1;
+            color: #00897b;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -256,7 +256,7 @@ if ($d['id_paket'] != 2) {
         }
 
         .materi-item.active .materi-number {
-            background: #ff6b6b;
+            background: #00897b;
             color: white;
         }
 
@@ -292,8 +292,8 @@ if ($d['id_paket'] != 2) {
 
         .materi-item.active .toggle-icon {
             transform: rotate(180deg);
-            background: #ffe0e0;
-            color: #ff6b6b;
+            background: #e0f2f1;
+            color: #00897b;
         }
 
         .materi-content {
@@ -348,14 +348,14 @@ if ($d['id_paket'] != 2) {
             content: '•';
             position: absolute;
             left: 0;
-            color: #ff6b6b;
+            color: #00897b;
             font-weight: 700;
         }
 
         .video-link {
             display: inline-flex;
             align-items: center;
-            background: #ff6b6b;
+            background: #00897b;
             color: white;
             padding: 12px 24px;
             border-radius: 8px;
@@ -368,9 +368,9 @@ if ($d['id_paket'] != 2) {
         }
 
         .video-link:hover {
-            background: #ee5a52;
+            background: #00796b;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 137, 123, 0.3);
         }
 
         .video-link::before {
@@ -405,7 +405,7 @@ if ($d['id_paket'] != 2) {
             padding: 30px;
             background: #f5f5f5;
             border-radius: 12px;
-            border-left: 4px solid #ff6b6b;
+            border-left: 4px solid #00897b;
         }
 
         .footer-note h3 {
@@ -478,35 +478,35 @@ if ($d['id_paket'] != 2) {
 
     <div class="navbar">
         <span class="logo">c🌸deBloom</span>
-        <a href="dashboard.php" class="back-btn">← Dashboard</a>
+        <a href="../landingpage.php" class="back-btn">← Dashboard</a>
     </div>
 
     <div class="container">
 
         <div class="class-navigation">
-            <a href="python_dasar.php" class="class-nav-item active">
+            <a href="datahandling.php" class="class-nav-item">
                 🐍 Kelas 1: Python Dasar
             </a>
             <a href="statistik.php" class="class-nav-item">
                 🧮 Kelas 2: Statistik & SQL for Data
             </a>
-            <a href="dataproject.php" class="class-nav-item">
+            <a href="dataproject.php" class="class-nav-item active">
                 🔍 Kelas 3: Data Project & Dashboard
             </a>
         </div>
 
         <div class="header-section">
-            <span class="badge">Paket 2 - Kelas 1</span>
-            <h1>Data Handling & Python Basics</h1>
+            <span class="badge">Paket 2 - Kelas 3</span>
+            <h1>Data Project & Dashboard</h1>
             <p class="intro-text">
-                Selamat datang di dunia Data Science! Di kelas ini, kamu akan mempelajari fondasi Python untuk 
-                analisis data. Python adalah bahasa pemrograman paling populer untuk Data Science karena mudah 
-                dipelajari dan punya library yang powerful untuk mengolah data.
+                Saatnya membawa analisis data-mu ke level berikutnya! Di kelas ini, kamu akan belajar membuat 
+                visualisasi yang menarik dan dashboard interaktif. Skill komunikasi data adalah yang membedakan 
+                Data Analyst biasa dengan yang excellent!
             </p>
         </div>
 
         <div class="hero-image">
-            📈
+            🔍
         </div>
 
         <h2 class="section-title">Materi Pembelajaran</h2>
@@ -518,49 +518,51 @@ if ($d['id_paket'] != 2) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">1</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Pengenalan Data Science</div>
+                        <div class="materi-title">Visualisasi Data dengan Matplotlib & Seaborn</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Data Science adalah salah satu karir paling promising di era digital! Kamu akan memahami 
-                        apa itu data science, apa yang dilakukan data scientist, dan bagaimana workflow analisis 
-                        data dari awal hingga menghasilkan insight yang valuable.
+                        "A picture is worth a thousand words" - terutama dalam data analysis! Kamu akan belajar 
+                        membuat visualisasi yang tidak hanya cantik, tapi juga efektif dalam menyampaikan insight.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Apa itu Data Science dan kenapa penting</li>
-                            <li>Perbedaan Data Analyst vs Data Scientist vs Data Engineer</li>
-                            <li>Workflow data science: dari problem definition hingga deployment</li>
-                            <li>Tools dan teknologi yang digunakan dalam data science</li>
-                            <li>Industri dan use cases data science</li>
-                            <li>Skills yang dibutuhkan untuk menjadi data professional</li>
-                            <li>Career path dan opportunities di bidang data</li>
-                            <li>Ethics dalam data science</li>
+                            <li>Matplotlib basics: figure, axes, dan plotting</li>
+                            <li>Line charts untuk trend analysis</li>
+                            <li>Bar charts dan histogram untuk distribusi</li>
+                            <li>Scatter plots untuk korelasi</li>
+                            <li>Pie charts untuk komposisi data</li>
+                            <li>Box plots untuk outlier detection</li>
+                            <li>Heatmaps untuk correlation matrix</li>
+                            <li>Seaborn untuk statistical visualizations</li>
+                            <li>Customization: colors, labels, legends</li>
+                            <li>Subplots untuk multiple visualizations</li>
+                            <li>Styling dan themes</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Menjelaskan apa itu data science dengan percaya diri</li>
-                            <li>Memahami peran dan tanggung jawab data professional</li>
-                            <li>Mengerti workflow end-to-end data analysis</li>
-                            <li>Menentukan path karir yang sesuai di bidang data</li>
+                            <li>Memilih jenis chart yang tepat untuk data</li>
+                            <li>Membuat visualisasi yang professional</li>
+                            <li>Customize charts sesuai kebutuhan</li>
+                            <li>Create visual stories dari data</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=ua-CiDNNj30" target="_blank" class="video-link">
-                        Pengenalan Data Science - Indonesia Belajar
+                    <a href="https://www.youtube.com/playlist?list=PL-osiE80TeTvipOqomVEeZ1HRrcEvtZB_" target="_blank" class="video-link">
+                        Data Visualization with Matplotlib - Corey Schafer
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Jangan buru-buru! Pahami konsep big picture dulu sebelum deep dive ke technical skills. Understanding "why" is as important as "how"!</p>
+                        <p>Perhatikan data visualization best practices! Hindari 3D charts, terlalu banyak warna, atau chart yang misleading.</p>
                     </div>
                 </div>
             </div>
@@ -570,52 +572,50 @@ if ($d['id_paket'] != 2) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">2</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Dasar Python untuk Analisis Data</div>
+                        <div class="materi-title">Dashboard Interaktif dengan Streamlit</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Python adalah bahasa pemrograman yang wajib dikuasai untuk data science! Syntax-nya mudah 
-                        dibaca seperti bahasa Inggris, dan punya library super lengkap untuk analisis data. 
-                        Di sini kamu akan belajar fundamental Python dari nol.
+                        Streamlit membuat kamu bisa create web applications untuk data science dengan mudah, tanpa 
+                        perlu jago HTML/CSS/JavaScript! Perfect untuk Data Analyst yang ingin share insights secara interaktif.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Install Python dan setup environment (Anaconda/Jupyter)</li>
-                            <li>Variabel dan tipe data (int, float, string, boolean)</li>
-                            <li>Operators: arithmetic, comparison, logical</li>
-                            <li>String manipulation dan formatting</li>
-                            <li>Data structures: Lists, Tuples, Dictionaries, Sets</li>
-                            <li>Control flow: if-else, loops (for, while)</li>
-                            <li>Functions dan parameters</li>
-                            <li>List comprehension untuk efisiensi</li>
-                            <li>File handling: read/write files</li>
-                            <li>Error handling dengan try-except</li>
-                            <li>Import modules dan libraries</li>
+                            <li>Install dan setup Streamlit</li>
+                            <li>Basic Streamlit components: text, markdown, headers</li>
+                            <li>Data display: dataframes, tables, metrics</li>
+                            <li>Charts: line_chart, bar_chart, area_chart</li>
+                            <li>Interactive widgets: sliders, selectbox, multiselect</li>
+                            <li>File uploader untuk dynamic data</li>
+                            <li>Sidebar untuk better organization</li>
+                            <li>Columns dan containers untuk layout</li>
+                            <li>Caching untuk performance optimization</li>
+                            <li>Deployment ke Streamlit Cloud</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Menulis program Python dasar dengan confidence</li>
-                            <li>Manipulasi data menggunakan Python data structures</li>
-                            <li>Membuat functions untuk code reusability</li>
-                            <li>Read dan write files untuk data processing</li>
+                            <li>Membuat dashboard interaktif dengan Python</li>
+                            <li>Create data apps yang user-friendly</li>
+                            <li>Deploy dashboard ke internet</li>
+                            <li>Share insights dengan stakeholders secara efektif</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/playlist?list=PLZS-MHyEIRo59lUBwU-XHH7Ymmb04ffOY" target="_blank" class="video-link">
-                        Python Dasar untuk Pemula - Programmer Zaman Now
+                    <a href="https://www.youtube.com/watch?v=Klqn--Mu2pE" target="_blank" class="video-link">
+                        Streamlit Dashboard Tutorial - Data Professor
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Practice, practice, practice! Jangan cuma nonton tutorial. Code along dan coba modifikasi contoh-contohnya. Install Jupyter Notebook untuk coding!</p>
+                        <p>Mulai dengan dashboard sederhana dulu. Focus on functionality, baru polish UI-nya. Streamlit sangat cepat untuk prototyping!</p>
                     </div>
                 </div>
             </div>
@@ -625,53 +625,50 @@ if ($d['id_paket'] != 2) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">3</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Manipulasi Data dengan Pandas</div>
+                        <div class="materi-title">Storytelling Data</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Pandas adalah library Python paling powerful untuk data manipulation! Dengan Pandas, 
-                        kamu bisa load, clean, transform, dan analyze data dengan mudah. Ini adalah tool wajib 
-                        untuk setiap Data Analyst dan Data Scientist.
+                        Technical skills saja tidak cukup! Kamu perlu bisa communicate insights dengan cara yang 
+                        menarik dan mudah dipahami. Data storytelling adalah seni menyampaikan insight yang actionable.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Series dan DataFrame: struktur data utama Pandas</li>
-                            <li>Load data dari berbagai format (CSV, Excel, JSON)</li>
-                            <li>Inspeksi data: head(), tail(), info(), describe()</li>
-                            <li>Selecting dan indexing: loc, iloc, boolean indexing</li>
-                            <li>Filtering data dengan conditional statements</li>
-                            <li>Sorting: sort_values(), sort_index()</li>
-                            <li>Handling missing data: dropna(), fillna()</li>
-                            <li>Data aggregation: groupby() dan aggregate functions</li>
-                            <li>Merging dan joining DataFrames</li>
-                            <li>Pivot tables untuk data summarization</li>
-                            <li>Apply custom functions</li>
-                            <li>Export data ke berbagai format</li>
+                            <li>Prinsip data storytelling yang efektif</li>
+                            <li>Struktur narasi: context, conflict, resolution</li>
+                            <li>Memahami audience dan kebutuhan mereka</li>
+                            <li>Menyederhanakan insight kompleks</li>
+                            <li>Visual hierarchy dan design principles</li>
+                            <li>Choosing the right metrics to highlight</li>
+                            <li>Creating compelling narratives dari data</li>
+                            <li>Presentation skills untuk data analyst</li>
+                            <li>Handling questions dan objections</li>
+                            <li>Making recommendations yang actionable</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Load dan explore dataset dengan Pandas</li>
-                            <li>Clean dan transform data untuk analysis</li>
-                            <li>Perform complex data manipulations</li>
-                            <li>Aggregate dan summarize data effectively</li>
+                            <li>Present data findings dengan percaya diri</li>
+                            <li>Create compelling data stories</li>
+                            <li>Influence decision-making dengan data</li>
+                            <li>Communicate dengan non-technical audience</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/playlist?list=PLjbMhCDe7RhN_cCnHo_KMRAb7g3XrLWES" target="_blank" class="video-link">
-                        Belajar Pandas untuk Pemula - Indonesia Belajar
+                    <a href="https://www.youtube.com/watch?v=8EMW7io4rSI" target="_blank" class="video-link">
+                        Data Storytelling - Alex The Analyst
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Download sample datasets dari Kaggle atau UCI Machine Learning Repository. Practice dengan real data untuk better understanding!</p>
+                        <p>Practice makes perfect! Latihan present findings-mu ke teman atau keluarga. Get feedback dan improve communication skills-mu!</p>
                     </div>
                 </div>
             </div>
@@ -681,118 +678,60 @@ if ($d['id_paket'] != 2) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">4</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Numerical Computation dengan NumPy</div>
+                        <div class="materi-title">Final Project: Dashboard Analisis E-Commerce</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        NumPy adalah fundamental package untuk scientific computing dengan Python. Library ini 
-                        sangat efisien untuk operasi matematis pada array dan matrix, dan menjadi fondasi untuk 
-                        library data science lainnya seperti Pandas, Matplotlib, dan scikit-learn.
+                        Project capstone yang menggabungkan semua skill yang sudah kamu pelajari! Kamu akan membuat 
+                        end-to-end data analysis project: dari data cleaning, analysis, visualization, hingga dashboard interaktif.
                     </p>
                     
                     <div class="content-section">
-                        <h4>📚 Yang Akan Kamu Pelajari:</h4>
+                        <h4>📚 Yang Akan Kamu Buat:</h4>
                         <ul>
-                            <li>NumPy arrays vs Python lists: performa dan efisiensi</li>
-                            <li>Creating arrays: zeros, ones, arange, linspace</li>
-                            <li>Array properties: shape, size, dtype</li>
-                            <li>Array indexing dan slicing</li>
-                            <li>Reshape dan transpose arrays</li>
-                            <li>Mathematical operations: add, subtract, multiply, divide</li>
-                            <li>Universal functions (ufuncs)</li>
-                            <li>Statistical operations: mean, median, std, variance</li>
-                            <li>Array aggregations: sum, min, max</li>
-                            <li>Broadcasting untuk efficient computations</li>
-                            <li>Boolean masking dan filtering</li>
-                            <li>Random number generation</li>
+                            <li><strong>Sales Performance Dashboard</strong> - Track revenue, orders, growth</li>
+                            <li><strong>Customer Analytics</strong> - Segmentation, retention, lifetime value</li>
+                            <li><strong>Product Performance</strong> - Best sellers, category analysis</li>
+                            <li><strong>Geographic Analysis</strong> - Sales by region/city</li>
+                            <li><strong>Time Series Analysis</strong> - Trends, seasonality, forecasting</li>
+                            <li><strong>Cohort Analysis</strong> - Customer behavior over time</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
-                        <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
+                        <h4>🎯 Features Dashboard:</h4>
                         <ul>
-                            <li>Perform fast numerical computations dengan NumPy</li>
-                            <li>Handle large datasets efficiently</li>
-                            <li>Melakukan operasi matematika dan statistik kompleks</li>
-                            <li>Understand the foundation untuk advanced data science libraries</li>
+                            <li>Interactive filters (date range, category, region)</li>
+                            <li>KPI cards untuk metrics penting</li>
+                            <li>Multiple visualizations yang relevan</li>
+                            <li>Drill-down capabilities</li>
+                            <li>Export functionality untuk reports</li>
+                            <li>Mobile-responsive design</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=QUT1VHiLmmI" target="_blank" class="video-link">
-                        Belajar NumPy Dasar - FreeCodeCamp
+                    <div class="content-section">
+                        <h4>🛠️ Tech Stack:</h4>
+                        <ul>
+                            <li>Python untuk data processing</li>
+                            <li>Pandas untuk data manipulation</li>
+                            <li>SQL untuk data extraction</li>
+                            <li>Matplotlib/Seaborn untuk visualizations</li>
+                            <li>Streamlit untuk dashboard</li>
+                            <li>Plotly untuk interactive charts (optional)</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://www.youtube.com/watch?v=Sb0A9i6d320" target="_blank" class="video-link">
+                        Streamlit Dashboard Project - Python Engineer
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>NumPy mungkin terasa abstract di awal. Focus on understanding arrays dan vectorization. Practice dengan mathematical operations!</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- MATERI 5 -->
-            <div class="materi-item">
-                <div class="materi-header" onclick="toggleMateri(this)">
-                    <div class="materi-number">5</div>
-                    <div class="materi-title-wrapper">
-                        <div class="materi-title">Mini Project: Analisis Data Penjualan Sederhana</div>
-                        <div class="materi-subtitle">Klik untuk lihat detail materi</div>
-                    </div>
-                    <div class="toggle-icon">▼</div>
-                </div>
-                <div class="materi-content">
-                    <p class="materi-intro">
-                        Saatnya apply semua yang sudah kamu pelajari! Project ini akan mengajarkan kamu 
-                        melakukan analisis data penjualan real menggunakan Pandas dan NumPy. Ini adalah 
-                        project hands-on pertama yang akan menjadi fondasi untuk project-project selanjutnya.
-                    </p>
-                    
-                    <div class="content-section">
-                        <h4>📚 Yang Akan Kamu Analisis:</h4>
-                        <ul>
-                            <li><strong>Load Dataset:</strong> Import sales data dari CSV file</li>
-                            <li><strong>Data Cleaning:</strong> Handle missing values dan data inconsistencies</li>
-                            <li><strong>Sales Summary:</strong> Total sales, average order value, revenue</li>
-                            <li><strong>Time Analysis:</strong> Sales trend per bulan/quarter</li>
-                            <li><strong>Product Analysis:</strong> Best-selling products dan categories</li>
-                            <li><strong>Customer Analysis:</strong> Top customers dan buying patterns</li>
-                            <li><strong>Regional Analysis:</strong> Sales performance by region</li>
-                        </ul>
-                    </div>
-
-                    <div class="content-section">
-                        <h4>🎯 Questions yang Akan Dijawab:</h4>
-                        <ul>
-                            <li>Berapa total revenue dan jumlah transaksi?</li>
-                            <li>Produk apa yang paling laku dan menghasilkan revenue tertinggi?</li>
-                            <li>Bagaimana trend penjualan dari bulan ke bulan?</li>
-                            <li>Region mana yang paling profitable?</li>
-                            <li>Siapa top 10 customers berdasarkan spending?</li>
-                            <li>Apa insight dan recommendation yang bisa diberikan?</li>
-                        </ul>
-                    </div>
-
-                    <div class="content-section">
-                        <h4>🛠️ Skills yang Dilatih:</h4>
-                        <ul>
-                            <li>Data loading dan inspection</li>
-                            <li>Data cleaning dan preprocessing</li>
-                            <li>Exploratory Data Analysis (EDA)</li>
-                            <li>GroupBy operations untuk aggregation</li>
-                            <li>Calculations dan statistical summaries</li>
-                            <li>Basic insights extraction</li>
-                        </ul>
-                    </div>
-
-                    <a href="https://www.youtube.com/watch?v=eMOA1pPVUc4" target="_blank" class="video-link">
-                        Pandas Project: Analisis Data Penjualan
-                    </a>
-
-                    <div class="tips-box">
-                        <strong>💡 Tips Belajar:</strong>
-                        <p>Jangan hanya copy-paste code! Pahami setiap step dan coba explore data lebih dalam. Add your own questions dan find the answers!</p>
+                        <p>Ini adalah portfolio project! Buat se-professional mungkin. Add to GitHub, deploy ke cloud, dan showcase di LinkedIn!</p>
                     </div>
                 </div>
             </div>
@@ -800,17 +739,19 @@ if ($d['id_paket'] != 2) {
         </div>
 
         <div class="footer-note">
-            <h3>💡 Great Progress!</h3>
+            <h3>🎉 Congratulations!</h3>
             <p>
-                Dengan menguasai statistik dan SQL, kamu sudah punya fondasi kuat untuk analisis data! 
-                Sekarang waktunya untuk belajar visualisasi dan dashboard agar insight-mu bisa dikomunikasikan 
-                dengan efektif ke stakeholder. Keep pushing! 📊
+                Kamu sudah menyelesaikan learning path Data Analyst! Sekarang kamu punya skill lengkap: 
+                Python, statistik, SQL, visualization, dan dashboard. Yang tersisa adalah terus praktik 
+                dan build portfolio projects. Remember: the best Data Analyst is one who can turn data 
+                into actionable insights! 🚀
             </p>
             <p style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
-                <strong>Setelah selesai Kelas 2, lanjut ke:</strong><br>
-                <a href="data_dashboard.php" style="color: #7c4dff; text-decoration: none; font-weight: 600;">
-                    🔍 Kelas 3: Data Project & Dashboard →
-                </a>
+                <strong>Next Steps:</strong><br>
+                ✅ Build more portfolio projects<br>
+                ✅ Participate in Kaggle competitions<br>
+                ✅ Apply for Data Analyst internships/jobs<br>
+                ✅ Keep learning advanced topics (ML, Big Data, etc.)
             </p>
         </div>
 

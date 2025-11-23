@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "./config/koneksi.php";
+include "../config/koneksi.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -8,7 +8,6 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-
 $q = mysqli_query($conn, "
     SELECT id_paket 
     FROM pembayaran 
@@ -24,12 +23,12 @@ if (!$q) {
 $d = mysqli_fetch_assoc($q);
 
 if (!$d) {
-    echo "<script>alert('Kamu belum membeli paket apa pun!'); window.location='dashboard.php';</script>";
+    echo "<script>alert('Kamu belum membeli paket apa pun!'); window.location='landingpage.php';</script>";
     exit();
 }
 
-if ($d['id_paket'] != 1) {
-    echo "<script>alert('Akses ditolak! Paket kamu bukan Paket 1.'); window.location='dashboard.php';</script>";
+if ($d['id_paket'] != 3) {
+    echo "<script>alert('Akses ditolak! Paket kamu bukan Paket AI & Machine Learning Expert.'); window.location='landingpage.php';</script>";
     exit();
 }
 ?>
@@ -40,7 +39,7 @@ if ($d['id_paket'] != 1) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullstack Project - Paket 1 | codeBloom</title>
+    <title>AI Projects & Deployment - Paket 3 | codeBloom</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -122,7 +121,7 @@ if ($d['id_paket'] != 1) {
         }
 
         .class-nav-item.active {
-            background: #e91e63;
+            background: #00897b;
             color: white;
         }
 
@@ -133,9 +132,9 @@ if ($d['id_paket'] != 1) {
         }
 
         .class-nav-item:not(.active):hover {
-            background: #fce4ec;
-            color: #e91e63;
-            border-color: #e91e63;
+            background: #e0f2f1;
+            color: #00897b;
+            border-color: #00897b;
         }
 
         .header-section {
@@ -144,8 +143,8 @@ if ($d['id_paket'] != 1) {
 
         .badge {
             display: inline-block;
-            background: #fce4ec;
-            color: #c2185b;
+            background: #e0f2f1;
+            color: #00695c;
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 13px;
@@ -172,7 +171,7 @@ if ($d['id_paket'] != 1) {
         .hero-image {
             width: 100%;
             height: 350px;
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
             border-radius: 12px;
             margin: 40px 0 60px 0;
             display: flex;
@@ -239,8 +238,8 @@ if ($d['id_paket'] != 1) {
         .materi-number {
             width: 60px;
             height: 60px;
-            background: #e8f5e9;
-            color: #388e3c;
+            background: #e0f2f1;
+            color: #00897b;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -252,7 +251,7 @@ if ($d['id_paket'] != 1) {
         }
 
         .materi-item.active .materi-number {
-            background: #388e3c;
+            background: #00897b;
             color: white;
         }
 
@@ -288,8 +287,8 @@ if ($d['id_paket'] != 1) {
 
         .materi-item.active .toggle-icon {
             transform: rotate(180deg);
-            background: #e8f5e9;
-            color: #388e3c;
+            background: #e0f2f1;
+            color: #00897b;
         }
 
         .materi-content {
@@ -300,7 +299,7 @@ if ($d['id_paket'] != 1) {
         }
 
         .materi-item.active .materi-content {
-            max-height: 2000px;
+            max-height: 2500px;
             padding-top: 20px;
             padding-bottom: 20px;
         }
@@ -344,14 +343,14 @@ if ($d['id_paket'] != 1) {
             content: '•';
             position: absolute;
             left: 0;
-            color: #388e3c;
+            color: #00897b;
             font-weight: 700;
         }
 
         .video-link {
             display: inline-flex;
             align-items: center;
-            background: #388e3c;
+            background: #00897b;
             color: white;
             padding: 12px 24px;
             border-radius: 8px;
@@ -364,9 +363,9 @@ if ($d['id_paket'] != 1) {
         }
 
         .video-link:hover {
-            background: #2e7d32;
+            background: #00695c;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(56, 142, 60, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 137, 123, 0.3);
         }
 
         .video-link::before {
@@ -401,7 +400,7 @@ if ($d['id_paket'] != 1) {
             padding: 30px;
             background: #f5f5f5;
             border-radius: 12px;
-            border-left: 4px solid #388e3c;
+            border-left: 4px solid #00897b;
         }
 
         .footer-note h3 {
@@ -414,26 +413,6 @@ if ($d['id_paket'] != 1) {
             color: #616161;
             line-height: 1.7;
             font-size: 15px;
-        }
-
-        .congratulations-box {
-            background: linear-gradient(135deg, #388e3c, #66bb6a);
-            color: white;
-            padding: 40px;
-            border-radius: 12px;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .congratulations-box h2 {
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-
-        .congratulations-box p {
-            font-size: 16px;
-            opacity: 0.95;
-            line-height: 1.6;
         }
 
         @media (max-width: 768px) {
@@ -486,10 +465,6 @@ if ($d['id_paket'] != 1) {
             .content-section li {
                 font-size: 14px;
             }
-
-            .congratulations-box h2 {
-                font-size: 24px;
-            }
         }
     </style>
 </head>
@@ -498,30 +473,29 @@ if ($d['id_paket'] != 1) {
 
     <div class="navbar">
         <span class="logo">c🌸deBloom</span>
-        <a href="dashboard.php" class="back-btn">← Dashboard</a>
+        <a href="../landingpage.php" class="back-btn">← Dashboard</a>
     </div>
 
     <div class="container">
 
         <div class="class-navigation">
-            <a href="webdasar.php" class="class-nav-item">
-                🧩 Kelas 1: Web Dasar
+            <a href="introml.php" class="class-nav-item">
+                🤖 Kelas 1: Intro to ML
             </a>
-            <a href="backend.php" class="class-nav-item">
-                ⚙️ Kelas 2: Backend & Database
+            <a href="deeplearning.php" class="class-nav-item">
+                🧬 Kelas 2: Deep Learning
             </a>
-            <a href="fullstack.php" class="class-nav-item active">
-                🚀 Kelas 3: Fullstack Project
+            <a href="aiproject.php" class="class-nav-item active">
+                🚀 Kelas 3: AI Projects & Deployment
             </a>
         </div>
 
         <div class="header-section">
-            <span class="badge">Paket 1 - Kelas 3</span>
-            <h1>Fullstack Project</h1>
+            <span class="badge">Paket 3 - Kelas 3</span>
+            <h1>AI Projects & Deployment</h1>
             <p class="intro-text">
-                Ini adalah kelas terakhir dan paling menantang! Kamu akan menggabungkan semua skill frontend dan 
-                backend yang sudah dipelajari untuk membuat aplikasi web yang complete dan production-ready. 
-                Siap jadi fullstack developer? Let's go! 🚀
+                This is it—the final boss! 🎮 Di kelas ini, kamu akan belajar cara membuat AI model menjadi 
+                aplikasi web yang nyata dan deploy ke internet. From localhost to production. Let's ship it! 🚀
             </p>
         </div>
 
@@ -537,49 +511,60 @@ if ($d['id_paket'] != 1) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">1</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Integrasi Frontend & Backend</div>
+                        <div class="materi-title">Integrasi Model ke Aplikasi Web (Flask/Streamlit)</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Saatnya menghubungkan UI yang cantik dengan backend yang powerful! Kamu akan belajar bagaimana 
-                        frontend dan backend berkomunikasi untuk membuat aplikasi yang fully functional.
+                        Model ML yang hanya ada di Jupyter Notebook tidak berguna untuk dunia nyata! 
+                        Saatnya belajar cara wrap model-mu dalam web application yang bisa diakses siapa saja.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Menghubungkan form HTML dengan Flask endpoint</li>
-                            <li>Mengirim data dari frontend ke backend</li>
-                            <li>Menampilkan data dari database ke halaman web</li>
-                            <li>AJAX untuk update tanpa reload page</li>
-                            <li>Fetch API dan Axios untuk HTTP requests</li>
-                            <li>Handle loading states dan error messages</li>
-                            <li>Form validation di frontend dan backend</li>
-                            <li>File upload dan handling</li>
-                            <li>Dynamic content rendering</li>
+                            <li><strong>Flask Basics:</strong> micro web framework untuk Python</li>
+                            <li>Routing dan handling HTTP requests</li>
+                            <li>Loading trained ML models (pickle/joblib)</li>
+                            <li>Creating REST API untuk ML predictions</li>
+                            <li>Building frontend dengan HTML/CSS/JavaScript</li>
+                            <li>Handling file uploads (untuk image/text input)</li>
+                            <li><strong>Streamlit:</strong> rapid prototyping ML apps</li>
+                            <li>Creating interactive UI components</li>
+                            <li>Real-time predictions dengan user input</li>
+                            <li>Visualizing model outputs</li>
+                            <li>Session state management</li>
+                            <li>Flask vs Streamlit: kapan pakai yang mana?</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Menggabungkan frontend dan backend seamlessly</li>
-                            <li>Handle form submission dengan proper feedback</li>
-                            <li>Create interactive web apps tanpa page reload</li>
-                            <li>Debug communication issues antara client dan server</li>
+                            <li>Membuat REST API untuk ML model dengan Flask</li>
+                            <li>Membuat interactive web app dengan Streamlit</li>
+                            <li>Menghubungkan frontend ke ML backend</li>
+                            <li>Handle user input dan return predictions</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=Qr4QMBUPxWo" target="_blank" class="video-link">
-                        Flask Frontend Integration - Tech With Tim
+                    <div class="content-section">
+                        <h4>💻 Project Example:</h4>
+                        <ul>
+                            <li><strong>Flask:</strong> Sentiment Analysis API—user input text, get positive/negative result</li>
+                            <li><strong>Streamlit:</strong> Image Classifier—user upload image, see prediction dengan confidence scores</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://www.youtube.com/watch?v=mqhxxeeTbu0" target="_blank" class="video-link">
+                        Deploy ML Model with Flask - Tech With Tim
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Gunakan browser DevTools Network tab untuk melihat request dan response. Ini sangat membantu untuk debugging!</p>
+                        <p>Start dengan Streamlit kalau mau cepat! Flask lebih flexible tapi butuh lebih banyak code. Untuk MVP dan demo, Streamlit is your best friend. Untuk production API, go with Flask!</p>
                     </div>
                 </div>
             </div>
@@ -588,50 +573,66 @@ if ($d['id_paket'] != 1) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">2</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">REST API & JSON Handling</div>
+                        <div class="materi-title">Deployment ke Cloud (Render / HuggingFace / Vercel)</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        REST API adalah standar industri untuk komunikasi antar aplikasi. Kamu akan membuat API 
-                        yang bisa digunakan oleh frontend, mobile app, atau aplikasi lain.
+                        Localhost is great, but the world needs to see your work! 🌍 
+                        Belajar deploy aplikasi AI-mu ke cloud supaya bisa diakses dari mana saja, kapan saja.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>RESTful API design principles</li>
-                            <li>HTTP methods: GET, POST, PUT, DELETE, PATCH</li>
-                            <li>Status codes yang proper (200, 201, 400, 404, 500)</li>
-                            <li>JSON serialization dan deserialization</li>
-                            <li>Creating API endpoints di Flask</li>
-                            <li>Request validation dan error handling</li>
-                            <li>API versioning</li>
-                            <li>CORS (Cross-Origin Resource Sharing)</li>
-                            <li>API documentation dengan Swagger/Postman</li>
-                            <li>Rate limiting dan security</li>
+                            <li><strong>Git & GitHub:</strong> version control untuk code management</li>
+                            <li>Basic git commands: commit, push, pull</li>
+                            <li>Creating GitHub repository untuk project</li>
+                            <li><strong>Render:</strong> deploy Flask/Streamlit apps</li>
+                            <li>Setting up requirements.txt dan dependencies</li>
+                            <li>Environment variables untuk API keys</li>
+                            <li>Free tier limitations dan solutions</li>
+                            <li><strong>HuggingFace Spaces:</strong> hosting ML apps dengan GPU</li>
+                            <li>Gradio interface untuk quick deployment</li>
+                            <li>Sharing your model dengan community</li>
+                            <li><strong>Vercel:</strong> deploy frontend applications</li>
+                            <li>Serverless functions untuk ML inference</li>
+                            <li>Custom domains dan SSL</li>
+                            <li>Monitoring app performance</li>
+                            <li>Debugging deployment issues</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Membuat RESTful API yang well-structured</li>
-                            <li>Handle JSON data dengan benar</li>
-                            <li>Design API endpoints yang intuitive</li>
-                            <li>Test API menggunakan Postman</li>
+                            <li>Deploy ML app ke production environment</li>
+                            <li>Menggunakan Git untuk version control</li>
+                            <li>Troubleshoot common deployment errors</li>
+                            <li>Share aplikasi dengan link publik</li>
+                            <li>Monitor dan maintain deployed apps</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=GMppyAPbLYk" target="_blank" class="video-link">
-                        Flask REST API Tutorial - Pretty Printed
+                    <div class="content-section">
+                        <h4>☁️ Platform Comparison:</h4>
+                        <ul>
+                            <li><strong>Render:</strong> Best untuk Flask apps, auto-deploy dari GitHub</li>
+                            <li><strong>HuggingFace:</strong> Perfect untuk ML models, free GPU access</li>
+                            <li><strong>Vercel:</strong> Great untuk frontend + serverless functions</li>
+                            <li><strong>Streamlit Cloud:</strong> Native hosting untuk Streamlit apps</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://www.youtube.com/watch?v=kSZWaIqS618" target="_blank" class="video-link">
+                        Deploy ML Model to Cloud - Python Engineer
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Install Postman untuk testing API. Biasakan dokumentasi setiap endpoint yang kamu buat - ini penting untuk collaboration!</p>
+                        <p>Always test locally first! Deploy sering fail karena missing dependencies atau environment issues. Keep your requirements.txt updated dan test di virtual environment dulu sebelum deploy!</p>
                     </div>
                 </div>
             </div>
@@ -640,138 +641,99 @@ if ($d['id_paket'] != 1) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">3</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Deployment ke Hosting</div>
+                        <div class="materi-title">Final Project: Chatbot atau Image Recognition Web App</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Aplikasi yang hanya jalan di localhost tidak berguna! Saatnya deploy ke internet supaya 
-                        orang lain bisa akses. Kamu akan belajar cara hosting aplikasi Flask ke cloud.
+                        This is your masterpiece! 🎨 Pilih antara Chatbot atau Image Recognition app, 
+                        build from scratch, dan deploy ke internet. Portfolio-ready AI project!
                     </p>
                     
                     <div class="content-section">
-                        <h4>📚 Yang Akan Kamu Pelajari:</h4>
+                        <h4>🤖 Project Option A: AI Chatbot</h4>
                         <ul>
-                            <li>Persiapan aplikasi untuk production</li>
-                            <li>Environment variables dan config management</li>
-                            <li>Requirements.txt dan dependency management</li>
-                            <li>Deploy ke Render (free hosting)</li>
-                            <li>Deploy ke Railway/Vercel (alternatives)</li>
-                            <li>Database hosting (PlanetScale, Supabase)</li>
-                            <li>Domain custom dan DNS setup</li>
-                            <li>SSL certificates untuk HTTPS</li>
-                            <li>Environment: development vs production</li>
-                            <li>Monitoring dan logging</li>
+                            <li><strong>Tech Stack:</strong> Python, Flask/Streamlit, NLP model</li>
+                            <li><strong>Goal:</strong> Conversational chatbot untuk specific domain</li>
+                            <li><strong>Steps:</strong></li>
+                            <li>Define chatbot purpose (customer service, FAQ, assistant)</li>
+                            <li>Prepare training data (intents, patterns, responses)</li>
+                            <li>Build NLP model (RNN/LSTM atau pre-trained like BERT)</li>
+                            <li>Train model dengan conversation data</li>
+                            <li>Create chat interface dengan real-time responses</li>
+                            <li>Add context awareness (remember previous messages)</li>
+                            <li>Implement fallback responses</li>
+                            <li>Add typing indicator dan smooth UX</li>
+                            <li>Test dengan various user inputs</li>
+                            <li>Deploy ke Render/HuggingFace</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
-                        <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
+                        <h4>🖼️ Project Option B: Image Recognition Web App</h4>
                         <ul>
-                            <li>Deploy aplikasi ke internet dengan percaya diri</li>
-                            <li>Setup database di cloud</li>
-                            <li>Troubleshoot deployment issues</li>
-                            <li>Share aplikasi kamu ke portfolio dan LinkedIn!</li>
+                            <li><strong>Tech Stack:</strong> Python, Streamlit, CNN model</li>
+                            <li><strong>Goal:</strong> Upload image, get classification/detection</li>
+                            <li><strong>Steps:</strong></li>
+                            <li>Choose domain (medical imaging, product recognition, etc)</li>
+                            <li>Collect/find relevant dataset</li>
+                            <li>Train CNN model atau use transfer learning</li>
+                            <li>Optimize model untuk inference speed</li>
+                            <li>Build upload interface dengan drag-and-drop</li>
+                            <li>Add image preprocessing pipeline</li>
+                            <li>Display predictions dengan confidence scores</li>
+                            <li>Visualize activation maps (Grad-CAM)</li>
+                            <li>Add batch prediction feature</li>
+                            <li>Deploy dengan GPU support (HuggingFace Spaces)</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=w25ea_I89iM" target="_blank" class="video-link">
-                        Deploy Flask to Render - Codemy
+                    <div class="content-section">
+                        <h4>🎯 Project Requirements:</h4>
+                        <ul>
+                            <li>✅ Working ML/DL model dengan good accuracy</li>
+                            <li>✅ Clean, responsive web interface</li>
+                            <li>✅ Real-time predictions (< 3 seconds)</li>
+                            <li>✅ Error handling dan user feedback</li>
+                            <li>✅ Deployed dan accessible via public URL</li>
+                            <li>✅ Documentation (README.md dengan usage instructions)</li>
+                            <li>✅ Code di GitHub dengan proper structure</li>
+                            <li>✅ Demo video atau screenshots</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <h4>📋 Deliverables:</h4>
+                        <ul>
+                            <li><strong>Live App:</strong> Public URL yang bisa diakses siapa saja</li>
+                            <li><strong>GitHub Repo:</strong> Complete source code dengan documentation</li>
+                            <li><strong>README:</strong> Project description, setup instructions, tech stack</li>
+                            <li><strong>Demo:</strong> Video/GIF showing app in action</li>
+                            <li><strong>Report:</strong> Technical writeup (model architecture, dataset, results)</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://www.youtube.com/watch?v=k5pZZtsCs5c" target="_blank" class="video-link">
+                        AI Web App Project - Krish Naik
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Baca dokumentasi platform hosting dengan teliti. Jangan panik kalau ada error - deployment adalah skill tersendiri yang butuh latihan!</p>
+                        <p>Think like a product manager! User experience matters as much as model accuracy. Add loading indicators, clear instructions, handle errors gracefully. This project goes on your portfolio—make it shine! ✨</p>
                     </div>
                 </div>
             </div>
 
-            <div class="materi-item">
-                <div class="materi-header" onclick="toggleMateri(this)">
-                    <div class="materi-number">4</div>
-                    <div class="materi-title-wrapper">
-                        <div class="materi-title">Final Project: E-Commerce Website</div>
-                        <div class="materi-subtitle">Klik untuk lihat detail materi</div>
-                    </div>
-                    <div class="toggle-icon">▼</div>
-                </div>
-                <div class="materi-content">
-                    <p class="materi-intro">
-                        Ini adalah project finale yang menggabungkan SEMUA skill yang sudah kamu pelajari! 
-                        Kamu akan membuat website e-commerce sederhana yang fully functional dari nol sampai deploy.
-                    </p>
-                    
-                    <div class="content-section">
-                        <h4>📚 Fitur yang Akan Kamu Build:</h4>
-                        <ul>
-                            <li><strong>User Authentication:</strong> Register, login, logout, profile management</li>
-                            <li><strong>Product Catalog:</strong> Display products dengan image, price, description</li>
-                            <li><strong>Shopping Cart:</strong> Add to cart, update quantity, remove items</li>
-                            <li><strong>Search & Filter:</strong> Cari produk berdasarkan nama dan kategori</li>
-                            <li><strong>Admin Dashboard:</strong> Manage products (CRUD operations)</li>
-                            <li><strong>Order Management:</strong> Checkout process dan order history</li>
-                            <li><strong>Responsive Design:</strong> Mobile-friendly interface</li>
-                            <li><strong>Image Upload:</strong> Upload product images</li>
-                        </ul>
-                    </div>
-
-                    <div class="content-section">
-                        <h4>🛠️ Tech Stack Lengkap:</h4>
-                        <ul>
-                            <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript, Bootstrap</li>
-                            <li><strong>Backend:</strong> Python Flask, SQLAlchemy ORM</li>
-                            <li><strong>Database:</strong> MySQL/PostgreSQL</li>
-                            <li><strong>Authentication:</strong> Flask-Login, Werkzeug</li>
-                            <li><strong>Deployment:</strong> Render/Railway</li>
-                        </ul>
-                    </div>
-
-                    <div class="content-section">
-                        <h4>📋 Development Process:</h4>
-                        <ul>
-                            <li>Phase 1: Database design dan models</li>
-                            <li>Phase 2: Backend API endpoints</li>
-                            <li>Phase 3: Frontend templates dan styling</li>
-                            <li>Phase 4: Integration dan testing</li>
-                            <li>Phase 5: Deployment dan final touches</li>
-                        </ul>
-                    </div>
-
-                    <a href="https://www.youtube.com/watch?v=Qr4QMBUPxWo" target="_blank" class="video-link">
-                        Flask E-Commerce Project - Traversy Media
-                    </a>
-
-                    <div class="tips-box">
-                        <strong>💡 Tips Belajar:</strong>
-                        <p>Jangan terburu-buru! Build fitur satu per satu dan test sebelum lanjut. Commit code ke GitHub secara regular. Project ini adalah portfolio piece yang sangat berharga!</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="congratulations-box">
-            <h2>🎉 Selamat! Kamu Hampir Jadi Fullstack Developer! 🎉</h2>
-            <p>
-                Dengan menyelesaikan ketiga kelas ini, kamu sudah punya skill yang dibutuhkan untuk membuat 
-                aplikasi web dari nol sampai production. Ini adalah achievement yang luar biasa! <br><br>
-                <strong>Next steps:</strong> Build lebih banyak project, contribute ke open source, dan mulai apply pekerjaan! 
-                Kamu siap! 💪✨
-            </p>
         </div>
 
         <div class="footer-note">
-            <h3>🚀 What's Next?</h3>
+            <h3>🏆 Congratulations, AI Engineer!</h3>
             <p>
-                <strong>Portfolio Building:</strong> Upload semua project kamu ke GitHub dan buat portfolio website<br>
-                <strong>Keep Learning:</strong> Explore framework seperti React.js, Vue.js, atau Django<br>
-                <strong>Networking:</strong> Join komunitas developer, ikut meetup, dan share progress di LinkedIn<br>
-                <strong>Apply Jobs:</strong> Mulai lamar posisi Junior Developer atau ambil freelance projects!
-            </p>
-            <p style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0; text-align: center;">
-                <strong style="font-size: 18px;">✨ Terima kasih sudah belajar di codeBloom! ✨</strong>
+                Kamu sudah menyelesaikan journey dari zero to AI Engineer! 🎉 Dari basic ML hingga deploy production-ready 
+                AI applications. Remember: ini baru permulaan. Keep learning, keep building, dan share your knowledge 
+                dengan others. The AI community needs people like you! Now go build something amazing! 🚀🌸
             </p>
         </div>
 
@@ -781,11 +743,13 @@ if ($d['id_paket'] != 1) {
         function toggleMateri(header) {
             const materiItem = header.parentElement;
             const isActive = materiItem.classList.contains('active');
-
+            
+            // Close all other items
             document.querySelectorAll('.materi-item').forEach(item => {
                 item.classList.remove('active');
             });
-
+            
+            // Toggle current item
             if (!isActive) {
                 materiItem.classList.add('active');
             }

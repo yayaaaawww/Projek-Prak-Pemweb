@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "./config/koneksi.php";
+include "../config/koneksi.php";
 
 // CEK LOGIN
 if (!isset($_SESSION['user_id'])) {
@@ -27,13 +27,13 @@ $d = mysqli_fetch_assoc($q);
 
 // JIKA USER BELUM PERNAH BELI PAKET
 if (!$d) {
-    echo "<script>alert('Kamu belum membeli paket apa pun!'); window.location='dashboard.php';</script>";
+    echo "<script>alert('Kamu belum membeli paket apa pun!'); window.location='../landingpage.php';</script>";
     exit();
 }
 
-// HANYA UNTUK PAKET 1
-if ($d['id_paket'] != 1) {
-    echo "<script>alert('Akses ditolak! Paket kamu bukan Paket 1.'); window.location='dashboard.php';</script>";
+// HANYA UNTUK PAKET 3 (AI & ML Expert)
+if ($d['id_paket'] != 3) {
+    echo "<script>alert('Akses ditolak! Paket kamu bukan Paket AI & Machine Learning Expert.'); window.location='../landingpage.php';</script>";
     exit();
 }
 ?>
@@ -44,7 +44,7 @@ if ($d['id_paket'] != 1) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Backend & Database - Paket 1 | codeBloom</title>
+    <title>Deep Learning - Paket 3 | codeBloom</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -126,7 +126,7 @@ if ($d['id_paket'] != 1) {
         }
 
         .class-nav-item.active {
-            background: #e91e63;
+            background: #7b1fa2;
             color: white;
         }
 
@@ -137,9 +137,9 @@ if ($d['id_paket'] != 1) {
         }
 
         .class-nav-item:not(.active):hover {
-            background: #fce4ec;
-            color: #e91e63;
-            border-color: #e91e63;
+            background: #f3e5f5;
+            color: #7b1fa2;
+            border-color: #7b1fa2;
         }
 
         .header-section {
@@ -148,8 +148,8 @@ if ($d['id_paket'] != 1) {
 
         .badge {
             display: inline-block;
-            background: #fce4ec;
-            color: #c2185b;
+            background: #f3e5f5;
+            color: #6a1b9a;
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 13px;
@@ -176,7 +176,7 @@ if ($d['id_paket'] != 1) {
         .hero-image {
             width: 100%;
             height: 350px;
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%);
             border-radius: 12px;
             margin: 40px 0 60px 0;
             display: flex;
@@ -243,8 +243,8 @@ if ($d['id_paket'] != 1) {
         .materi-number {
             width: 60px;
             height: 60px;
-            background: #e3f2fd;
-            color: #1976d2;
+            background: #e1f5fe;
+            color: #0277bd;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -256,7 +256,7 @@ if ($d['id_paket'] != 1) {
         }
 
         .materi-item.active .materi-number {
-            background: #1976d2;
+            background: #0277bd;
             color: white;
         }
 
@@ -292,8 +292,8 @@ if ($d['id_paket'] != 1) {
 
         .materi-item.active .toggle-icon {
             transform: rotate(180deg);
-            background: #e3f2fd;
-            color: #1976d2;
+            background: #e1f5fe;
+            color: #0277bd;
         }
 
         .materi-content {
@@ -348,14 +348,14 @@ if ($d['id_paket'] != 1) {
             content: '•';
             position: absolute;
             left: 0;
-            color: #1976d2;
+            color: #0277bd;
             font-weight: 700;
         }
 
         .video-link {
             display: inline-flex;
             align-items: center;
-            background: #1976d2;
+            background: #0277bd;
             color: white;
             padding: 12px 24px;
             border-radius: 8px;
@@ -368,9 +368,9 @@ if ($d['id_paket'] != 1) {
         }
 
         .video-link:hover {
-            background: #1565c0;
+            background: #01579b;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+            box-shadow: 0 4px 12px rgba(2, 119, 189, 0.3);
         }
 
         .video-link::before {
@@ -405,7 +405,7 @@ if ($d['id_paket'] != 1) {
             padding: 30px;
             background: #f5f5f5;
             border-radius: 12px;
-            border-left: 4px solid #1976d2;
+            border-left: 4px solid #0277bd;
         }
 
         .footer-note h3 {
@@ -478,35 +478,33 @@ if ($d['id_paket'] != 1) {
 
     <div class="navbar">
         <span class="logo">c🌸deBloom</span>
-        <a href="dashboard.php" class="back-btn">← Dashboard</a>
+        <a href="../landingpage.php" class="back-btn">← Dashboard</a>
     </div>
 
     <div class="container">
 
         <div class="class-navigation">
-            <a href="webdasar.php" class="class-nav-item">
-                🧩 Kelas 1: Web Dasar
+            <a href="introml.php" class="class-nav-item">
+                🤖 Kelas 1: Intro to ML
             </a>
-            <a href="backend_database.php" class="class-nav-item active">
-                ⚙️ Kelas 2: Backend & Database
+            <a href="deeplearning.php" class="class-nav-item active">
+                🧬 Kelas 2: Deep Learning
             </a>
-            <a href="fullstack.php" class="class-nav-item">
-                🚀 Kelas 3: Fullstack Project
+            <a href="aiproject.php" class="class-nav-item">
+                🚀 Kelas 3: AI Projects & Deployment
             </a>
         </div>
 
         <div class="header-section">
-            <span class="badge">Paket 1 - Kelas 2</span>
-            <h1>Backend & Database</h1>
+            <span class="badge">Paket 3 - Kelas 2</span>
+            <h1>Deep Learning</h1>
             <p class="intro-text">
-                Setelah menguasai frontend, saatnya belajar backend! Di kelas ini kamu akan memahami bagaimana 
-                data disimpan, diproses, dan dikirim antar server dan client. Kamu akan belajar membuat API, 
-                database, dan sistem autentikasi yang powerful.
+                Welcome to the world of Neural Networks! Di kelas ini, kamu akan masuk lebih dalam ke teknologi di balik AI modern—mulai dari image recognition, natural language processing, hingga model yang bisa "berpikir" seperti manusia. Let's dive deep! 🧬
             </p>
         </div>
 
         <div class="hero-image">
-            ⚙️
+            🧬
         </div>
 
         <h2 class="section-title">Materi Pembelajaran</h2>
@@ -518,46 +516,49 @@ if ($d['id_paket'] != 1) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">1</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Pengenalan Backend Development</div>
+                        <div class="materi-title">Pengenalan Neural Network</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Backend adalah otak dari sebuah aplikasi web. Kamu akan memahami bagaimana server bekerja, 
-                        bagaimana data dikirim dan diterima, serta peran backend dalam ekosistem web modern.
+                        Neural Network adalah jantung dari Deep Learning! Terinspirasi dari cara kerja otak manusia, 
+                        kamu akan memahami bagaimana komputer bisa "belajar" melalui jaringan neuron buatan yang saling terhubung.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Perbedaan frontend vs backend development</li>
-                            <li>Konsep client-server architecture secara mendalam</li>
-                            <li>Apa itu API dan bagaimana cara kerjanya</li>
-                            <li>HTTP methods: GET, POST, PUT, DELETE</li>
-                            <li>Status codes dan error handling</li>
-                            <li>RESTful API design principles</li>
-                            <li>Kenapa Python dan Flask cocok untuk backend</li>
+                            <li>Konsep dasar neuron dan cara kerjanya</li>
+                            <li>Struktur Neural Network: input layer, hidden layer, output layer</li>
+                            <li>Activation functions: Sigmoid, ReLU, Tanh, Softmax</li>
+                            <li>Forward propagation: bagaimana data mengalir di network</li>
+                            <li>Backpropagation: cara neural network belajar dari error</li>
+                            <li>Gradient descent dan optimization</li>
+                            <li>Loss functions untuk training</li>
+                            <li>Implementasi Neural Network dengan TensorFlow/Keras</li>
+                            <li>Visualisasi cara kerja neural network</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Menjelaskan alur kerja backend dengan percaya diri</li>
-                            <li>Memahami peran backend developer dalam tim</li>
-                            <li>Mengerti konsep API dan cara berkomunikasi dengan frontend</li>
+                            <li>Menjelaskan konsep Neural Network dengan jelas</li>
+                            <li>Memahami matematika di balik backpropagation</li>
+                            <li>Membuat simple neural network dari scratch</li>
+                            <li>Mengimplementasikan NN dengan library modern</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=cbSrsYiRamo" target="_blank" class="video-link">
-                        Backend Development Explained - Sekolah Koding
+                    <a href="https://www.youtube.com/watch?v=aircAruvnKk" target="_blank" class="video-link">
+                        Neural Networks Explained - 3Blue1Brown
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Pahami konsep fundamental dulu sebelum mulai coding. Backend development lebih tentang logic dan problem solving!</p>
+                        <p>Visualisasi sangat penting! Gunakan tools seperti TensorFlow Playground untuk "melihat" bagaimana neural network belajar secara real-time. Ini akan membantumu memahami konsep abstrak dengan lebih baik.</p>
                     </div>
                 </div>
             </div>
@@ -567,49 +568,50 @@ if ($d['id_paket'] != 1) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">2</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Belajar Flask (Python Framework)</div>
+                        <div class="materi-title">Convolutional Neural Network (CNN)</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Flask adalah web framework Python yang ringan dan mudah dipelajari. Perfect untuk pemula 
-                        yang ingin memahami bagaimana backend bekerja tanpa kompleksitas yang berlebihan.
+                        CNN adalah arsitektur neural network yang powerful untuk computer vision! Dari face recognition 
+                        hingga self-driving cars, CNN adalah teknologi di baliknya. Let's learn how machines "see"!
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Install dan setup Flask environment</li>
-                            <li>Membuat aplikasi Flask pertama</li>
-                            <li>Routing dan URL handling</li>
-                            <li>Request dan Response objects</li>
-                            <li>Template rendering dengan Jinja2</li>
-                            <li>Static files (CSS, JS, images)</li>
-                            <li>Form handling dan validation</li>
-                            <li>Session management</li>
-                            <li>Flask blueprints untuk modular code</li>
+                            <li>Kenapa CNN cocok untuk image data?</li>
+                            <li>Convolutional layers: mendeteksi patterns di gambar</li>
+                            <li>Filters/kernels: cara CNN "melihat" features</li>
+                            <li>Pooling layers: reducing dimensionality</li>
+                            <li>Fully connected layers untuk classification</li>
+                            <li>Arsitektur CNN populer: LeNet, VGG, ResNet, Inception</li>
+                            <li>Transfer learning: menggunakan pre-trained models</li>
+                            <li>Data augmentation untuk improve performa</li>
+                            <li>Implementasi CNN dengan TensorFlow/Keras</li>
+                            <li>Applications: image classification, object detection, face recognition</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Membuat web server sendiri dengan Flask</li>
-                            <li>Handle HTTP requests dari client</li>
-                            <li>Render dynamic HTML pages</li>
-                            <li>Membangun API endpoints yang functional</li>
+                            <li>Membangun CNN untuk image classification</li>
+                            <li>Menggunakan transfer learning untuk quick results</li>
+                            <li>Memahami cara CNN extract features dari gambar</li>
+                            <li>Menerapkan data augmentation untuk better generalization</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/playlist?list=PLZS-MHyEIRo6p_RwsWntxMO5QAqIHHHld" target="_blank" class="video-link">
-                        Flask Tutorial Lengkap - Indonesia Belajar
+                    <a href="https://www.youtube.com/watch?v=HGwBXDKFk9I" target="_blank" class="video-link">
+                        CNN Tutorial - Sentdex
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Install Python dan Flask di laptop kamu, langsung praktik sambil nonton tutorial. Virtual environment adalah must!</p>
+                        <p>Mulai dengan dataset kecil seperti MNIST atau CIFAR-10! Jangan langsung tackle dataset besar. Pahami dulu bagaimana setiap layer bekerja dengan visualize feature maps di setiap convolutional layer.</p>
                     </div>
                 </div>
             </div>
@@ -619,49 +621,50 @@ if ($d['id_paket'] != 1) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">3</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Database dan SQL Dasar</div>
+                        <div class="materi-title">Recurrent Neural Network (RNN)</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Database adalah jantung dari setiap aplikasi. Tanpa database, aplikasi tidak bisa menyimpan 
-                        data user, transaksi, atau informasi penting lainnya. MySQL adalah salah satu database paling populer.
+                        RNN adalah neural network untuk sequential data! Dari chatbots hingga machine translation, 
+                        RNN memungkinkan AI memahami konteks dan urutan—seperti cara kita memahami kalimat.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Konsep database relational vs non-relational</li>
-                            <li>Install dan setup MySQL/MariaDB</li>
-                            <li>SQL basics: CREATE, SELECT, INSERT, UPDATE, DELETE</li>
-                            <li>Data types dan constraints</li>
-                            <li>Primary key dan foreign key</li>
-                            <li>Table relationships (one-to-one, one-to-many, many-to-many)</li>
-                            <li>JOIN operations untuk query kompleks</li>
-                            <li>WHERE, ORDER BY, GROUP BY, HAVING</li>
-                            <li>Database normalization basics</li>
+                            <li>Konsep sequential data dan kenapa penting</li>
+                            <li>Vanilla RNN: basic recurrent architecture</li>
+                            <li>Problem vanishing/exploding gradients</li>
+                            <li>LSTM (Long Short-Term Memory): solving long-term dependencies</li>
+                            <li>GRU (Gated Recurrent Unit): simplified LSTM</li>
+                            <li>Bidirectional RNN: memproses data dari 2 arah</li>
+                            <li>Text preprocessing untuk NLP tasks</li>
+                            <li>Word embeddings: Word2Vec, GloVe</li>
+                            <li>Applications: sentiment analysis, text generation, translation</li>
+                            <li>Introduction to Transformers (next-gen of RNN)</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Merancang struktur database yang efisien</li>
-                            <li>Menulis SQL query untuk manipulasi data</li>
-                            <li>Membuat relasi antar tabel</li>
-                            <li>Mengambil data dengan query yang kompleks</li>
+                            <li>Membangun RNN/LSTM untuk text classification</li>
+                            <li>Melakukan sentiment analysis pada reviews</li>
+                            <li>Membuat simple text generator</li>
+                            <li>Memahami cara AI process natural language</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/playlist?list=PLCZlgfAG0GXCe0r9emirDlfNusBPV5Nxe" target="_blank" class="video-link">
-                        MySQL untuk Pemula - Sekolah Koding
+                    <a href="https://www.youtube.com/watch?v=LHXXI4-IEns" target="_blank" class="video-link">
+                        RNN & LSTM Explained - StatQuest
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Install phpMyAdmin atau MySQL Workbench untuk visualisasi database. Praktik dengan membuat database untuk toko online atau blog!</p>
+                        <p>RNN lebih tricky dari CNN! Start dengan simple tasks seperti name generation atau sentiment analysis. Gunakan pre-trained word embeddings untuk better results. Dan ingat: LSTM > Vanilla RNN untuk most cases!</p>
                     </div>
                 </div>
             </div>
@@ -671,112 +674,70 @@ if ($d['id_paket'] != 1) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">4</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Autentikasi & Login System</div>
+                        <div class="materi-title">Mini Project: Image Classification atau Sentiment Analysis</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Hampir semua aplikasi modern membutuhkan sistem login. Kamu akan belajar bagaimana membuat 
-                        authentication system yang secure, dari register, login, hingga session management.
+                        Time to build something amazing! Pilih salah satu project: Image Classification dengan CNN 
+                        atau Sentiment Analysis dengan RNN/LSTM. Real Deep Learning in action! 🚀
                     </p>
                     
                     <div class="content-section">
-                        <h4>📚 Yang Akan Kamu Pelajari:</h4>
+                        <h4>🖼️ Project Option A: Image Classification</h4>
                         <ul>
-                            <li>Password hashing dengan bcrypt/werkzeug</li>
-                            <li>Membuat form register dan login</li>
-                            <li>Validasi input user</li>
-                            <li>Session management di Flask</li>
-                            <li>Cookie handling</li>
-                            <li>Protecting routes (login required)</li>
-                            <li>Remember me functionality</li>
-                            <li>Password reset mechanism</li>
-                            <li>Security best practices (SQL injection, XSS prevention)</li>
+                            <li><strong>Dataset:</strong> Fashion-MNIST atau Custom Dataset (misal: Cats vs Dogs)</li>
+                            <li><strong>Goal:</strong> Klasifikasi gambar dengan akurasi > 90%</li>
+                            <li><strong>Steps:</strong></li>
+                            <li>Load dan explore dataset</li>
+                            <li>Data preprocessing & augmentation</li>
+                            <li>Build CNN architecture dari scratch</li>
+                            <li>Training dengan callbacks (EarlyStopping, ModelCheckpoint)</li>
+                            <li>Visualize training history</li>
+                            <li>Evaluate pada test set</li>
+                            <li>Try transfer learning (VGG16/ResNet) untuk comparison</li>
+                            <li>Deploy model untuk predict new images</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
-                        <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
+                        <h4>💬 Project Option B: Sentiment Analysis</h4>
                         <ul>
-                            <li>Membuat sistem register dan login yang aman</li>
-                            <li>Handle user sessions dengan benar</li>
-                            <li>Protect halaman-halaman tertentu dari akses unauthorized</li>
-                            <li>Implement security best practices</li>
+                            <li><strong>Dataset:</strong> Movie Reviews (IMDB) atau Twitter Sentiment</li>
+                            <li><strong>Goal:</strong> Klasifikasi sentimen positif/negatif dari teks</li>
+                            <li><strong>Steps:</strong></li>
+                            <li>Load dan explore text dataset</li>
+                            <li>Text cleaning & preprocessing</li>
+                            <li>Tokenization & padding sequences</li>
+                            <li>Build LSTM/GRU model</li>
+                            <li>Add embedding layer (atau gunakan pre-trained)</li>
+                            <li>Training dengan validation split</li>
+                            <li>Evaluate performa (accuracy, F1-score)</li>
+                            <li>Test pada custom text</li>
+                            <li>Visualize word embeddings (optional)</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=8aTnmsDMldY" target="_blank" class="video-link">
-                        Flask Login System - Pretty Printed
+                    <div class="content-section">
+                        <h4>🎯 Output Project:</h4>
+                        <ul>
+                            <li>Working Deep Learning model dengan good performance</li>
+                            <li>Jupyter notebook lengkap dengan dokumentasi</li>
+                            <li>Visualisasi: training curves, confusion matrix, predictions</li>
+                            <li>Model yang bisa predict data baru</li>
+                            <li>Report tentang arsitektur dan hasil experiment</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://www.youtube.com/watch?v=jztwpsIzEGc" target="_blank" class="video-link">
+                        Image Classification Project - Codebasics
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>JANGAN PERNAH simpan password dalam plain text! Selalu gunakan hashing. Test login system-mu dengan berbagai skenario error.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- MATERI 5 -->
-            <div class="materi-item">
-                <div class="materi-header" onclick="toggleMateri(this)">
-                    <div class="materi-number">5</div>
-                    <div class="materi-title-wrapper">
-                        <div class="materi-title">Mini Project: Aplikasi CRUD</div>
-                        <div class="materi-subtitle">Klik untuk lihat detail materi</div>
-                    </div>
-                    <div class="toggle-icon">▼</div>
-                </div>
-                <div class="materi-content">
-                    <p class="materi-intro">
-                        CRUD (Create, Read, Update, Delete) adalah operasi dasar dalam hampir semua aplikasi. 
-                        Project ini akan mengajarkan kamu membuat aplikasi manajemen data yang complete dengan database.
-                    </p>
-                    
-                    <div class="content-section">
-                        <h4>📚 Yang Akan Kamu Buat:</h4>
-                        <ul>
-                            <li><strong>Sistem Inventori Barang</strong> - Track produk dengan detail lengkap</li>
-                            <li><strong>Create:</strong> Form untuk menambah data barang baru</li>
-                            <li><strong>Read:</strong> Dashboard untuk menampilkan semua data dalam tabel</li>
-                            <li><strong>Update:</strong> Edit data barang yang sudah ada</li>
-                            <li><strong>Delete:</strong> Hapus data dengan konfirmasi</li>
-                            <li><strong>Search:</strong> Fitur pencarian data</li>
-                            <li><strong>Pagination:</strong> Handle data dalam jumlah besar</li>
-                        </ul>
-                    </div>
-
-                    <div class="content-section">
-                        <h4>🎯 Fitur yang Akan Diimplementasi:</h4>
-                        <ul>
-                            <li>Database design dengan proper relationships</li>
-                            <li>Form validation (frontend & backend)</li>
-                            <li>Error handling yang proper</li>
-                            <li>Flash messages untuk user feedback</li>
-                            <li>Responsive table design</li>
-                            <li>Modal untuk delete confirmation</li>
-                        </ul>
-                    </div>
-
-                    <div class="content-section">
-                        <h4>🛠️ Tech Stack:</h4>
-                        <ul>
-                            <li>Flask (Backend framework)</li>
-                            <li>MySQL (Database)</li>
-                            <li>SQLAlchemy (ORM)</li>
-                            <li>Bootstrap (Frontend styling)</li>
-                            <li>Jinja2 (Templating)</li>
-                        </ul>
-                    </div>
-
-                    <a href="https://www.youtube.com/watch?v=Z1RJmh_OqeA" target="_blank" class="video-link">
-                        Flask CRUD Tutorial - Pretty Printed
-                    </a>
-
-                    <div class="tips-box">
-                        <strong>💡 Tips Belajar:</strong>
-                        <p>Pahami alur CRUD dengan baik karena ini adalah fondasi dari hampir semua aplikasi web. Coba modifikasi project untuk kasus berbeda!</p>
+                        <p>Don't expect perfect results di first try! Deep Learning is all about experimentation. Try different architectures, hyperparameters, dan techniques. Document everything—apa yang works dan apa yang tidak!</p>
                     </div>
                 </div>
             </div>
@@ -784,17 +745,11 @@ if ($d['id_paket'] != 1) {
         </div>
 
         <div class="footer-note">
-            <h3>💡 Keep Going!</h3>
+            <h3>🎉 Amazing Progress!</h3>
             <p>
-                Backend development memang challenging di awal, tapi ini adalah skill yang sangat dicari di industri. 
-                Praktik adalah kunci - coba buat berbagai macam API dan aplikasi CRUD dengan tema berbeda. 
-                Semakin banyak kamu praktik, semakin paham alur kerjanya! 🚀
-            </p>
-            <p style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
-                <strong>Setelah selesai Kelas 2, lanjut ke:</strong><br>
-                <a href="fullstack_project.php" style="color: #1976d2; text-decoration: none; font-weight: 600;">
-                    🚀 Kelas 3: Fullstack Project →
-                </a>
+                Kamu sudah masuk ke dunia Deep Learning—teknologi yang power ChatGPT, self-driving cars, 
+                dan banyak AI modern lainnya! Keep experimenting, keep learning, dan jangan takut untuk 
+                try crazy ideas. That's how breakthroughs happen! 🌸
             </p>
         </div>
 

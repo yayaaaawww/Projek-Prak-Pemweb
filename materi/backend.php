@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "./config/koneksi.php";
+include "../config/koneksi.php";
 
 // CEK LOGIN
 if (!isset($_SESSION['user_id'])) {
@@ -27,13 +27,13 @@ $d = mysqli_fetch_assoc($q);
 
 // JIKA USER BELUM PERNAH BELI PAKET
 if (!$d) {
-    echo "<script>alert('Kamu belum membeli paket apa pun!'); window.location='dashboard.php';</script>";
+    echo "<script>alert('Kamu belum membeli paket apa pun!'); window.location='landingpage.php';</script>";
     exit();
 }
 
-// HANYA UNTUK PAKET 2 (Data Analyst)
-if ($d['id_paket'] != 2) {
-    echo "<script>alert('Akses ditolak! Paket kamu bukan Paket Data Analyst.'); window.location='dashboard.php';</script>";
+// HANYA UNTUK PAKET 1
+if ($d['id_paket'] != 1) {
+    echo "<script>alert('Akses ditolak! Paket kamu bukan Paket 1.'); window.location='landingpage.php';</script>";
     exit();
 }
 ?>
@@ -44,7 +44,7 @@ if ($d['id_paket'] != 2) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Project & Dashboard - Paket 2 | codeBloom</title>
+    <title>Backend & Database - Paket 1 | codeBloom</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -126,7 +126,7 @@ if ($d['id_paket'] != 2) {
         }
 
         .class-nav-item.active {
-            background: #00897b;
+            background: #e91e63;
             color: white;
         }
 
@@ -137,9 +137,9 @@ if ($d['id_paket'] != 2) {
         }
 
         .class-nav-item:not(.active):hover {
-            background: #e0f2f1;
-            color: #00897b;
-            border-color: #00897b;
+            background: #fce4ec;
+            color: #e91e63;
+            border-color: #e91e63;
         }
 
         .header-section {
@@ -148,8 +148,8 @@ if ($d['id_paket'] != 2) {
 
         .badge {
             display: inline-block;
-            background: #e0f2f1;
-            color: #00695c;
+            background: #fce4ec;
+            color: #c2185b;
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 13px;
@@ -176,7 +176,7 @@ if ($d['id_paket'] != 2) {
         .hero-image {
             width: 100%;
             height: 350px;
-            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
             border-radius: 12px;
             margin: 40px 0 60px 0;
             display: flex;
@@ -243,8 +243,8 @@ if ($d['id_paket'] != 2) {
         .materi-number {
             width: 60px;
             height: 60px;
-            background: #e0f2f1;
-            color: #00897b;
+            background: #e3f2fd;
+            color: #1976d2;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -256,7 +256,7 @@ if ($d['id_paket'] != 2) {
         }
 
         .materi-item.active .materi-number {
-            background: #00897b;
+            background: #1976d2;
             color: white;
         }
 
@@ -292,8 +292,8 @@ if ($d['id_paket'] != 2) {
 
         .materi-item.active .toggle-icon {
             transform: rotate(180deg);
-            background: #e0f2f1;
-            color: #00897b;
+            background: #e3f2fd;
+            color: #1976d2;
         }
 
         .materi-content {
@@ -348,14 +348,14 @@ if ($d['id_paket'] != 2) {
             content: '•';
             position: absolute;
             left: 0;
-            color: #00897b;
+            color: #1976d2;
             font-weight: 700;
         }
 
         .video-link {
             display: inline-flex;
             align-items: center;
-            background: #00897b;
+            background: #1976d2;
             color: white;
             padding: 12px 24px;
             border-radius: 8px;
@@ -368,9 +368,9 @@ if ($d['id_paket'] != 2) {
         }
 
         .video-link:hover {
-            background: #00796b;
+            background: #1565c0;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 137, 123, 0.3);
+            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
         }
 
         .video-link::before {
@@ -405,7 +405,7 @@ if ($d['id_paket'] != 2) {
             padding: 30px;
             background: #f5f5f5;
             border-radius: 12px;
-            border-left: 4px solid #00897b;
+            border-left: 4px solid #1976d2;
         }
 
         .footer-note h3 {
@@ -478,35 +478,35 @@ if ($d['id_paket'] != 2) {
 
     <div class="navbar">
         <span class="logo">c🌸deBloom</span>
-        <a href="dashboard.php" class="back-btn">← Dashboard</a>
+        <a href="../landingpage.php" class="back-btn">← Dashboard</a>
     </div>
 
     <div class="container">
 
         <div class="class-navigation">
-            <a href="datahandling.php" class="class-nav-item">
-                🐍 Kelas 1: Python Dasar
+            <a href="webdasar.php" class="class-nav-item">
+                🧩 Kelas 1: Web Dasar
             </a>
-            <a href="statistik.php" class="class-nav-item">
-                🧮 Kelas 2: Statistik & SQL for Data
+            <a href="backend_database.php" class="class-nav-item active">
+                ⚙️ Kelas 2: Backend & Database
             </a>
-            <a href="dataproject.php" class="class-nav-item active">
-                🔍 Kelas 3: Data Project & Dashboard
+            <a href="fullstack.php" class="class-nav-item">
+                🚀 Kelas 3: Fullstack Project
             </a>
         </div>
 
         <div class="header-section">
-            <span class="badge">Paket 2 - Kelas 3</span>
-            <h1>Data Project & Dashboard</h1>
+            <span class="badge">Paket 1 - Kelas 2</span>
+            <h1>Backend & Database</h1>
             <p class="intro-text">
-                Saatnya membawa analisis data-mu ke level berikutnya! Di kelas ini, kamu akan belajar membuat 
-                visualisasi yang menarik dan dashboard interaktif. Skill komunikasi data adalah yang membedakan 
-                Data Analyst biasa dengan yang excellent!
+                Setelah menguasai frontend, saatnya belajar backend! Di kelas ini kamu akan memahami bagaimana 
+                data disimpan, diproses, dan dikirim antar server dan client. Kamu akan belajar membuat API, 
+                database, dan sistem autentikasi yang powerful.
             </p>
         </div>
 
         <div class="hero-image">
-            🔍
+            ⚙️
         </div>
 
         <h2 class="section-title">Materi Pembelajaran</h2>
@@ -518,51 +518,46 @@ if ($d['id_paket'] != 2) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">1</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Visualisasi Data dengan Matplotlib & Seaborn</div>
+                        <div class="materi-title">Pengenalan Backend Development</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        "A picture is worth a thousand words" - terutama dalam data analysis! Kamu akan belajar 
-                        membuat visualisasi yang tidak hanya cantik, tapi juga efektif dalam menyampaikan insight.
+                        Backend adalah otak dari sebuah aplikasi web. Kamu akan memahami bagaimana server bekerja, 
+                        bagaimana data dikirim dan diterima, serta peran backend dalam ekosistem web modern.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Matplotlib basics: figure, axes, dan plotting</li>
-                            <li>Line charts untuk trend analysis</li>
-                            <li>Bar charts dan histogram untuk distribusi</li>
-                            <li>Scatter plots untuk korelasi</li>
-                            <li>Pie charts untuk komposisi data</li>
-                            <li>Box plots untuk outlier detection</li>
-                            <li>Heatmaps untuk correlation matrix</li>
-                            <li>Seaborn untuk statistical visualizations</li>
-                            <li>Customization: colors, labels, legends</li>
-                            <li>Subplots untuk multiple visualizations</li>
-                            <li>Styling dan themes</li>
+                            <li>Perbedaan frontend vs backend development</li>
+                            <li>Konsep client-server architecture secara mendalam</li>
+                            <li>Apa itu API dan bagaimana cara kerjanya</li>
+                            <li>HTTP methods: GET, POST, PUT, DELETE</li>
+                            <li>Status codes dan error handling</li>
+                            <li>RESTful API design principles</li>
+                            <li>Kenapa Python dan Flask cocok untuk backend</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Memilih jenis chart yang tepat untuk data</li>
-                            <li>Membuat visualisasi yang professional</li>
-                            <li>Customize charts sesuai kebutuhan</li>
-                            <li>Create visual stories dari data</li>
+                            <li>Menjelaskan alur kerja backend dengan percaya diri</li>
+                            <li>Memahami peran backend developer dalam tim</li>
+                            <li>Mengerti konsep API dan cara berkomunikasi dengan frontend</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/playlist?list=PL-osiE80TeTvipOqomVEeZ1HRrcEvtZB_" target="_blank" class="video-link">
-                        Data Visualization with Matplotlib - Corey Schafer
+                    <a href="https://www.youtube.com/watch?v=cbSrsYiRamo" target="_blank" class="video-link">
+                        Backend Development Explained - Sekolah Koding
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Perhatikan data visualization best practices! Hindari 3D charts, terlalu banyak warna, atau chart yang misleading.</p>
+                        <p>Pahami konsep fundamental dulu sebelum mulai coding. Backend development lebih tentang logic dan problem solving!</p>
                     </div>
                 </div>
             </div>
@@ -572,50 +567,49 @@ if ($d['id_paket'] != 2) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">2</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Dashboard Interaktif dengan Streamlit</div>
+                        <div class="materi-title">Belajar Flask (Python Framework)</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Streamlit membuat kamu bisa create web applications untuk data science dengan mudah, tanpa 
-                        perlu jago HTML/CSS/JavaScript! Perfect untuk Data Analyst yang ingin share insights secara interaktif.
+                        Flask adalah web framework Python yang ringan dan mudah dipelajari. Perfect untuk pemula 
+                        yang ingin memahami bagaimana backend bekerja tanpa kompleksitas yang berlebihan.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Install dan setup Streamlit</li>
-                            <li>Basic Streamlit components: text, markdown, headers</li>
-                            <li>Data display: dataframes, tables, metrics</li>
-                            <li>Charts: line_chart, bar_chart, area_chart</li>
-                            <li>Interactive widgets: sliders, selectbox, multiselect</li>
-                            <li>File uploader untuk dynamic data</li>
-                            <li>Sidebar untuk better organization</li>
-                            <li>Columns dan containers untuk layout</li>
-                            <li>Caching untuk performance optimization</li>
-                            <li>Deployment ke Streamlit Cloud</li>
+                            <li>Install dan setup Flask environment</li>
+                            <li>Membuat aplikasi Flask pertama</li>
+                            <li>Routing dan URL handling</li>
+                            <li>Request dan Response objects</li>
+                            <li>Template rendering dengan Jinja2</li>
+                            <li>Static files (CSS, JS, images)</li>
+                            <li>Form handling dan validation</li>
+                            <li>Session management</li>
+                            <li>Flask blueprints untuk modular code</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Membuat dashboard interaktif dengan Python</li>
-                            <li>Create data apps yang user-friendly</li>
-                            <li>Deploy dashboard ke internet</li>
-                            <li>Share insights dengan stakeholders secara efektif</li>
+                            <li>Membuat web server sendiri dengan Flask</li>
+                            <li>Handle HTTP requests dari client</li>
+                            <li>Render dynamic HTML pages</li>
+                            <li>Membangun API endpoints yang functional</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=Klqn--Mu2pE" target="_blank" class="video-link">
-                        Streamlit Dashboard Tutorial - Data Professor
+                    <a href="https://www.youtube.com/playlist?list=PLZS-MHyEIRo6p_RwsWntxMO5QAqIHHHld" target="_blank" class="video-link">
+                        Flask Tutorial Lengkap - Indonesia Belajar
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Mulai dengan dashboard sederhana dulu. Focus on functionality, baru polish UI-nya. Streamlit sangat cepat untuk prototyping!</p>
+                        <p>Install Python dan Flask di laptop kamu, langsung praktik sambil nonton tutorial. Virtual environment adalah must!</p>
                     </div>
                 </div>
             </div>
@@ -625,50 +619,49 @@ if ($d['id_paket'] != 2) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">3</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Storytelling Data</div>
+                        <div class="materi-title">Database dan SQL Dasar</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Technical skills saja tidak cukup! Kamu perlu bisa communicate insights dengan cara yang 
-                        menarik dan mudah dipahami. Data storytelling adalah seni menyampaikan insight yang actionable.
+                        Database adalah jantung dari setiap aplikasi. Tanpa database, aplikasi tidak bisa menyimpan 
+                        data user, transaksi, atau informasi penting lainnya. MySQL adalah salah satu database paling populer.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Prinsip data storytelling yang efektif</li>
-                            <li>Struktur narasi: context, conflict, resolution</li>
-                            <li>Memahami audience dan kebutuhan mereka</li>
-                            <li>Menyederhanakan insight kompleks</li>
-                            <li>Visual hierarchy dan design principles</li>
-                            <li>Choosing the right metrics to highlight</li>
-                            <li>Creating compelling narratives dari data</li>
-                            <li>Presentation skills untuk data analyst</li>
-                            <li>Handling questions dan objections</li>
-                            <li>Making recommendations yang actionable</li>
+                            <li>Konsep database relational vs non-relational</li>
+                            <li>Install dan setup MySQL/MariaDB</li>
+                            <li>SQL basics: CREATE, SELECT, INSERT, UPDATE, DELETE</li>
+                            <li>Data types dan constraints</li>
+                            <li>Primary key dan foreign key</li>
+                            <li>Table relationships (one-to-one, one-to-many, many-to-many)</li>
+                            <li>JOIN operations untuk query kompleks</li>
+                            <li>WHERE, ORDER BY, GROUP BY, HAVING</li>
+                            <li>Database normalization basics</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Present data findings dengan percaya diri</li>
-                            <li>Create compelling data stories</li>
-                            <li>Influence decision-making dengan data</li>
-                            <li>Communicate dengan non-technical audience</li>
+                            <li>Merancang struktur database yang efisien</li>
+                            <li>Menulis SQL query untuk manipulasi data</li>
+                            <li>Membuat relasi antar tabel</li>
+                            <li>Mengambil data dengan query yang kompleks</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=8EMW7io4rSI" target="_blank" class="video-link">
-                        Data Storytelling - Alex The Analyst
+                    <a href="https://www.youtube.com/playlist?list=PLCZlgfAG0GXCe0r9emirDlfNusBPV5Nxe" target="_blank" class="video-link">
+                        MySQL untuk Pemula - Sekolah Koding
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Practice makes perfect! Latihan present findings-mu ke teman atau keluarga. Get feedback dan improve communication skills-mu!</p>
+                        <p>Install phpMyAdmin atau MySQL Workbench untuk visualisasi database. Praktik dengan membuat database untuk toko online atau blog!</p>
                     </div>
                 </div>
             </div>
@@ -678,60 +671,112 @@ if ($d['id_paket'] != 2) {
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">4</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Final Project: Dashboard Analisis E-Commerce</div>
+                        <div class="materi-title">Autentikasi & Login System</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Project capstone yang menggabungkan semua skill yang sudah kamu pelajari! Kamu akan membuat 
-                        end-to-end data analysis project: dari data cleaning, analysis, visualization, hingga dashboard interaktif.
+                        Hampir semua aplikasi modern membutuhkan sistem login. Kamu akan belajar bagaimana membuat 
+                        authentication system yang secure, dari register, login, hingga session management.
+                    </p>
+                    
+                    <div class="content-section">
+                        <h4>📚 Yang Akan Kamu Pelajari:</h4>
+                        <ul>
+                            <li>Password hashing dengan bcrypt/werkzeug</li>
+                            <li>Membuat form register dan login</li>
+                            <li>Validasi input user</li>
+                            <li>Session management di Flask</li>
+                            <li>Cookie handling</li>
+                            <li>Protecting routes (login required)</li>
+                            <li>Remember me functionality</li>
+                            <li>Password reset mechanism</li>
+                            <li>Security best practices (SQL injection, XSS prevention)</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
+                        <ul>
+                            <li>Membuat sistem register dan login yang aman</li>
+                            <li>Handle user sessions dengan benar</li>
+                            <li>Protect halaman-halaman tertentu dari akses unauthorized</li>
+                            <li>Implement security best practices</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://www.youtube.com/watch?v=8aTnmsDMldY" target="_blank" class="video-link">
+                        Flask Login System - Pretty Printed
+                    </a>
+
+                    <div class="tips-box">
+                        <strong>💡 Tips Belajar:</strong>
+                        <p>JANGAN PERNAH simpan password dalam plain text! Selalu gunakan hashing. Test login system-mu dengan berbagai skenario error.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MATERI 5 -->
+            <div class="materi-item">
+                <div class="materi-header" onclick="toggleMateri(this)">
+                    <div class="materi-number">5</div>
+                    <div class="materi-title-wrapper">
+                        <div class="materi-title">Mini Project: Aplikasi CRUD</div>
+                        <div class="materi-subtitle">Klik untuk lihat detail materi</div>
+                    </div>
+                    <div class="toggle-icon">▼</div>
+                </div>
+                <div class="materi-content">
+                    <p class="materi-intro">
+                        CRUD (Create, Read, Update, Delete) adalah operasi dasar dalam hampir semua aplikasi. 
+                        Project ini akan mengajarkan kamu membuat aplikasi manajemen data yang complete dengan database.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Buat:</h4>
                         <ul>
-                            <li><strong>Sales Performance Dashboard</strong> - Track revenue, orders, growth</li>
-                            <li><strong>Customer Analytics</strong> - Segmentation, retention, lifetime value</li>
-                            <li><strong>Product Performance</strong> - Best sellers, category analysis</li>
-                            <li><strong>Geographic Analysis</strong> - Sales by region/city</li>
-                            <li><strong>Time Series Analysis</strong> - Trends, seasonality, forecasting</li>
-                            <li><strong>Cohort Analysis</strong> - Customer behavior over time</li>
+                            <li><strong>Sistem Inventori Barang</strong> - Track produk dengan detail lengkap</li>
+                            <li><strong>Create:</strong> Form untuk menambah data barang baru</li>
+                            <li><strong>Read:</strong> Dashboard untuk menampilkan semua data dalam tabel</li>
+                            <li><strong>Update:</strong> Edit data barang yang sudah ada</li>
+                            <li><strong>Delete:</strong> Hapus data dengan konfirmasi</li>
+                            <li><strong>Search:</strong> Fitur pencarian data</li>
+                            <li><strong>Pagination:</strong> Handle data dalam jumlah besar</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
-                        <h4>🎯 Features Dashboard:</h4>
+                        <h4>🎯 Fitur yang Akan Diimplementasi:</h4>
                         <ul>
-                            <li>Interactive filters (date range, category, region)</li>
-                            <li>KPI cards untuk metrics penting</li>
-                            <li>Multiple visualizations yang relevan</li>
-                            <li>Drill-down capabilities</li>
-                            <li>Export functionality untuk reports</li>
-                            <li>Mobile-responsive design</li>
+                            <li>Database design dengan proper relationships</li>
+                            <li>Form validation (frontend & backend)</li>
+                            <li>Error handling yang proper</li>
+                            <li>Flash messages untuk user feedback</li>
+                            <li>Responsive table design</li>
+                            <li>Modal untuk delete confirmation</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🛠️ Tech Stack:</h4>
                         <ul>
-                            <li>Python untuk data processing</li>
-                            <li>Pandas untuk data manipulation</li>
-                            <li>SQL untuk data extraction</li>
-                            <li>Matplotlib/Seaborn untuk visualizations</li>
-                            <li>Streamlit untuk dashboard</li>
-                            <li>Plotly untuk interactive charts (optional)</li>
+                            <li>Flask (Backend framework)</li>
+                            <li>MySQL (Database)</li>
+                            <li>SQLAlchemy (ORM)</li>
+                            <li>Bootstrap (Frontend styling)</li>
+                            <li>Jinja2 (Templating)</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/watch?v=Sb0A9i6d320" target="_blank" class="video-link">
-                        Streamlit Dashboard Project - Python Engineer
+                    <a href="https://www.youtube.com/watch?v=Z1RJmh_OqeA" target="_blank" class="video-link">
+                        Flask CRUD Tutorial - Pretty Printed
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Ini adalah portfolio project! Buat se-professional mungkin. Add to GitHub, deploy ke cloud, dan showcase di LinkedIn!</p>
+                        <p>Pahami alur CRUD dengan baik karena ini adalah fondasi dari hampir semua aplikasi web. Coba modifikasi project untuk kasus berbeda!</p>
                     </div>
                 </div>
             </div>
@@ -739,19 +784,17 @@ if ($d['id_paket'] != 2) {
         </div>
 
         <div class="footer-note">
-            <h3>🎉 Congratulations!</h3>
+            <h3>💡 Keep Going!</h3>
             <p>
-                Kamu sudah menyelesaikan learning path Data Analyst! Sekarang kamu punya skill lengkap: 
-                Python, statistik, SQL, visualization, dan dashboard. Yang tersisa adalah terus praktik 
-                dan build portfolio projects. Remember: the best Data Analyst is one who can turn data 
-                into actionable insights! 🚀
+                Backend development memang challenging di awal, tapi ini adalah skill yang sangat dicari di industri. 
+                Praktik adalah kunci - coba buat berbagai macam API dan aplikasi CRUD dengan tema berbeda. 
+                Semakin banyak kamu praktik, semakin paham alur kerjanya! 🚀
             </p>
             <p style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
-                <strong>Next Steps:</strong><br>
-                ✅ Build more portfolio projects<br>
-                ✅ Participate in Kaggle competitions<br>
-                ✅ Apply for Data Analyst internships/jobs<br>
-                ✅ Keep learning advanced topics (ML, Big Data, etc.)
+                <strong>Setelah selesai Kelas 2, lanjut ke:</strong><br>
+                <a href="fullstack_project.php" style="color: #1976d2; text-decoration: none; font-weight: 600;">
+                    🚀 Kelas 3: Fullstack Project →
+                </a>
             </p>
         </div>
 

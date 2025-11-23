@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "./config/koneksi.php";
+include "../config/koneksi.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -19,8 +19,8 @@ $q = mysqli_query($conn, "
 
 $d = mysqli_fetch_assoc($q);
 
-if (!$d || $d['id_paket'] != 2) {
-    echo "<script>alert('Akses ditolak! Kamu tidak memiliki Paket 2.'); window.location='dashboard.php';</script>";
+if (!$d || $d['id_paket'] != 3) {
+    echo "<script>alert('Akses ditolak! Kamu tidak memiliki Paket 3.'); window.location='landingpage.php';</script>";
     exit();
 }
 ?>
@@ -29,17 +29,17 @@ if (!$d || $d['id_paket'] != 2) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Paket 2 — Data Science Pro</title>
+<title>Paket 3 — AI & Machine Learning Expert</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
     body {
-        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         min-height: 100vh;
     }
     .main-title {
-        color: #0d47a1;
+        color: #4a148c;
         text-align: center;
         margin: 40px 0 20px 0;
         font-weight: bold;
@@ -48,13 +48,13 @@ if (!$d || $d['id_paket'] != 2) {
     }
     .subtitle {
         text-align: center;
-        color: #1565c0;
+        color: #6a1b9a;
         font-size: 1.2rem;
         margin-bottom: 40px;
     }
     .card {
         border-radius: 20px;
-        border: 3px solid #1976d2;
+        border: 3px solid #7b1fa2;
         background: white;
         transition: all 0.3s ease;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -62,14 +62,14 @@ if (!$d || $d['id_paket'] != 2) {
     }
     .card:hover {
         transform: translateY(-10px);
-        border-color: #0d47a1;
-        box-shadow: 0 12px 24px rgba(13,71,161,0.3);
+        border-color: #4a148c;
+        box-shadow: 0 12px 24px rgba(74,20,140,0.3);
     }
     .card-body {
         padding: 25px;
     }
     .card-title {
-        color: #0d47a1;
+        color: #4a148c;
         font-weight: bold;
         font-size: 1.8rem;
         margin-bottom: 15px;
@@ -93,7 +93,7 @@ if (!$d || $d['id_paket'] != 2) {
         margin: 20px 0;
     }
     .btn-back {
-        background: #1976d2;
+        background: #7b1fa2;
         color: white;
         border: none;
         padding: 12px 30px;
@@ -102,12 +102,12 @@ if (!$d || $d['id_paket'] != 2) {
         transition: all 0.3s;
     }
     .btn-back:hover {
-        background: #0d47a1;
+        background: #4a148c;
         transform: scale(1.05);
         color: white;
     }
     .info-card {
-        border-color: #42a5f5 !important;
+        border-color: #ab47bc !important;
         margin-top: 30px;
     }
 </style>
@@ -116,61 +116,58 @@ if (!$d || $d['id_paket'] != 2) {
 <body>
 <div class="container mt-4">
     <div class="back-btn">
-        <a href="dashboard.php" class="btn btn-back">← Kembali ke Dashboard</a>
+        <a href="../landingpage.php" class="btn btn-back">← Kembali ke Dashboard</a>
     </div>
 
-    <h1 class="main-title">📊 PAKET 2: DATA SCIENCE PRO</h1>
-    <p class="subtitle">Kuasai analisis data, statistik, dan visualisasi untuk menjadi Data Scientist profesional</p>
+    <h1 class="main-title">🧠 PAKET 3: AI & MACHINE LEARNING EXPERT</h1>
+    <p class="subtitle">Kuasai Machine Learning, Deep Learning, dan deployment AI untuk menjadi AI Engineer profesional</p>
 
     <div class="row mt-5">
-        <!-- Kelas 1 -->
         <div class="col-md-4 mb-4">
-            <a href="datahandling.php">
+            <a href="introml.php">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">
-                            <span class="icon">📈</span>
+                            <span class="icon">🤖</span>
                             Kelas 1
                         </h4>
-                        <p class="card-text"><strong>Data Handling & Python Basics</strong></p>
+                        <p class="card-text"><strong>Intro to Machine Learning</strong></p>
                         <p class="card-text" style="font-size: 0.95rem; color: #666;">
-                            Pelajari fundamental Python, manipulasi data dengan Pandas & NumPy, serta analisis data penjualan
+                            Pelajari supervised vs unsupervised learning, feature engineering, regresi & klasifikasi, serta evaluasi model
                         </p>
                     </div>
                 </div>
             </a>
         </div>
 
-        <!-- Kelas 2 -->
         <div class="col-md-4 mb-4">
-            <a href="statistik.php">
+            <a href="deeplearning.php">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">
-                            <span class="icon">🧮</span>
+                            <span class="icon">🧬</span>
                             Kelas 2
                         </h4>
-                        <p class="card-text"><strong>Statistik & SQL for Data</strong></p>
+                        <p class="card-text"><strong>Deep Learning</strong></p>
                         <p class="card-text" style="font-size: 0.95rem; color: #666;">
-                            Kuasai statistik deskriptif & inferensial, SQL untuk analisis data, dan exploratory data analysis
+                            Kuasai Neural Network, CNN untuk image recognition, RNN untuk NLP, dan sentiment analysis
                         </p>
                     </div>
                 </div>
             </a>
         </div>
 
-        <!-- Kelas 3 -->
         <div class="col-md-4 mb-4">
-            <a href="dataproject.php">
+            <a href="aiproject.php">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">
-                            <span class="icon">🔍</span>
+                            <span class="icon">🚀</span>
                             Kelas 3
                         </h4>
-                        <p class="card-text"><strong>Data Project & Dashboard</strong></p>
+                        <p class="card-text"><strong>AI Projects & Deployment</strong></p>
                         <p class="card-text" style="font-size: 0.95rem; color: #666;">
-                            Buat visualisasi data profesional, dashboard interaktif dengan Streamlit, dan storytelling data
+                            Integrasikan model ke web app dengan Flask/Streamlit, deploy ke cloud, dan buat chatbot atau image recognition app
                         </p>
                     </div>
                 </div>
@@ -178,18 +175,17 @@ if (!$d || $d['id_paket'] != 2) {
         </div>
     </div>
 
-    <!-- Info Section -->
     <div class="row mt-4 mb-5">
         <div class="col-12">
             <div class="card info-card">
                 <div class="card-body">
-                    <h5 style="color: #0d47a1; font-weight: bold;">💡 Yang Akan Kamu Pelajari:</h5>
+                    <h5 style="color: #4a148c; font-weight: bold;">💡 Yang Akan Kamu Pelajari:</h5>
                     <ul style="color: #424242; line-height: 2;">
-                        <li><strong>Python untuk Data Science</strong> - Pandas, NumPy, dan manipulasi data</li>
-                        <li><strong>Statistik & SQL</strong> - Analisis kuantitatif dan query database</li>
-                        <li><strong>Visualisasi Data</strong> - Matplotlib, Seaborn, dan Streamlit dashboard</li>
-                        <li><strong>Real Projects</strong> - Analisis penjualan, HR data, dan e-commerce</li>
-                        <li><strong>Data Storytelling</strong> - Presentasi hasil analisis secara profesional</li>
+                        <li><strong>Machine Learning Fundamentals</strong> - Supervised, unsupervised, dan model evaluation</li>
+                        <li><strong>Deep Learning & Neural Networks</strong> - CNN, RNN, dan arsitektur modern</li>
+                        <li><strong>Computer Vision & NLP</strong> - Image classification dan sentiment analysis</li>
+                        <li><strong>Model Deployment</strong> - Flask, Streamlit, dan cloud deployment (Render, HuggingFace, Vercel)</li>
+                        <li><strong>Real AI Projects</strong> - Prediksi harga rumah, chatbot, dan image recognition web app</li>
                     </ul>
                 </div>
             </div>

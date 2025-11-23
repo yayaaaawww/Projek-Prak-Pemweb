@@ -1,13 +1,16 @@
 <?php
 session_start();
-include "./config/koneksi.php";
+include "../config/koneksi.php";
 
+// CEK LOGIN
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
 $user_id = $_SESSION['user_id'];
+
+// CEK PAKET USER BERDASARKAN TABEL PEMBAYARAN
 $q = mysqli_query($conn, "
     SELECT id_paket 
     FROM pembayaran 
@@ -22,13 +25,15 @@ if (!$q) {
 
 $d = mysqli_fetch_assoc($q);
 
+// JIKA USER BELUM PERNAH BELI PAKET
 if (!$d) {
-    echo "<script>alert('Kamu belum membeli paket apa pun!'); window.location='dashboard.php';</script>";
+    echo "<script>alert('Kamu belum membeli paket apa pun!'); window.location='../landingpage.php';</script>";
     exit();
 }
 
-if ($d['id_paket'] != 3) {
-    echo "<script>alert('Akses ditolak! Paket kamu bukan Paket AI & Machine Learning Expert.'); window.location='dashboard.php';</script>";
+// HANYA UNTUK PAKET 2 (Data Analyst)
+if ($d['id_paket'] != 2) {
+    echo "<script>alert('Akses ditolak! Paket kamu bukan Paket Data Analyst.'); window.location='../landingpage.php';</script>";
     exit();
 }
 ?>
@@ -39,7 +44,7 @@ if ($d['id_paket'] != 3) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Projects & Deployment - Paket 3 | codeBloom</title>
+    <title>Statistik & SQL for Data - Paket 2 | codeBloom</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -121,7 +126,7 @@ if ($d['id_paket'] != 3) {
         }
 
         .class-nav-item.active {
-            background: #00897b;
+            background: #7c4dff;
             color: white;
         }
 
@@ -132,9 +137,9 @@ if ($d['id_paket'] != 3) {
         }
 
         .class-nav-item:not(.active):hover {
-            background: #e0f2f1;
-            color: #00897b;
-            border-color: #00897b;
+            background: #ede7f6;
+            color: #7c4dff;
+            border-color: #7c4dff;
         }
 
         .header-section {
@@ -143,8 +148,8 @@ if ($d['id_paket'] != 3) {
 
         .badge {
             display: inline-block;
-            background: #e0f2f1;
-            color: #00695c;
+            background: #ede7f6;
+            color: #5e35b1;
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 13px;
@@ -171,7 +176,7 @@ if ($d['id_paket'] != 3) {
         .hero-image {
             width: 100%;
             height: 350px;
-            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+            background: linear-gradient(135deg, #ede7f6 0%, #d1c4e9 100%);
             border-radius: 12px;
             margin: 40px 0 60px 0;
             display: flex;
@@ -238,8 +243,8 @@ if ($d['id_paket'] != 3) {
         .materi-number {
             width: 60px;
             height: 60px;
-            background: #e0f2f1;
-            color: #00897b;
+            background: #ede7f6;
+            color: #7c4dff;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -251,7 +256,7 @@ if ($d['id_paket'] != 3) {
         }
 
         .materi-item.active .materi-number {
-            background: #00897b;
+            background: #7c4dff;
             color: white;
         }
 
@@ -287,8 +292,8 @@ if ($d['id_paket'] != 3) {
 
         .materi-item.active .toggle-icon {
             transform: rotate(180deg);
-            background: #e0f2f1;
-            color: #00897b;
+            background: #ede7f6;
+            color: #7c4dff;
         }
 
         .materi-content {
@@ -299,7 +304,7 @@ if ($d['id_paket'] != 3) {
         }
 
         .materi-item.active .materi-content {
-            max-height: 2500px;
+            max-height: 2000px;
             padding-top: 20px;
             padding-bottom: 20px;
         }
@@ -343,14 +348,14 @@ if ($d['id_paket'] != 3) {
             content: '•';
             position: absolute;
             left: 0;
-            color: #00897b;
+            color: #7c4dff;
             font-weight: 700;
         }
 
         .video-link {
             display: inline-flex;
             align-items: center;
-            background: #00897b;
+            background: #7c4dff;
             color: white;
             padding: 12px 24px;
             border-radius: 8px;
@@ -363,9 +368,9 @@ if ($d['id_paket'] != 3) {
         }
 
         .video-link:hover {
-            background: #00695c;
+            background: #6a3de8;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 137, 123, 0.3);
+            box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3);
         }
 
         .video-link::before {
@@ -400,7 +405,7 @@ if ($d['id_paket'] != 3) {
             padding: 30px;
             background: #f5f5f5;
             border-radius: 12px;
-            border-left: 4px solid #00897b;
+            border-left: 4px solid #7c4dff;
         }
 
         .footer-note h3 {
@@ -473,255 +478,257 @@ if ($d['id_paket'] != 3) {
 
     <div class="navbar">
         <span class="logo">c🌸deBloom</span>
-        <a href="dashboard.php" class="back-btn">← Dashboard</a>
+        <a href="../landingpage.php" class="back-btn">← Dashboard</a>
     </div>
 
     <div class="container">
 
         <div class="class-navigation">
-            <a href="introml.php" class="class-nav-item">
-                🤖 Kelas 1: Intro to ML
+            <a href="datahandling.php" class="class-nav-item">
+                🐍 Kelas 1: Python Dasar
             </a>
-            <a href="deeplearning.php" class="class-nav-item">
-                🧬 Kelas 2: Deep Learning
+            <a href="statistik.php" class="class-nav-item active">
+                🧮 Kelas 2: Statistik & SQL for Data
             </a>
-            <a href="aiproject.php" class="class-nav-item active">
-                🚀 Kelas 3: AI Projects & Deployment
+            <a href="dataproject.php" class="class-nav-item">
+                🔍 Kelas 3: Data Project & Dashboard
             </a>
         </div>
 
         <div class="header-section">
-            <span class="badge">Paket 3 - Kelas 3</span>
-            <h1>AI Projects & Deployment</h1>
+            <span class="badge">Paket 2 - Kelas 2</span>
+            <h1>Statistik & SQL for Data</h1>
             <p class="intro-text">
-                This is it—the final boss! 🎮 Di kelas ini, kamu akan belajar cara membuat AI model menjadi 
-                aplikasi web yang nyata dan deploy ke internet. From localhost to production. Let's ship it! 🚀
+                Di kelas ini, kamu akan mempelajari fondasi penting untuk menjadi Data Analyst: statistik untuk 
+                memahami data secara kuantitatif, dan SQL untuk mengambil data dari database. Kombinasi ini adalah 
+                kunci untuk analisis data yang powerful!
             </p>
         </div>
 
         <div class="hero-image">
-            🚀
+            🧮
         </div>
 
         <h2 class="section-title">Materi Pembelajaran</h2>
 
         <div class="materi-list">
-
+            
+            <!-- MATERI 1 -->
             <div class="materi-item">
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">1</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Integrasi Model ke Aplikasi Web (Flask/Streamlit)</div>
+                        <div class="materi-title">Statistik Deskriptif & Inferensial Dasar</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Model ML yang hanya ada di Jupyter Notebook tidak berguna untuk dunia nyata! 
-                        Saatnya belajar cara wrap model-mu dalam web application yang bisa diakses siapa saja.
+                        Statistik adalah bahasa data. Kamu akan belajar konsep-konsep statistik dasar yang akan 
+                        membantumu memahami pola, tren, dan insight dari data yang kamu analisis.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li><strong>Flask Basics:</strong> micro web framework untuk Python</li>
-                            <li>Routing dan handling HTTP requests</li>
-                            <li>Loading trained ML models (pickle/joblib)</li>
-                            <li>Creating REST API untuk ML predictions</li>
-                            <li>Building frontend dengan HTML/CSS/JavaScript</li>
-                            <li>Handling file uploads (untuk image/text input)</li>
-                            <li><strong>Streamlit:</strong> rapid prototyping ML apps</li>
-                            <li>Creating interactive UI components</li>
-                            <li>Real-time predictions dengan user input</li>
-                            <li>Visualizing model outputs</li>
-                            <li>Session state management</li>
-                            <li>Flask vs Streamlit: kapan pakai yang mana?</li>
+                            <li>Statistik deskriptif: mean, median, modus</li>
+                            <li>Ukuran penyebaran: range, variance, standar deviasi</li>
+                            <li>Distribusi data dan histogram</li>
+                            <li>Percentile dan quartile</li>
+                            <li>Korelasi dan hubungan antar variabel</li>
+                            <li>Regresi linear sederhana</li>
+                            <li>Probabilitas dasar</li>
+                            <li>Normal distribution</li>
+                            <li>Hypothesis testing dasar</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Membuat REST API untuk ML model dengan Flask</li>
-                            <li>Membuat interactive web app dengan Streamlit</li>
-                            <li>Menghubungkan frontend ke ML backend</li>
-                            <li>Handle user input dan return predictions</li>
+                            <li>Menghitung dan menginterpretasi statistik deskriptif</li>
+                            <li>Memahami distribusi data</li>
+                            <li>Mengidentifikasi korelasi antar variabel</li>
+                            <li>Melakukan analisis regresi sederhana</li>
                         </ul>
                     </div>
 
-                    <div class="content-section">
-                        <h4>💻 Project Example:</h4>
-                        <ul>
-                            <li><strong>Flask:</strong> Sentiment Analysis API—user input text, get positive/negative result</li>
-                            <li><strong>Streamlit:</strong> Image Classifier—user upload image, see prediction dengan confidence scores</li>
-                        </ul>
-                    </div>
-
-                    <a href="https://www.youtube.com/watch?v=mqhxxeeTbu0" target="_blank" class="video-link">
-                        Deploy ML Model with Flask - Tech With Tim
+                    <a href="https://www.youtube.com/playlist?list=PLjbMhCDe7RhPwHLYa3D5Bt_MdWXaZIJwI" target="_blank" class="video-link">
+                        Belajar Statistik Dasar - Indonesia Belajar
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Start dengan Streamlit kalau mau cepat! Flask lebih flexible tapi butuh lebih banyak code. Untuk MVP dan demo, Streamlit is your best friend. Untuk production API, go with Flask!</p>
+                        <p>Jangan hanya hapal rumus! Pahami konsepnya dan kapan menggunakan metrik yang tepat. Praktik dengan dataset real!</p>
                     </div>
                 </div>
             </div>
 
+            <!-- MATERI 2 -->
             <div class="materi-item">
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">2</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Deployment ke Cloud (Render / HuggingFace / Vercel)</div>
+                        <div class="materi-title">Dasar SQL untuk Data Analyst</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Localhost is great, but the world needs to see your work! 🌍 
-                        Belajar deploy aplikasi AI-mu ke cloud supaya bisa diakses dari mana saja, kapan saja.
+                        SQL adalah skill wajib buat Data Analyst! Hampir semua data perusahaan disimpan di database, 
+                        dan SQL adalah cara kamu untuk mengambil, mengolah, dan menganalisis data tersebut.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li><strong>Git & GitHub:</strong> version control untuk code management</li>
-                            <li>Basic git commands: commit, push, pull</li>
-                            <li>Creating GitHub repository untuk project</li>
-                            <li><strong>Render:</strong> deploy Flask/Streamlit apps</li>
-                            <li>Setting up requirements.txt dan dependencies</li>
-                            <li>Environment variables untuk API keys</li>
-                            <li>Free tier limitations dan solutions</li>
-                            <li><strong>HuggingFace Spaces:</strong> hosting ML apps dengan GPU</li>
-                            <li>Gradio interface untuk quick deployment</li>
-                            <li>Sharing your model dengan community</li>
-                            <li><strong>Vercel:</strong> deploy frontend applications</li>
-                            <li>Serverless functions untuk ML inference</li>
-                            <li>Custom domains dan SSL</li>
-                            <li>Monitoring app performance</li>
-                            <li>Debugging deployment issues</li>
+                            <li>SELECT statement untuk query data</li>
+                            <li>WHERE clause untuk filtering</li>
+                            <li>ORDER BY untuk sorting data</li>
+                            <li>LIMIT untuk membatasi hasil</li>
+                            <li>Aggregate functions: COUNT, SUM, AVG, MAX, MIN</li>
+                            <li>GROUP BY untuk analisis per kategori</li>
+                            <li>HAVING untuk filter hasil agregasi</li>
+                            <li>JOIN (INNER, LEFT, RIGHT, FULL) untuk gabung tabel</li>
+                            <li>Subquery dan nested queries</li>
+                            <li>CASE WHEN untuk conditional logic</li>
+                            <li>Date functions untuk analisis temporal</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Deploy ML app ke production environment</li>
-                            <li>Menggunakan Git untuk version control</li>
-                            <li>Troubleshoot common deployment errors</li>
-                            <li>Share aplikasi dengan link publik</li>
-                            <li>Monitor dan maintain deployed apps</li>
+                            <li>Menulis query SQL untuk mengambil data</li>
+                            <li>Melakukan agregasi dan perhitungan di SQL</li>
+                            <li>Menggabungkan data dari multiple tables</li>
+                            <li>Menjawab business questions dengan SQL</li>
                         </ul>
                     </div>
 
-                    <div class="content-section">
-                        <h4>☁️ Platform Comparison:</h4>
-                        <ul>
-                            <li><strong>Render:</strong> Best untuk Flask apps, auto-deploy dari GitHub</li>
-                            <li><strong>HuggingFace:</strong> Perfect untuk ML models, free GPU access</li>
-                            <li><strong>Vercel:</strong> Great untuk frontend + serverless functions</li>
-                            <li><strong>Streamlit Cloud:</strong> Native hosting untuk Streamlit apps</li>
-                        </ul>
-                    </div>
-
-                    <a href="https://www.youtube.com/watch?v=kSZWaIqS618" target="_blank" class="video-link">
-                        Deploy ML Model to Cloud - Python Engineer
+                    <a href="https://www.youtube.com/playlist?list=PLCZlgfAG0GXCe0r9emirDlfNusBPV5Nxe" target="_blank" class="video-link">
+                        Belajar SQL untuk Pemula - Sekolah Koding
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Always test locally first! Deploy sering fail karena missing dependencies atau environment issues. Keep your requirements.txt updated dan test di virtual environment dulu sebelum deploy!</p>
+                        <p>Install MySQL atau PostgreSQL di laptop kamu. Latihan dengan dataset sample seperti Northwind atau Adventure Works!</p>
                     </div>
                 </div>
             </div>
 
+            <!-- MATERI 3 -->
             <div class="materi-item">
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">3</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Final Project: Chatbot atau Image Recognition Web App</div>
+                        <div class="materi-title">Data Exploration dengan Python</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        This is your masterpiece! 🎨 Pilih antara Chatbot atau Image Recognition app, 
-                        build from scratch, dan deploy ke internet. Portfolio-ready AI project!
+                        Exploratory Data Analysis (EDA) adalah proses investigasi awal untuk memahami karakteristik 
+                        data, menemukan pola, anomali, dan memvalidasi asumsi sebelum analisis lebih lanjut.
                     </p>
                     
                     <div class="content-section">
-                        <h4>🤖 Project Option A: AI Chatbot</h4>
+                        <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li><strong>Tech Stack:</strong> Python, Flask/Streamlit, NLP model</li>
-                            <li><strong>Goal:</strong> Conversational chatbot untuk specific domain</li>
-                            <li><strong>Steps:</strong></li>
-                            <li>Define chatbot purpose (customer service, FAQ, assistant)</li>
-                            <li>Prepare training data (intents, patterns, responses)</li>
-                            <li>Build NLP model (RNN/LSTM atau pre-trained like BERT)</li>
-                            <li>Train model dengan conversation data</li>
-                            <li>Create chat interface dengan real-time responses</li>
-                            <li>Add context awareness (remember previous messages)</li>
-                            <li>Implement fallback responses</li>
-                            <li>Add typing indicator dan smooth UX</li>
-                            <li>Test dengan various user inputs</li>
-                            <li>Deploy ke Render/HuggingFace</li>
+                            <li>Load data dengan Pandas (CSV, Excel, SQL)</li>
+                            <li>Inspeksi data: head(), info(), describe()</li>
+                            <li>Handling missing values dan outliers</li>
+                            <li>Data cleaning dan preprocessing</li>
+                            <li>Analisis univariate (satu variabel)</li>
+                            <li>Analisis bivariate (dua variabel)</li>
+                            <li>Analisis multivariate</li>
+                            <li>Visualisasi distribusi data</li>
+                            <li>Correlation analysis</li>
+                            <li>Feature engineering basics</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
-                        <h4>🖼️ Project Option B: Image Recognition Web App</h4>
+                        <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li><strong>Tech Stack:</strong> Python, Streamlit, CNN model</li>
-                            <li><strong>Goal:</strong> Upload image, get classification/detection</li>
-                            <li><strong>Steps:</strong></li>
-                            <li>Choose domain (medical imaging, product recognition, etc)</li>
-                            <li>Collect/find relevant dataset</li>
-                            <li>Train CNN model atau use transfer learning</li>
-                            <li>Optimize model untuk inference speed</li>
-                            <li>Build upload interface dengan drag-and-drop</li>
-                            <li>Add image preprocessing pipeline</li>
-                            <li>Display predictions dengan confidence scores</li>
-                            <li>Visualize activation maps (Grad-CAM)</li>
-                            <li>Add batch prediction feature</li>
-                            <li>Deploy dengan GPU support (HuggingFace Spaces)</li>
+                            <li>Melakukan exploratory data analysis lengkap</li>
+                            <li>Mengidentifikasi data quality issues</li>
+                            <li>Menemukan pattern dan insight dari data</li>
+                            <li>Membuat statistical summary yang bermakna</li>
                         </ul>
                     </div>
 
-                    <div class="content-section">
-                        <h4>🎯 Project Requirements:</h4>
-                        <ul>
-                            <li>✅ Working ML/DL model dengan good accuracy</li>
-                            <li>✅ Clean, responsive web interface</li>
-                            <li>✅ Real-time predictions (< 3 seconds)</li>
-                            <li>✅ Error handling dan user feedback</li>
-                            <li>✅ Deployed dan accessible via public URL</li>
-                            <li>✅ Documentation (README.md dengan usage instructions)</li>
-                            <li>✅ Code di GitHub dengan proper structure</li>
-                            <li>✅ Demo video atau screenshots</li>
-                        </ul>
-                    </div>
-
-                    <div class="content-section">
-                        <h4>📋 Deliverables:</h4>
-                        <ul>
-                            <li><strong>Live App:</strong> Public URL yang bisa diakses siapa saja</li>
-                            <li><strong>GitHub Repo:</strong> Complete source code dengan documentation</li>
-                            <li><strong>README:</strong> Project description, setup instructions, tech stack</li>
-                            <li><strong>Demo:</strong> Video/GIF showing app in action</li>
-                            <li><strong>Report:</strong> Technical writeup (model architecture, dataset, results)</li>
-                        </ul>
-                    </div>
-
-                    <a href="https://www.youtube.com/watch?v=k5pZZtsCs5c" target="_blank" class="video-link">
-                        AI Web App Project - Krish Naik
+                    <a href="https://www.youtube.com/watch?v=xi0vhXFPegw" target="_blank" class="video-link">
+                        Exploratory Data Analysis - Krish Naik
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Think like a product manager! User experience matters as much as model accuracy. Add loading indicators, clear instructions, handle errors gracefully. This project goes on your portfolio—make it shine! ✨</p>
+                        <p>EDA adalah skill investigasi! Jangan buru-buru ke modeling. Pahami data-mu dulu dengan baik melalui eksplorasi mendalam.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MATERI 4 -->
+            <div class="materi-item">
+                <div class="materi-header" onclick="toggleMateri(this)">
+                    <div class="materi-number">4</div>
+                    <div class="materi-title-wrapper">
+                        <div class="materi-title">Mini Project: Analisis Data Karyawan & Gaji</div>
+                        <div class="materi-subtitle">Klik untuk lihat detail materi</div>
+                    </div>
+                    <div class="toggle-icon">▼</div>
+                </div>
+                <div class="materi-content">
+                    <p class="materi-intro">
+                        Project hands-on untuk menerapkan SQL dan statistik dalam analisis HR. Kamu akan menjawab 
+                        berbagai business questions menggunakan query SQL dan analisis statistik.
+                    </p>
+                    
+                    <div class="content-section">
+                        <h4>📚 Yang Akan Kamu Analisis:</h4>
+                        <ul>
+                            <li><strong>Salary Analysis:</strong> Distribusi gaji per departemen dan posisi</li>
+                            <li><strong>Employee Demographics:</strong> Analisis umur, gender, masa kerja</li>
+                            <li><strong>Performance Metrics:</strong> Hubungan performance dengan kompensasi</li>
+                            <li><strong>Turnover Analysis:</strong> Faktor-faktor yang mempengaruhi retention</li>
+                            <li><strong>Promotion Patterns:</strong> Tren promosi karyawan</li>
+                            <li><strong>Department Insights:</strong> Perbandingan antar departemen</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <h4>🎯 Business Questions yang Dijawab:</h4>
+                        <ul>
+                            <li>Berapa rata-rata gaji per departemen?</li>
+                            <li>Departemen mana yang punya salary variance tertinggi?</li>
+                            <li>Apakah ada gender pay gap?</li>
+                            <li>Bagaimana korelasi antara masa kerja dan gaji?</li>
+                            <li>Posisi apa yang paling banyak keluar masuk karyawan?</li>
+                            <li>Kapan waktu terbaik untuk promosi?</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <h4>🛠️ Tools & Techniques:</h4>
+                        <ul>
+                            <li>SQL untuk data extraction dan aggregation</li>
+                            <li>Pandas untuk data manipulation</li>
+                            <li>Statistik deskriptif untuk insights</li>
+                            <li>Visualization untuk komunikasi hasil</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://www.youtube.com/watch?v=7mz73uXD9DA" target="_blank" class="video-link">
+                        SQL Data Analysis Project - Luke Barousse
+                    </a>
+
+                    <div class="tips-box">
+                        <strong>💡 Tips Belajar:</strong>
+                        <p>Fokus pada business impact! Setiap analisis harus bisa menjawab pertanyaan bisnis yang konkret. Think like an analyst!</p>
                     </div>
                 </div>
             </div>
@@ -729,11 +736,17 @@ if ($d['id_paket'] != 3) {
         </div>
 
         <div class="footer-note">
-            <h3>🏆 Congratulations, AI Engineer!</h3>
+            <h3>💡 Great Progress!</h3>
             <p>
-                Kamu sudah menyelesaikan journey dari zero to AI Engineer! 🎉 Dari basic ML hingga deploy production-ready 
-                AI applications. Remember: ini baru permulaan. Keep learning, keep building, dan share your knowledge 
-                dengan others. The AI community needs people like you! Now go build something amazing! 🚀🌸
+                Dengan menguasai statistik dan SQL, kamu sudah punya fondasi kuat untuk analisis data! 
+                Sekarang waktunya untuk belajar visualisasi dan dashboard agar insight-mu bisa dikomunikasikan 
+                dengan efektif ke stakeholder. Keep pushing! 📊
+            </p>
+            <p style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
+                <strong>Setelah selesai Kelas 2, lanjut ke:</strong><br>
+                <a href="data_dashboard.php" style="color: #7c4dff; text-decoration: none; font-weight: 600;">
+                    🔍 Kelas 3: Data Project & Dashboard →
+                </a>
             </p>
         </div>
 

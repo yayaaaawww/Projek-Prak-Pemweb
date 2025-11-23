@@ -1,8 +1,7 @@
 <?php
 session_start();
-include "./config/koneksi.php";
+include "../config/koneksi.php";
 
-// CEK LOGIN
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -10,7 +9,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// CEK PAKET USER BERDASARKAN TABEL PEMBAYARAN
 $q = mysqli_query($conn, "
     SELECT id_paket 
     FROM pembayaran 
@@ -25,15 +23,13 @@ if (!$q) {
 
 $d = mysqli_fetch_assoc($q);
 
-// JIKA USER BELUM PERNAH BELI PAKET
 if (!$d) {
-    echo "<script>alert('Kamu belum membeli paket apa pun!'); window.location='dashboard.php';</script>";
+    echo "<script>alert('Kamu belum membeli paket apa pun!'); window.location='../landingpage.php';</script>";
     exit();
 }
 
-// HANYA UNTUK PAKET 1
 if ($d['id_paket'] != 1) {
-    echo "<script>alert('Akses ditolak! Paket kamu bukan Paket 1.'); window.location='dashboard.php';</script>";
+    echo "<script>alert('Akses ditolak! Paket kamu bukan Paket 1.'); window.location='../landingpage.php';</script>";
     exit();
 }
 ?>
@@ -44,10 +40,10 @@ if ($d['id_paket'] != 1) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Dasar - Paket 1 | codeBloom</title>
+    <title>Fullstack Project - Paket 1 | codeBloom</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-       <style>
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -500,326 +496,282 @@ if ($d['id_paket'] != 1) {
 
 <body>
 
-   
     <div class="navbar">
         <span class="logo">c🌸deBloom</span>
-        <a href="dashboard.php" class="back-btn">← Dashboard</a>
+        <a href="../landingpage.php" class="back-btn">← Dashboard</a>
     </div>
 
     <div class="container">
 
         <div class="class-navigation">
-            <a href="webdasar.php" class="class-nav-item active">
+            <a href="webdasar.php" class="class-nav-item">
                 🧩 Kelas 1: Web Dasar
             </a>
             <a href="backend.php" class="class-nav-item">
                 ⚙️ Kelas 2: Backend & Database
             </a>
-            <a href="fullstack.php" class="class-nav-item">
+            <a href="fullstack.php" class="class-nav-item active">
                 🚀 Kelas 3: Fullstack Project
             </a>
         </div>
 
         <div class="header-section">
-            <span class="badge">Paket 1</span>
-            <h1>Web Dasar</h1>
+            <span class="badge">Paket 1 - Kelas 3</span>
+            <h1>Fullstack Project</h1>
             <p class="intro-text">
-                Selamat datang di kelas Web Dasar! Ini adalah langkah pertama kamu belajar dunia web development. 
-                Kamu akan memahami dasar-dasar HTML, CSS, hingga JavaScript, serta cara kerja website modern. 
-                Setelah menyelesaikan kelas ini, kamu akan siap melangkah ke level berikutnya.
+                Ini adalah kelas terakhir dan paling menantang! Kamu akan menggabungkan semua skill frontend dan 
+                backend yang sudah dipelajari untuk membuat aplikasi web yang complete dan production-ready. 
+                Siap jadi fullstack developer? Let's go! 🚀
             </p>
         </div>
 
         <div class="hero-image">
-            💻
+            🚀
         </div>
 
         <h2 class="section-title">Materi Pembelajaran</h2>
 
         <div class="materi-list">
-            
-            <!-- MATERI 1 -->
+
             <div class="materi-item">
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">1</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">Pengenalan Web dan Internet</div>
+                        <div class="materi-title">Integrasi Frontend & Backend</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        Modul ini akan membawa kamu memahami konsep fundamental dari web dan internet. 
-                        Kamu akan belajar bagaimana website bekerja dari balik layar dan komponen-komponen penting yang membuatnya hidup.
+                        Saatnya menghubungkan UI yang cantik dengan backend yang powerful! Kamu akan belajar bagaimana 
+                        frontend dan backend berkomunikasi untuk membuat aplikasi yang fully functional.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Sejarah dan evolusi internet serta World Wide Web</li>
-                            <li>Bagaimana browser berkomunikasi dengan server (HTTP/HTTPS)</li>
-                            <li>Konsep client-server architecture</li>
-                            <li>Perbedaan website statis vs dinamis</li>
-                            <li>Peran HTML, CSS, dan JavaScript dalam ekosistem web</li>
-                            <li>Domain, hosting, dan DNS explained</li>
+                            <li>Menghubungkan form HTML dengan Flask endpoint</li>
+                            <li>Mengirim data dari frontend ke backend</li>
+                            <li>Menampilkan data dari database ke halaman web</li>
+                            <li>AJAX untuk update tanpa reload page</li>
+                            <li>Fetch API dan Axios untuk HTTP requests</li>
+                            <li>Handle loading states dan error messages</li>
+                            <li>Form validation di frontend dan backend</li>
+                            <li>File upload dan handling</li>
+                            <li>Dynamic content rendering</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Menjelaskan cara kerja internet dan web dengan percaya diri</li>
-                            <li>Memahami alur request-response dalam web</li>
-                            <li>Mengidentifikasi teknologi yang digunakan pada sebuah website</li>
+                            <li>Menggabungkan frontend dan backend seamlessly</li>
+                            <li>Handle form submission dengan proper feedback</li>
+                            <li>Create interactive web apps tanpa page reload</li>
+                            <li>Debug communication issues antara client dan server</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/playlist?list=PLFIM0718LjIVuONHysfOK0ZtiqUWvrx4F" target="_blank" class="video-link">
-                        Playlist HTML Dasar - Web Programming UNPAS
+                    <a href="https://www.youtube.com/watch?v=Qr4QMBUPxWo" target="_blank" class="video-link">
+                        Flask Frontend Integration - Tech With Tim
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Sambil menonton video, coba buka developer tools di browser kamu (F12) dan eksplorasi bagaimana website bekerja secara real-time! Ada 16 video di playlist ini yang wajib kamu tonton dari awal sampai akhir.</p>
+                        <p>Gunakan browser DevTools Network tab untuk melihat request dan response. Ini sangat membantu untuk debugging!</p>
                     </div>
                 </div>
             </div>
 
-            <!-- MATERI 2 -->
             <div class="materi-item">
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">2</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">HTML Dasar</div>
+                        <div class="materi-title">REST API & JSON Handling</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        HTML (HyperText Markup Language) adalah tulang punggung dari setiap website. 
-                        Di modul ini, kamu akan menguasai struktur dan elemen-elemen HTML yang menjadi fondasi web development.
+                        REST API adalah standar industri untuk komunikasi antar aplikasi. Kamu akan membuat API 
+                        yang bisa digunakan oleh frontend, mobile app, atau aplikasi lain.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Struktur dasar dokumen HTML (doctype, html, head, body)</li>
-                            <li>Text formatting: heading, paragraph, bold, italic, dll</li>
-                            <li>Lists: ordered list, unordered list, dan nested lists</li>
-                            <li>Links dan navigasi (anchor tags)</li>
-                            <li>Images dan multimedia (img, video, audio)</li>
-                            <li>Tables untuk data tabular</li>
-                            <li>Forms dan input elements (text, email, password, checkbox, radio, dll)</li>
-                            <li>Semantic HTML5 (header, nav, main, article, section, footer)</li>
-                            <li>HTML attributes dan best practices</li>
+                            <li>RESTful API design principles</li>
+                            <li>HTTP methods: GET, POST, PUT, DELETE, PATCH</li>
+                            <li>Status codes yang proper (200, 201, 400, 404, 500)</li>
+                            <li>JSON serialization dan deserialization</li>
+                            <li>Creating API endpoints di Flask</li>
+                            <li>Request validation dan error handling</li>
+                            <li>API versioning</li>
+                            <li>CORS (Cross-Origin Resource Sharing)</li>
+                            <li>API documentation dengan Swagger/Postman</li>
+                            <li>Rate limiting dan security</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Membuat struktur halaman web yang proper dan semantic</li>
-                            <li>Membangun form untuk mengumpulkan data user</li>
-                            <li>Mengorganisir konten dengan heading dan section yang benar</li>
-                            <li>Membuat website multi-halaman dengan navigasi</li>
+                            <li>Membuat RESTful API yang well-structured</li>
+                            <li>Handle JSON data dengan benar</li>
+                            <li>Design API endpoints yang intuitive</li>
+                            <li>Test API menggunakan Postman</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/playlist?list=PLFIM0718LjIVuONHysfOK0ZtiqUWvrx4F" target="_blank" class="video-link">
-                        Playlist HTML Dasar - Web Programming UNPAS (16 Video)
+                    <a href="https://www.youtube.com/watch?v=GMppyAPbLYk" target="_blank" class="video-link">
+                        Flask REST API Tutorial - Pretty Printed
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Langsung coding sambil nonton! Buat file .html dan coba semua tag yang diajarkan. Jangan takut salah, HTML sangat forgiving untuk pemula. Playlist ini lengkap dari pengenalan hingga membuat halaman web pertamamu!</p>
+                        <p>Install Postman untuk testing API. Biasakan dokumentasi setiap endpoint yang kamu buat - ini penting untuk collaboration!</p>
                     </div>
                 </div>
             </div>
 
-            <!-- MATERI 3 -->
             <div class="materi-item">
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">3</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">CSS Dasar</div>
+                        <div class="materi-title">Deployment ke Hosting</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        CSS (Cascading Style Sheets) adalah yang membuat website jadi cantik dan menarik. 
-                        Kamu akan belajar cara styling dan membuat layout yang professional.
+                        Aplikasi yang hanya jalan di localhost tidak berguna! Saatnya deploy ke internet supaya 
+                        orang lain bisa akses. Kamu akan belajar cara hosting aplikasi Flask ke cloud.
                     </p>
                     
                     <div class="content-section">
                         <h4>📚 Yang Akan Kamu Pelajari:</h4>
                         <ul>
-                            <li>Cara menambahkan CSS: inline, internal, dan external</li>
-                            <li>CSS Selectors: element, class, id, attribute, pseudo-class</li>
-                            <li>Colors: hex, rgb, rgba, hsl</li>
-                            <li>Typography: font-family, size, weight, line-height, text-align</li>
-                            <li>Box Model: margin, padding, border, width, height</li>
-                            <li>Display properties: block, inline, inline-block, none</li>
-                            <li>Positioning: static, relative, absolute, fixed, sticky</li>
-                            <li>Flexbox untuk layout modern</li>
-                            <li>CSS Grid basics</li>
-                            <li>Responsive design dengan media queries</li>
-                            <li>Transitions dan basic animations</li>
-                            <li>Background properties dan gradients</li>
+                            <li>Persiapan aplikasi untuk production</li>
+                            <li>Environment variables dan config management</li>
+                            <li>Requirements.txt dan dependency management</li>
+                            <li>Deploy ke Render (free hosting)</li>
+                            <li>Deploy ke Railway/Vercel (alternatives)</li>
+                            <li>Database hosting (PlanetScale, Supabase)</li>
+                            <li>Domain custom dan DNS setup</li>
+                            <li>SSL certificates untuk HTTPS</li>
+                            <li>Environment: development vs production</li>
+                            <li>Monitoring dan logging</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
                         <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
                         <ul>
-                            <li>Mengubah tampilan website sesuai keinginan</li>
-                            <li>Membuat layout responsive yang bagus di semua device</li>
-                            <li>Menggunakan Flexbox untuk alignment yang perfect</li>
-                            <li>Menambahkan animasi dan transisi yang smooth</li>
+                            <li>Deploy aplikasi ke internet dengan percaya diri</li>
+                            <li>Setup database di cloud</li>
+                            <li>Troubleshoot deployment issues</li>
+                            <li>Share aplikasi kamu ke portfolio dan LinkedIn!</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/playlist?list=PLFIM0718LjIUBrbm6Gdh6k7ZUvPIAZm7p" target="_blank" class="video-link">
-                        Playlist CSS Dasar - Web Programming UNPAS (24 Video)
+                    <a href="https://www.youtube.com/watch?v=w25ea_I89iM" target="_blank" class="video-link">
+                        Deploy Flask to Render - Codemy
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Bermain-main dengan CSS! Ubah-ubah warna, size, dan layout sampai kamu menemukan kombinasi yang kamu suka. Chrome DevTools adalah teman terbaikmu! Playlist ini akan mengajarkan CSS dari nol sampai mahir.</p>
+                        <p>Baca dokumentasi platform hosting dengan teliti. Jangan panik kalau ada error - deployment adalah skill tersendiri yang butuh latihan!</p>
                     </div>
                 </div>
             </div>
 
-            <!-- MATERI 4 -->
             <div class="materi-item">
                 <div class="materi-header" onclick="toggleMateri(this)">
                     <div class="materi-number">4</div>
                     <div class="materi-title-wrapper">
-                        <div class="materi-title">JavaScript Dasar</div>
+                        <div class="materi-title">Final Project: E-Commerce Website</div>
                         <div class="materi-subtitle">Klik untuk lihat detail materi</div>
                     </div>
                     <div class="toggle-icon">▼</div>
                 </div>
                 <div class="materi-content">
                     <p class="materi-intro">
-                        JavaScript adalah bahasa pemrograman yang membuat website jadi interaktif dan dinamis. 
-                        Di sini kamu akan belajar fundamental programming dan cara memanipulasi halaman web.
+                        Ini adalah project finale yang menggabungkan SEMUA skill yang sudah kamu pelajari! 
+                        Kamu akan membuat website e-commerce sederhana yang fully functional dari nol sampai deploy.
                     </p>
                     
                     <div class="content-section">
-                        <h4>📚 Yang Akan Kamu Pelajari:</h4>
+                        <h4>📚 Fitur yang Akan Kamu Build:</h4>
                         <ul>
-                            <li>Variabel: var, let, const dan scope</li>
-                            <li>Tipe data: string, number, boolean, array, object</li>
-                            <li>Operator: arithmetic, comparison, logical</li>
-                            <li>Kondisi: if-else, switch-case, ternary operator</li>
-                            <li>Looping: for, while, do-while, for-of, for-in</li>
-                            <li>Functions: declaration, expression, arrow function</li>
-                            <li>DOM Manipulation: getElementById, querySelector, dll</li>
-                            <li>Event Handling: click, hover, input, submit</li>
-                            <li>Array methods: push, pop, map, filter, reduce</li>
-                            <li>String methods dan manipulation</li>
-                            <li>ES6+ features: template literals, destructuring, spread operator</li>
+                            <li><strong>User Authentication:</strong> Register, login, logout, profile management</li>
+                            <li><strong>Product Catalog:</strong> Display products dengan image, price, description</li>
+                            <li><strong>Shopping Cart:</strong> Add to cart, update quantity, remove items</li>
+                            <li><strong>Search & Filter:</strong> Cari produk berdasarkan nama dan kategori</li>
+                            <li><strong>Admin Dashboard:</strong> Manage products (CRUD operations)</li>
+                            <li><strong>Order Management:</strong> Checkout process dan order history</li>
+                            <li><strong>Responsive Design:</strong> Mobile-friendly interface</li>
+                            <li><strong>Image Upload:</strong> Upload product images</li>
                         </ul>
                     </div>
 
                     <div class="content-section">
-                        <h4>🎯 Setelah Selesai, Kamu Bisa:</h4>
+                        <h4>🛠️ Tech Stack Lengkap:</h4>
                         <ul>
-                            <li>Membuat website yang merespon aksi user</li>
-                            <li>Validasi form sebelum submit</li>
-                            <li>Mengubah konten halaman secara dinamis</li>
-                            <li>Membuat fitur interaktif seperti slider, modal, dropdown</li>
+                            <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript, Bootstrap</li>
+                            <li><strong>Backend:</strong> Python Flask, SQLAlchemy ORM</li>
+                            <li><strong>Database:</strong> MySQL/PostgreSQL</li>
+                            <li><strong>Authentication:</strong> Flask-Login, Werkzeug</li>
+                            <li><strong>Deployment:</strong> Render/Railway</li>
                         </ul>
                     </div>
 
-                    <a href="https://www.youtube.com/playlist?list=PLFIM0718LjIWXagluzROrA-iBY9eeUt4w" target="_blank" class="video-link">
-                        Playlist JavaScript Dasar - Web Programming UNPAS (48 Video)
+                    <div class="content-section">
+                        <h4>📋 Development Process:</h4>
+                        <ul>
+                            <li>Phase 1: Database design dan models</li>
+                            <li>Phase 2: Backend API endpoints</li>
+                            <li>Phase 3: Frontend templates dan styling</li>
+                            <li>Phase 4: Integration dan testing</li>
+                            <li>Phase 5: Deployment dan final touches</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://www.youtube.com/watch?v=Qr4QMBUPxWo" target="_blank" class="video-link">
+                        Flask E-Commerce Project - Traversy Media
                     </a>
 
                     <div class="tips-box">
                         <strong>💡 Tips Belajar:</strong>
-                        <p>Gunakan console.log() untuk debugging! Jangan ragu untuk bereksperimen dan coba berbagai kombinasi code. Error adalah bagian dari proses belajar. Playlist ini super lengkap dengan 48 video!</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- MATERI 5 -->
-            <div class="materi-item">
-                <div class="materi-header" onclick="toggleMateri(this)">
-                    <div class="materi-number">5</div>
-                    <div class="materi-title-wrapper">
-                        <div class="materi-title">Mini Project: Website Portofolio</div>
-                        <div class="materi-subtitle">Klik untuk lihat detail materi</div>
-                    </div>
-                    <div class="toggle-icon">▼</div>
-                </div>
-                <div class="materi-content">
-                    <p class="materi-intro">
-                        Saatnya mengaplikasikan semua yang sudah kamu pelajari! Project portofolio ini akan menjadi 
-                        bukti nyata kemampuanmu dan bisa kamu gunakan untuk melamar pekerjaan atau freelance.
-                    </p>
-                    
-                    <div class="content-section">
-                        <h4>📚 Yang Akan Kamu Buat:</h4>
-                        <ul>
-                            <li><strong>Hero Section:</strong> Header yang eye-catching dengan foto dan tagline</li>
-                            <li><strong>About Section:</strong> Perkenalan diri, background, dan passion kamu</li>
-                            <li><strong>Skills Section:</strong> Showcase teknologi dan tools yang kamu kuasai</li>
-                            <li><strong>Portfolio/Projects:</strong> Gallery dari project-project yang pernah kamu buat</li>
-                            <li><strong>Contact Form:</strong> Form yang functional untuk calon client menghubungi kamu</li>
-                            <li><strong>Navigation Bar:</strong> Menu yang smooth scroll ke setiap section</li>
-                            <li><strong>Responsive Design:</strong> Tampilan yang perfect di desktop, tablet, dan mobile</li>
-                            <li><strong>Interactive Elements:</strong> Animasi smooth, hover effects, dan transitions</li>
-                        </ul>
-                    </div>
-
-                    <div class="content-section">
-                        <h4>🎯 Fitur yang Akan Diimplementasi:</h4>
-                        <ul>
-                            <li>Smooth scrolling navigation</li>
-                            <li>Form validation dengan JavaScript</li>
-                            <li>Image gallery dengan lightbox effect</li>
-                            <li>Mobile hamburger menu</li>
-                            <li>Social media links</li>
-                            <li>Scroll-to-top button</li>
-                            <li>Loading animations</li>
-                        </ul>
-                    </div>
-
-                    <div class="content-section">
-                        <h4>🛠️ Tools & Resources:</h4>
-                        <ul>
-                            <li>Text editor: VS Code (recommended)</li>
-                            <li>Icons: Font Awesome atau Feather Icons</li>
-                            <li>Images: Unsplash atau Pexels</li>
-                            <li>Colors: Coolors.co untuk color palette</li>
-                            <li>Fonts: Google Fonts</li>
-                        </ul>
-                    </div>
-
-                    <a href="https://youtu.be/KRf0y2CNfL8" target="_blank" class="video-link">
-                        Tonton Video Tutorial
-                    </a>
-
-                    <div class="tips-box">
-                        <strong>💡 Tips Belajar:</strong>
-                        <p>Jangan hanya copy-paste! Pahami setiap baris code dan coba modifikasi sesuai style kamu sendiri. Portfolio yang unik akan membuat kamu stand out!</p>
+                        <p>Jangan terburu-buru! Build fitur satu per satu dan test sebelum lanjut. Commit code ke GitHub secara regular. Project ini adalah portfolio piece yang sangat berharga!</p>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <div class="footer-note">
-            <h3>💡 Tips Belajar Efektif</h3>
+        <div class="congratulations-box">
+            <h2>🎉 Selamat! Kamu Hampir Jadi Fullstack Developer! 🎉</h2>
             <p>
-                Jangan hanya menonton video, tapi praktikkan langsung setiap materi! Coding adalah skill yang 
-                hanya bisa diasah dengan banyak latihan. Jangan takut untuk bereksperimen dan membuat error, 
-                karena dari sanalah kamu akan belajar paling banyak. Semangat! 🌸
+                Dengan menyelesaikan ketiga kelas ini, kamu sudah punya skill yang dibutuhkan untuk membuat 
+                aplikasi web dari nol sampai production. Ini adalah achievement yang luar biasa! <br><br>
+                <strong>Next steps:</strong> Build lebih banyak project, contribute ke open source, dan mulai apply pekerjaan! 
+                Kamu siap! 💪✨
+            </p>
+        </div>
+
+        <div class="footer-note">
+            <h3>🚀 What's Next?</h3>
+            <p>
+                <strong>Portfolio Building:</strong> Upload semua project kamu ke GitHub dan buat portfolio website<br>
+                <strong>Keep Learning:</strong> Explore framework seperti React.js, Vue.js, atau Django<br>
+                <strong>Networking:</strong> Join komunitas developer, ikut meetup, dan share progress di LinkedIn<br>
+                <strong>Apply Jobs:</strong> Mulai lamar posisi Junior Developer atau ambil freelance projects!
+            </p>
+            <p style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0; text-align: center;">
+                <strong style="font-size: 18px;">✨ Terima kasih sudah belajar di codeBloom! ✨</strong>
             </p>
         </div>
 
@@ -829,13 +781,11 @@ if ($d['id_paket'] != 1) {
         function toggleMateri(header) {
             const materiItem = header.parentElement;
             const isActive = materiItem.classList.contains('active');
-            
-            // Close all other items
+
             document.querySelectorAll('.materi-item').forEach(item => {
                 item.classList.remove('active');
             });
-            
-            // Toggle current item
+
             if (!isActive) {
                 materiItem.classList.add('active');
             }

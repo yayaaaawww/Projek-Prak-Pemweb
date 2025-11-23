@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "./config/koneksi.php";
+include "../config/koneksi.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -20,7 +20,7 @@ $q = mysqli_query($conn, "
 $d = mysqli_fetch_assoc($q);
 
 if (!$d || $d['id_paket'] != 1) {
-    echo "<script>alert('Akses ditolak! Kamu tidak memiliki Paket 1.'); window.location='dashboard.php';</script>";
+    echo "<script>alert('Akses ditolak! Kamu tidak memiliki Paket 1.'); window.location='../landingpage.php';</script>";
     exit();
 }
 ?>

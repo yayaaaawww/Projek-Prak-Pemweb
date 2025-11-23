@@ -1,5 +1,5 @@
 <?php
-ob_start(); // Mencegah error header already sent
+ob_start();
 
 include "../config/connection.php";
 
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (mysqli_stmt_execute($stmt)) {
 
-        $id_user = mysqli_insert_id($conn); // 🔥 ID berhasil didapat
+        $id_user = mysqli_insert_id($conn);
 
         header("Location: ../pembayaran.php?id=$id_user");
         exit;

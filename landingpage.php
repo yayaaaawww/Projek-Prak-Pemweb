@@ -1,8 +1,9 @@
 <?php 
-    require_once'./config/connection.php';
+    require_once'./config/koneksi.php';
 
     session_start();
     $username = $_SESSION['nama'] ?? null;
+    
 
     $query = "SELECT u.nama, t.testimoni FROM testimoni t 
               JOIN user u ON u.id_user = t.id_user";

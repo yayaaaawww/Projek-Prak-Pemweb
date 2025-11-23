@@ -1,5 +1,5 @@
 <?php
-    require_once'./config/connection.php';
+    require_once'./config/koneksi.php';
     session_start();
     $username = $_SESSION['nama'] ?? null;
 
@@ -117,7 +117,7 @@
             </div>
         </div>
         </div>
-        <a href="nama_file_halaman_paket?id=<?= 1 ?>" class="t_paket btn">lihat paket lengkap</a>
+        <a href="paket_webdev.php" class="t_paket btn">lihat paket lengkap</a>
     </div>
     </div>
 
@@ -150,7 +150,7 @@
         </div>
     </div>
 </div>
-<a href="nama_file_halaman_paket?id=<?= 2 ?>" class="t_paket btn">Lihat Paket Lengkap</a>
+<a href="paket_datascience.php" class="t_paket btn">Lihat Paket Lengkap</a>
 </div>
 </div>
 
@@ -183,7 +183,7 @@
                 </div>
             </div>
         </div>
-        <a href="nama_file_halaman_paket?id=<?= 3 ?>" class="t_paket btn">Lihat Paket Lengkap</a>
+        <a href="paket_ai.php" class="t_paket btn">Lihat Paket Lengkap</a>
     </div>
 </div>
 </center>

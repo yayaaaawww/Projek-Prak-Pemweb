@@ -1,26 +1,40 @@
 <?php
-// paket_datascience.php - Halaman Paket Data Science
 session_start();
 include "./config/koneksi.php";
 
-// Ambil paket Data Science
-$id_paket = 2; // ID untuk Data Science Pro
-$query = "SELECT * FROM paket WHERE id_paket = $id_paket";
-$result = mysqli_query($conn, $query);
-$paket = mysqli_fetch_assoc($result);
+// CEK LOGIN
+if (!isset($_SESSION['id_user'])) {
+    header("Location: login.php");
+    exit;
+}
 
-if(!$paket) {
+$id_user = $_SESSION['id_user'];
+$id_paket = $_GET['id_paket'] ?? 0;
+$id_paket = (int) $id_paket;
+
+// AMBIL DATA PAKET
+$qPaket = "SELECT * FROM paket WHERE id_paket = $id_paket";
+$rPaket = mysqli_query($conn, $qPaket);
+$paket = mysqli_fetch_assoc($rPaket);
+
+if (!$paket) {
     die("Paket tidak ditemukan");
 }
 
-// Ambil semua kelas dari paket ini
-$query_kelas = "SELECT * FROM kelas WHERE id_paket = $id_paket ORDER BY id_kelas ASC";
-$result_kelas = mysqli_query($conn, $query_kelas);
+// AMBIL LIST KELAS DALAM PAKET INI
+$qKelas = "SELECT * FROM kelas WHERE id_paket = $id_paket";
+$rKelas = mysqli_query($conn, $qKelas);
+
 $kelas_list = [];
-while($row = mysqli_fetch_assoc($result_kelas)) {
+while ($row = mysqli_fetch_assoc($rKelas)) {
     $kelas_list[] = $row;
 }
+
+// NOTE:
+// Redirect ke materi nanti dilakukan di detail_kelas.php
+// Tidak di halaman landingpage ini
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -231,7 +245,7 @@ while($row = mysqli_fetch_assoc($result_kelas)) {
       <div class="kelas-text">
         <h5><?php echo htmlspecialchars($kelas['nama_kelas']); ?></h5>
         <p><?php echo htmlspecialchars($kelas['deskripsi']); ?></p>
-        <a href="detail_kelas.php?id=<?php echo $kelas['id_kelas']; ?>" class="btn-pink">Lihat selengkapnya</a>
+        <a href="./materi/materi_paket2.php" class="btn-pink">Lihat selengkapnya</a>
       </div>
       <img src="https://cdn.pixabay.com/photo/2017/03/09/12/31/error-2129569_1280.jpg" alt="<?php echo htmlspecialchars($kelas['nama_kelas']); ?>">
     </div>

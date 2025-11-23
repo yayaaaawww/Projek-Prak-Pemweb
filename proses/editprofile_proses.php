@@ -1,6 +1,6 @@
 <?php
 // Perbaikan: Jalur file koneksi harus keluar satu tingkat direktori (../)
-require_once '../config/connection.php'; 
+require_once '../config/koneksi.php'; 
 session_start();
 
 // Ambil ID dari sesi

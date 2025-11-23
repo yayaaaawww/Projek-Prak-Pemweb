@@ -1,5 +1,5 @@
 <?php
-require_once '../config/connection.php';
+require_once '../config/koneksi.php';
 session_start();
 
 if (isset($_POST['add'])) {
