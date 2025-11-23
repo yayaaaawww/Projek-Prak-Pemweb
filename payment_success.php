@@ -2,8 +2,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include "./config/connection.php";
+include "./config/koneksi.php";
 
+// Validasi URL
 if (!isset($_GET['id']) || !isset($_GET['code'])) {
     header("Location: register.php");
     exit;
@@ -12,6 +13,7 @@ if (!isset($_GET['id']) || !isset($_GET['code'])) {
 $id_user = intval($_GET['id']);
 $verify_code = intval($_GET['code']);
 
+// Ambil data user
 $stmt = mysqli_prepare($conn, "SELECT nama, email FROM user WHERE id_user = ?");
 mysqli_stmt_bind_param($stmt, "i", $id_user);
 mysqli_stmt_execute($stmt);
@@ -23,6 +25,32 @@ if (!$user) {
     header("Location: register.php");
     exit;
 }
+
+// Ambil paket user dari pembayaran terbaru
+$stmt2 = mysqli_prepare($conn, "
+    SELECT id_paket 
+    FROM pembayaran 
+    WHERE id_user = ? 
+    ORDER BY id_bayar DESC 
+    LIMIT 1
+");
+mysqli_stmt_bind_param($stmt2, "i", $id_user);
+mysqli_stmt_execute($stmt2);
+$result2 = mysqli_stmt_get_result($stmt2);
+$bayar = mysqli_fetch_assoc($result2);
+mysqli_stmt_close($stmt2);
+
+// Antisipasi kalau data kosong
+$id_paket = $bayar ? $bayar['id_paket'] : 1;
+
+// Generate URL materi berdasarkan id_paket
+$materi_url = "materi_paket" . $id_paket . ".php";
+
+// Simpan info paket ke session untuk digunakan setelah login
+session_start();
+$_SESSION['redirect_after_login'] = $materi_url;
+$_SESSION['id_paket_baru'] = $id_paket;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,7 +124,7 @@ if (!$user) {
         }
 
         .btn-login {
-            background-color: #000;
+            background-color: #ff7996;
             color: #fff;
             width: 100%;
             font-weight: 600;
@@ -112,14 +140,12 @@ if (!$user) {
             color: #fff;
         }
 
-        .warning {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
+        .package-info {
+            background: #fff3f5;
             padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-size: 13px;
-            text-align: left;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ff7996;
         }
     </style>
 </head>
@@ -136,6 +162,11 @@ if (!$user) {
     <div class="success-icon">✓</div>
     
     <h2 style="font-weight: 700; margin-bottom: 10px;">Pembayaran Berhasil!</h2>
+    
+    <div class="package-info">
+        <small style="color: #666;">Paket yang Anda beli:</small>
+        <div style="font-weight: 600; color: #ff7996; font-size: 18px;">Paket <?= $id_paket ?></div>
+    </div>
 
     <div class="verify-code-box">
         <p style="margin: 0; font-size: 14px; color: #666;">Verify Code Anda:</p>
@@ -143,7 +174,9 @@ if (!$user) {
         <p style="margin: 0; font-size: 12px; color: #999;">Simpan kode ini dengan baik</p>
     </div>
 
-    <a href="login.php" class="btn-login mt-4">Login Sekarang</a>
+    <a href="login.php" class="btn-login mt-4">
+        Login untuk Akses Materi Paket <?= $id_paket ?>
+    </a>
 </div>
 
 </body>

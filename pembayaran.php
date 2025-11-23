@@ -2,15 +2,14 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include "./config/connection.php";
-session_start();
+include "./config/koneksi.php";
 
-if (!isset($_SESSION['id']) || empty($_SESSION['id'])) {
+if (!isset($_GET['id']) || empty($_GET['id'])) {
     header("Location: register.php");
     exit;
 }
 
-$id_user = intval($_SESSION['id']);
+$id_user = intval($_GET['id']);
 
 $stmt = mysqli_prepare($conn, "SELECT nama, email, verify_code FROM user WHERE id_user = ?");
 mysqli_stmt_bind_param($stmt, "i", $id_user);
@@ -32,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $payment_method = $_POST['payment_method'];
     $id_paket = intval($_POST['id_paket']);
 
-    // 1. Ambil nominal paket
     $stmt = mysqli_prepare($conn, "SELECT nominal FROM paket WHERE id_paket = ?");
     mysqli_stmt_bind_param($stmt, "i", $id_paket);
     mysqli_stmt_execute($stmt);
@@ -42,47 +40,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if (!$paket) {
         echo "<script>alert('Paket tidak ditemukan!');</script>";
-        exit;
-    }
+    } else {
 
-    // 2. Generate dan Update verify_code
-    $verify_code = rand(100000, 999999);
-    $stmt_update = mysqli_prepare($conn, "UPDATE user SET verify_code = ? WHERE id_user = ?");
-    mysqli_stmt_bind_param($stmt_update, "ii", $verify_code, $id_user);
-    
-    if (mysqli_stmt_execute($stmt_update)) {
-        mysqli_stmt_close($stmt_update);
+        $verify_code = rand(100000, 999999);
 
-        // 3. Insert data pembayaran
-        $tanggal = date('Y-m-d H:i:s'); // Gunakan format waktu yang lebih lengkap
-        $va_code = $payment_method . '-' . time(); 
+        $stmt = mysqli_prepare($conn, "UPDATE user SET verify_code = ? WHERE id_user = ?");
+        mysqli_stmt_bind_param($stmt, "ii", $verify_code, $id_user);
         
-        $stmt_bayar = mysqli_prepare($conn, "INSERT INTO pembayaran (kode_pembayaran, tanggal, id_user, id_paket, nominal) VALUES (?, ?, ?, ?, ?)");
+        if (mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_close($stmt);
 
-        if ($stmt_bayar === false) {
-            die("Error preparing statement: " . mysqli_error($conn));
-        }
+           $tanggal = date('Y-m-d');
+           $va_code = $payment_method . '-' . time(); 
+           $stmt_bayar = mysqli_prepare($conn, "INSERT INTO pembayaran (kode_pembayaran, tanggal, id_user, id_paket, nominal) VALUES (?, ?, ?, ?, ?)");
 
-        // Tipe data binding: ssiii (kode_pembayaran: string, tanggal: string, id_user: int, id_paket: int, nominal: int)
-        mysqli_stmt_bind_param($stmt_bayar, "ssiii", $va_code, $tanggal, $id_user, $id_paket, $paket['nominal']);
+if ($stmt_bayar === false) {
+    die("Error preparing statement: " . mysqli_error($conn));
+}
 
-        if (mysqli_stmt_execute($stmt_bayar)) {
-            mysqli_stmt_close($stmt_bayar);
-            // REDIRECT HANYA DI SINI
+mysqli_stmt_bind_param($stmt_bayar, "ssiii", $va_code, $tanggal, $id_user, $id_paket, $paket['nominal']);
+
+if (mysqli_stmt_execute($stmt_bayar)) {
+    mysqli_stmt_close($stmt_bayar);
+    header("Location: payment_success.php?id=$id_user&code=$verify_code");
+    exit;
+} else {
+    echo "<script>alert('Error: " . mysqli_stmt_error($stmt_bayar) . "');</script>";
+    mysqli_stmt_close($stmt_bayar);
+}
+if ($stmt_bayar === false) {
+    die("Error preparing statement: " . mysqli_error($conn));
+}
+
+mysqli_stmt_bind_param($stmt_bayar, "sssiii", $kode_pembayaran, $va_code, $tanggal, $id_user, $id_paket, $paket['nominal']);
+
+if (mysqli_stmt_execute($stmt_bayar)) {
+    mysqli_stmt_close($stmt_bayar);
+    header("Location: payment_success.php?id=$id_user&code=$verify_code");
+    exit;
+} else {
+    echo "<script>alert('Error: " . mysqli_stmt_error($stmt_bayar) . "');</script>";
+    mysqli_stmt_close($stmt_bayar);
+}
             header("Location: payment_success.php?id=$id_user&code=$verify_code");
             exit;
         } else {
-            echo "<script>alert('Error insert pembayaran: " . mysqli_stmt_error($stmt_bayar) . "');</script>";
-            mysqli_stmt_close($stmt_bayar);
+            echo "<script>alert('Pembayaran gagal! Silakan coba lagi.');</script>";
+            mysqli_stmt_close($stmt);
         }
-        
-    } else {
-        echo "<script>alert('Update verify code gagal! Silakan coba lagi.');</script>";
-        mysqli_stmt_close($stmt_update);
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
