@@ -197,28 +197,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST" action="">
         <div class="mb-3">
             <input type="text" class="form-control" name="nama" placeholder="Name" required maxlength="50">
-        </div>
-
-        <div class="mb-3">
-            <input type="email" class="form-control" name="email" placeholder="Email" required maxlength="50">
-        </div>
-
-        <div class="mb-3">
-            <input type="password" class="form-control" name="password" placeholder="Password" required minlength="8">
-        </div>
-        <div class="password-requirements">Minimum 8 karakter</div>
-
-        <div class="mb-3">
-            <input type="password" class="form-control" name="confirm" placeholder="Confirm Password" required>
-        </div>
-
-        <button type="submit" class="btn-payment">Continue to Payment</button>
-    </form>
-
-    <div class="login-link">
-        Sudah punya akun? <a href="login.php">Login disini</a>
-    </div>
-</div>
-
-</body>
-</html>

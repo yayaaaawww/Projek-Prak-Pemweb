@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($email) || empty($password) || empty($verify_code)) {
         $error = "Semua field harus diisi!";
     } else {
-
         $stmt = mysqli_prepare($conn, "SELECT id_user, nama, email, password, verify_code FROM user WHERE email = ?");
         mysqli_stmt_bind_param($stmt, "s", $email);
         mysqli_stmt_execute($stmt);
@@ -68,7 +67,6 @@ exit;
             } else {
                 $error = "Password salah!";
             }
-
         } else {
             $error = "Email tidak terdaftar!";
         }
