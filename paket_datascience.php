@@ -1,0 +1,293 @@
+<?php
+session_start();
+include "./config/connection.php"; // Pastikan path benar
+
+// 1. OTORISASI: Akses Publik (Ambil sesi jika ada)
+$id_user = $_SESSION['user_id'] ?? null; 
+$username = $_SESSION['nama'] ?? 'Guest'; 
+
+// Ambil ID Paket dari URL
+$id_paket = $_GET['id_paket'] ?? $_GET['id'] ?? 0;
+$id_paket = (int) $id_paket;
+
+if ($id_paket === 0) {
+    header("Location: halamanpaket.php"); 
+    exit;
+}
+
+// 2. AMBIL DATA PAKET (Prepared Statement untuk Keamanan)
+$qPaket = "SELECT * FROM paket WHERE id_paket = ?";
+$stmt_paket = $conn->prepare($qPaket);
+
+if (!$stmt_paket) {
+    die("Error prepare paket: " . $conn->error);
+}
+
+$stmt_paket->bind_param("i", $id_paket);
+$stmt_paket->execute();
+$rPaket = $stmt_paket->get_result();
+$paket = $rPaket->fetch_assoc();
+$stmt_paket->close();
+
+if (!$paket) {
+    die("Paket tidak ditemukan.");
+}
+
+// 3. AMBIL LIST KELAS (Prepared Statement untuk Keamanan)
+$qKelas = "SELECT * FROM kelas WHERE id_paket = ?";
+$stmt_kelas = $conn->prepare($qKelas);
+
+if (!$stmt_kelas) {
+    die("Error prepare kelas: " . $conn->error);
+}
+
+$stmt_kelas->bind_param("i", $id_paket);
+$stmt_kelas->execute();
+$rKelas = $stmt_kelas->get_result();
+
+$kelas_list = [];
+while ($row = $rKelas->fetch_assoc()) {
+    $kelas_list[] = $row;
+}
+$stmt_kelas->close();
+
+// 4. Cek apakah user sudah membeli paket ini
+$sudah_beli = false;
+$nominal_display = $paket['nominal'] ?? 0; // Pastikan nominal ada untuk display
+if ($id_user) {
+    $qCheck = "SELECT COUNT(*) AS count FROM pembayaran WHERE id_user = ? AND id_paket = ?";
+    $stmt_check = $conn->prepare($qCheck);
+    $stmt_check->bind_param("ii", $id_user, $id_paket);
+    $stmt_check->execute();
+    $rCheck = $stmt_check->get_result();
+    $check = $rCheck->fetch_assoc();
+    if ($check['count'] > 0) {
+        $sudah_beli = true;
+    }
+    $stmt_check->close();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><?php echo htmlspecialchars($paket['nama_paket']); ?> | CodeBloom</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+ <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #fff, #ffe0eb);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      padding: 16px;
+      z-index: 1000;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 22px;
+      color: #000;
+    }
+    .btn-register {
+      background-color: #ff8caf;
+      border: none;
+      font-size: 13px;
+      padding: 7px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      color: white;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      height: 100%;
+      width: 260px;
+      background-color: #ffe6ec;
+      padding-top: 80px;
+      transition: all 0.3s ease;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+    .sidebar.active {
+      left: 0;
+    }
+    .sidebar a {
+      display: block;
+      padding: 8px 25px;
+      color: #000;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .sidebar a:hover {
+      background-color: #ffccd9;
+      border-radius: 10px;
+    }
+    .sidebar .section-title {
+      font-weight: 600;
+      margin-top: 15px;
+      padding: 0 25px;
+    }
+
+    #menu-toggle {
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    /* CONTENT */
+    .content {
+      margin-top: 100px;
+      padding: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-bottom: 50px;
+    }
+    .content h1 {
+      font-weight: 700;
+      text-align: center;
+    }
+    .subtitle {
+      text-align: center;
+      font-weight: 500;
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .content img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 25px;
+    }
+
+    .content p {
+      text-align: justify;
+      color: #333;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* CARD KELAS */
+    .kelas-card {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+      overflow: hidden;
+      padding: 15px;
+    }
+    .kelas-card img {
+      width: 120px;
+      height: 90px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+    .kelas-text {
+      flex: 1;
+      padding-right: 15px;
+    }
+    .kelas-text h5 {
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .kelas-text p {
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .btn-pink {
+      background-color: #ff8caf;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 6px 15px;
+      text-decoration: none;
+      color: #000;
+      display: inline-block;
+    }
+    .btn-pink:hover {
+      background-color: #ff6c96;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+      <button id="menu-toggle">☰</button>
+      <a class="navbar-brand" href="#">c🌸deBloom</a>
+      <div class="collapse navbar-collapse justify-content-center">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a href="landingpage.php" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="halamanpaket.php" class="nav-link">Package</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="sidebar" id="sidebar">
+    <div class="section-title">Data Science</div>
+    <?php foreach($kelas_list as $kelas): ?>
+      <a href="detail_kelas.php?id=<?php echo $kelas['id_kelas']; ?>">
+        <?php echo htmlspecialchars($kelas['nama_kelas']); ?>
+      </a>
+    <?php endforeach; ?>
+    
+    <div class="section-title">Paket Lainnya</div>
+    <a href="paket_webdev.php">Web Development</a>
+    <a href="paket_ai.php">AI & Machine Learning</a>
+  </div>
+
+  <div class="content">
+    <h1><?php echo htmlspecialchars($paket['nama_paket']); ?></h1>
+    <div class="subtitle">Apa itu <?php echo htmlspecialchars($paket['nama_paket']); ?>?</div>
+
+    <img src="https://cdn.pixabay.com/photo/2016/11/19/14/00/code-1839406_1280.jpg" alt="<?php echo htmlspecialchars($paket['nama_paket']); ?>">
+
+    <p><strong>Mengenal lebih jauh paket <?php echo htmlspecialchars($paket['nama_paket']); ?></strong></p>
+    <p><?php echo nl2br(htmlspecialchars($paket['deskripsi'])); ?></p>
+
+    <?php foreach($kelas_list as $kelas): ?>
+    <div class="kelas-card">
+      <div class="kelas-text">
+        <h5><?php echo htmlspecialchars($kelas['nama_kelas']); ?></h5>
+        <p><?php echo htmlspecialchars($kelas['deskripsi']); ?></p>
+        <a href="./materi/materi_paket2.php" class="btn-pink">Lihat selengkapnya</a>
+      </div>
+      <img src="https://cdn.pixabay.com/photo/2017/03/09/12/31/error-2129569_1280.jpg" alt="<?php echo htmlspecialchars($kelas['nama_kelas']); ?>">
+    </div>
+    <?php endforeach; ?>
+
+  </div>
+
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const toggle = document.getElementById("menu-toggle");
+
+    toggle.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+    });
+  </script>
+
+</body>
+</html>
