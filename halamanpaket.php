@@ -67,10 +67,17 @@
                 <a class="nav-link" href="halamanpaket.php">Package</a>
                 </li>
                 <li class="nav-item">
+<<<<<<< HEAD
                 </li>
                 <li class="nav-item d-flex align-items-center">
                     <?php if ($username): ?>
                         <a class="nav-link" href="pembayaran.php">Buy</a>
+=======
+                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                </li>
+                <li class="nav-item ms-5 d-flex align-items-center">
+                    <?php if ($username): ?>
+>>>>>>> 57f091e61e8573aaf1dbf81e944777834945fac6
                         <a class="login nav-link" href="profile.php">
                             <i class="bi bi-person"></i> <?= htmlspecialchars($username) ?>
                         </a>
@@ -111,7 +118,12 @@
                     <li>Mendeploy website agar bisa diakses publik</li>
                 </ul>
                 <span style="font-weight: bold; font-size: 13px; text-align: left; display: block;">
+<<<<<<< HEAD
                     Total Paket Web Dev: Rp 1.700.000
+=======
+                    Total Paket Web Dev: Rp 1.700.000 <br>
+                    Sertifikat: 3 sertifikat kelas + 1 sertifikat paket
+>>>>>>> 57f091e61e8573aaf1dbf81e944777834945fac6
                 </span>
             </p>
             </div>
@@ -120,7 +132,11 @@
             </div>
         </div>
         </div>
+<<<<<<< HEAD
         <a href="paket_webdev.php?id_paket=<?= $webdev_id ?>" class="t_paket btn">lihat paket lengkap</a>
+=======
+        <a href="paket_webdev.php" class="t_paket btn">lihat paket lengkap</a>
+>>>>>>> 57f091e61e8573aaf1dbf81e944777834945fac6
     </div>
     </div>
 
@@ -143,7 +159,12 @@
                     <li>Memahami dasar statistik dan penerapannya</li>
                 </ul>
                 <span style="font-weight: bold; font-size: 13px; text-align: left; display: block;">
+<<<<<<< HEAD
                     Total Paket Data Science : Rp 2.100.000
+=======
+                    Total Paket Data Science : Rp 2.100.000 <br>
+                    Sertifikat: 3 sertifikat kelas + 1 sertifikat paket
+>>>>>>> 57f091e61e8573aaf1dbf81e944777834945fac6
                 </span>
             </p>
         </div>
@@ -152,7 +173,11 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <a href="paket_datascience.php?id_paket=<?= $datascience_id ?>" class="t_paket btn">Lihat Paket Lengkap</a>
+=======
+<a href="paket_datascience.php" class="t_paket btn">Lihat Paket Lengkap</a>
+>>>>>>> 57f091e61e8573aaf1dbf81e944777834945fac6
 </div>
 </div>
 
@@ -175,7 +200,12 @@
                             <li>Mengimplementasikan model ke aplikasi dunia nyata</li>
                         </ul>
                         <span style="font-weight: bold; font-size: 13px; text-align: left; display: block;">
+<<<<<<< HEAD
                             Total Paket AI & ML: Rp 2.600.000
+=======
+                            Total Paket AI & ML: Rp 2.600.000 <br>
+                            Sertifikat: 3 sertifikat kelas + 1 sertifikat paket
+>>>>>>> 57f091e61e8573aaf1dbf81e944777834945fac6
                         </span>
                     </p>
                 </div>
@@ -184,7 +214,12 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
         <a href="paket_ai.php?id_paket=<?= $ai_ml_id ?>" class="t_paket btn">Lihat Paket Lengkap</a></div>
+=======
+        <a href="paket_ai.php" class="t_paket btn">Lihat Paket Lengkap</a>
+    </div>
+>>>>>>> 57f091e61e8573aaf1dbf81e944777834945fac6
 </div>
 </center>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

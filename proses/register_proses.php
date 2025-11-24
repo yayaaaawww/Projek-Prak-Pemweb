@@ -70,7 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (mysqli_stmt_execute($stmt)) {
 
+<<<<<<< HEAD
         $id_user = mysqli_insert_id($conn); // 🔥 ID berhasil didapat
+=======
+        $id_user = mysqli_insert_id($conn);
+>>>>>>> 57f091e61e8573aaf1dbf81e944777834945fac6
 
         header("Location: ../pembayaran.php?id=$id_user");
         exit;
@@ -82,4 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+<<<<<<< HEAD
 ob_end_flush();
+=======
+ob_end_flush();
+>>>>>>> 57f091e61e8573aaf1dbf81e944777834945fac6
